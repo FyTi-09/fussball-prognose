@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import shutil
 import sys
 import time
 from datetime import datetime, timedelta, timezone
@@ -31,6 +32,17 @@ def schreibe(name: str, inhalt) -> None:
     config.SEITE_DATEN.mkdir(parents=True, exist_ok=True)
     (config.SEITE_DATEN / name).write_text(
         json.dumps(inhalt, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+
+
+def direkter_vergleich(bestand, s, anzahl: int = 6) -> list[dict]:
+    """Die letzten Duelle der beiden Teams (Liga und Pokal), neuestes zuerst."""
+    paar = {s.heim_id, s.gast_id}
+    duelle = [x for x in bestand.spiele + bestand.pokal
+              if x.gespielt and {x.heim_id, x.gast_id} == paar and x.anstoss < s.anstoss]
+    duelle.sort(key=lambda x: x.anstoss, reverse=True)
+    return [{"datum": x.anstoss.date().isoformat(), "heim": x.heim_id, "gast": x.gast_id,
+             "erg": [x.tore_heim, x.tore_gast], "pokal": x.liga == config.POKAL}
+            for x in duelle[:anzahl]]
 
 
 def main() -> int:
@@ -131,6 +143,7 @@ def main() -> int:
             if s.id in prognosen:
                 eintrag["prognose"] = prognosen[s.id]
                 eintrag["info"] = einfl.beschreibung(s)
+                eintrag["h2h"] = direkter_vergleich(bestand, s)
             elif str(s.id) in arch:
                 eintrag["prognose_vorher"] = arch[str(s.id)]["varianten"]
             if str(s.id) in ki_daten:
@@ -148,6 +161,8 @@ def main() -> int:
         index["ligen"].append({"id": liga, "name": info["name"], "kurz": info["kurz"]})
         print(f"   {info['name']}: Spieltag {akt_spieltag}, {len(offen)} offene Spiele")
     schreibe("index.json", index)
+    if (config.DATEN / "backtest.json").exists():
+        shutil.copy(config.DATEN / "backtest.json", config.SEITE_DATEN / "backtest.json")
     print(f"Fertig in {time.time() - t0:.0f} s")
     return 0
 

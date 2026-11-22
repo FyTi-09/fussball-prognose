@@ -224,3 +224,10 @@ footer { margin-top: 32px; font-size: 12px; color: var(--text-3); line-height: 1
 .detail img, .team-karte img { width: 32px; height: 32px; object-fit: contain; flex: none; }
 .team-karte img { width: 24px; height: 24px; }
 .kpi .grund .wert { font-size: 12.5px; font-weight: 500; }
+
+/* Auffällige Spiele des Spieltags */
+.highlights { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; margin-bottom: 14px; }
+.highlight { padding: 10px 12px; text-align: left; font: inherit; color: inherit; cursor: pointer; }
+.highlight:hover { border-color: var(--accent); }
+.highlight .label { font-size: 11.5px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; color: var(--text-3); }
+.highlight .name { font-weight: 600; margin: 2px 0; }

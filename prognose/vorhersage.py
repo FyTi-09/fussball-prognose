@@ -72,6 +72,30 @@ def waehle_tipp(m: np.ndarray) -> tuple[int, int]:
     return int(x), int(y)
 
 
+def kicktipp_erwartung(m: np.ndarray, max_tipp: int = 5) -> np.ndarray:
+    """Erwartete Kicktipp-Punkte (4 exakt / 3 Tordifferenz / 2 Tendenz) für jeden Tipp a:b."""
+    n = len(m)
+    i, j = np.indices((n, n))
+    diff = i - j
+    tend = np.sign(diff)
+    erw = np.zeros((max_tipp + 1, max_tipp + 1))
+    for a in range(max_tipp + 1):
+        for b in range(max_tipp + 1):
+            gleiche_tend = tend == np.sign(a - b)
+            gleiche_diff = diff == a - b
+            exakt = (i == a) & (j == b)
+            erw[a, b] = (4 * m[exakt].sum() + 3 * m[gleiche_diff & ~exakt].sum()
+                         + 2 * m[gleiche_tend & ~gleiche_diff].sum())
+    return erw
+
+
+def waehle_kicktipp(m: np.ndarray) -> tuple[tuple[int, int], float]:
+    """Tipp mit den meisten erwarteten Kicktipp-Punkten."""
+    erw = kicktipp_erwartung(m)
+    a, b = np.unravel_index(int(np.argmax(erw)), erw.shape)
+    return (int(a), int(b)), float(erw[a, b])
+
+
 def prognose(modell: Modell, s: Spiel, einfl: Einfluesse,
              markt: tuple | None = None, quoten_gewicht: float = 0.0,
              mit_begruendung: bool = True) -> dict:
@@ -85,6 +109,7 @@ def prognose(modell: Modell, s: Spiel, einfl: Einfluesse,
         m = passe_matrix_an(m, p)
     p = tendenz(m)
     tipp = waehle_tipp(m)
+    kt_tipp, kt_erw = waehle_kicktipp(m)
     flach = [(m[i, j], i, j) for i in range(6) for j in range(6)]
     flach.sort(reverse=True)
     erg = {
@@ -96,6 +121,11 @@ def prognose(modell: Modell, s: Spiel, einfl: Einfluesse,
         "tipp_modell": list(waehle_tipp(ergebnis_matrix(lam, mu, modell.rho))),
         "tipp_markt": tipp_markt,
         "top": [{"e": f"{i}:{j}", "p": round(float(w), 4)} for w, i, j in flach[:6]],
+        "tipp_kicktipp": list(kt_tipp),
+        "kicktipp_erw": round(kt_erw, 3),
+        "kicktipp_erw_tipp": round(float(kicktipp_erwartung(m)[tipp]), 3) if max(tipp) <= 5 else None,
+        "beide_treffen": round(float(m[1:, 1:].sum()), 4),
+        "zu_null": [round(float(m[:, 0].sum()), 4), round(float(m[0, :].sum()), 4)],
         "ueber25": round(float(sum(m[i, j] for i in range(len(m)) for j in range(len(m)) if i + j > 2)), 4),
     }
     if mit_begruendung:

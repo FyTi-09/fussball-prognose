@@ -281,6 +281,9 @@ function spielKarte(sp) {
     unten += balken(live.p) + `<div class="tipp" style="margin-top:6px">Vor dem Spiel: Heimsieg ${pct(p.p[0])} · Tipp <b>${p.tipp[0]}:${p.tipp[1]}</b></div>`;
   } else if (p && !sp.beendet) {
     const tipps = [`Tipp <b>${p.tipp[0]}:${p.tipp[1]}</b>`];
+    if (p.tipp_kicktipp && (p.tipp_kicktipp[0] !== p.tipp[0] || p.tipp_kicktipp[1] !== p.tipp[1])) {
+      tipps.push(`<span title="Tipp mit den meisten erwarteten Kicktipp-Punkten">Kicktipp <b>${p.tipp_kicktipp[0]}:${p.tipp_kicktipp[1]}</b></span>`);
+    }
     if (sp.ki?.tipp) tipps.push(`KI <b>${sp.ki.tipp[0]}:${sp.ki.tipp[1]}</b>`);
     unten += balken(p.p) + `<div class="tipp" style="margin-top:6px">${tipps.join(" · ")}</div>`;
   } else if (vorher && sp.erg) {
@@ -306,7 +309,16 @@ function spielKarte(sp) {
   }
   if (p) {
     teile.push(`<div><h4>Wahrscheinlichste Ergebnisse</h4><div class="chips">${p.top.map((t) => `<span class="chip">${t.e} · ${pct(t.p)}</span>`).join("")}</div>
-      <div class="small muted" style="margin-top:6px">Erwartete Tore ${zahl(p.lam, 2)} : ${zahl(p.mu, 2)} · Über 2,5 Tore ${pct(p.ueber25)}</div></div>`);
+      <div class="small muted" style="margin-top:6px">Erwartete Tore ${zahl(p.lam, 2)} : ${zahl(p.mu, 2)}</div></div>`);
+    const markte = [["Über 2,5 Tore", p.ueber25], ["Beide treffen", p.beide_treffen],
+      [`${h.kurz} zu Null`, p.zu_null?.[0]], [`${g.kurz} zu Null`, p.zu_null?.[1]]].filter(([, w]) => w != null);
+    teile.push(`<div><h4>Tor-Wahrscheinlichkeiten</h4><div class="chips">${markte.map(([n, w]) => `<span class="chip">${esc(n)} · ${pct(w)}</span>`).join("")}</div></div>`);
+    if (p.tipp_kicktipp) {
+      const gleich = p.tipp_kicktipp[0] === p.tipp[0] && p.tipp_kicktipp[1] === p.tipp[1];
+      teile.push(`<div><h4>Für Kicktipp</h4><div class="grund"><span>Bester Tipp <b>${p.tipp_kicktipp[0]}:${p.tipp_kicktipp[1]}</b>${gleich ? " (gleich dem Haupttipp)" : ""}</span><span class="wert">Ø ${zahl(p.kicktipp_erw, 2)} Pkt.</span></div>
+        ${!gleich && p.kicktipp_erw_tipp != null ? `<div class="grund small muted"><span>Haupttipp ${p.tipp[0]}:${p.tipp[1]}</span><span class="wert">Ø ${zahl(p.kicktipp_erw_tipp, 2)} Pkt.</span></div>` : ""}
+        <div class="small muted">Erwartete Punkte bei 4 / 3 / 2 für exakt / Tordifferenz / Tendenz.</div></div>`);
+    }
     let quellen = `<div class="grund"><span>Modell allein</span><span class="wert">${pct(p.p_modell[0])} / ${pct(p.p_modell[1])} / ${pct(p.p_modell[2])}</span></div>`;
     if (p.p_markt) quellen += `<div class="grund"><span>Buchmacher</span><span class="wert">${pct(p.p_markt[0])} / ${pct(p.p_markt[1])} / ${pct(p.p_markt[2])}</span></div>`;
     if (sp.ki?.p) quellen += `<div class="grund"><span>KI</span><span class="wert">${pct(sp.ki.p[0])} / ${pct(sp.ki.p[1])} / ${pct(sp.ki.p[2])}</span></div>`;
@@ -314,6 +326,19 @@ function spielKarte(sp) {
     const gruende = (p.begruendung || []).map((g) => `<div class="grund"><span>${esc(g.text)}</span><span class="wert">${g.heimsieg_pp > 0 ? "+" : ""}${zahl(g.heimsieg_pp)} %-Pkt. Heimsieg</span></div>`).join("");
     const info = sp.info ? `<div class="small muted">Ruhetage vor dem Spiel: ${esc(h.kurz)} ${zahl(sp.info.ruhe_heim, 0)}, ${esc(g.kurz)} ${zahl(sp.info.ruhe_gast, 0)}</div>` : "";
     teile.push(`<div><h4>Begründung</h4>${gruende || `<div class="small">Reines Modell aus Angriffs- und Abwehrstärke, Heimvorteil und Liga-Niveau.</div>`}${info}</div>`);
+  }
+  if (sp.h2h) {
+    if (sp.h2h.length) {
+      const bilanz = [0, 0, 0];   // Siege Heimteam dieses Spiels, Remis, Siege Gastteam
+      sp.h2h.forEach((x) => {
+        const [a, b] = x.heim === sp.heim ? x.erg : [x.erg[1], x.erg[0]];
+        bilanz[tendenz(a, b)]++;
+      });
+      const zeilen = sp.h2h.map((x) => `<div class="grund small"><span>${esc(x.datum.split("-").reverse().join("."))}${x.pokal ? " · Pokal" : ""} · ${esc(team(x.heim).kurz)} – ${esc(team(x.gast).kurz)}</span><span class="wert"><b>${x.erg[0]}:${x.erg[1]}</b></span></div>`).join("");
+      teile.push(`<div><h4>Direkter Vergleich (letzte ${sp.h2h.length})</h4><div class="small" style="margin-bottom:4px">${esc(h.kurz)} ${bilanz[0]} ${bilanz[0] === 1 ? "Sieg" : "Siege"} · ${bilanz[1]} Remis · ${esc(g.kurz)} ${bilanz[2]} ${bilanz[2] === 1 ? "Sieg" : "Siege"}</div>${zeilen}</div>`);
+    } else {
+      teile.push(`<div><h4>Direkter Vergleich</h4><div class="small muted">Keine Duelle in den letzten Jahren.</div></div>`);
+    }
   }
   const ausf = [[h, sp.heim], [g, sp.gast]].filter(([t]) => t.ausfaelle?.length);
   if (ausf.length) {
@@ -334,6 +359,34 @@ function spielKarte(sp) {
   </article>`;
 }
 
+/* Auffällige Spiele eines Spieltags (nur noch nicht beendete mit Prognose) */
+function highlights(spiele) {
+  const offen = spiele.filter((s) => s.prognose && !s.beendet);
+  if (offen.length < 3) return "";
+  const name = (s) => `${team(s.heim).kurz} – ${team(s.gast).kurz}`;
+  const elo = (s) => (team(s.heim).elo || 0) + (team(s.gast).elo || 0);
+  const favorit = (s) => Math.max(s.prognose.p[0], s.prognose.p[2]);
+  const karten = [];
+  const top = offen.reduce((a, b) => (elo(b) > elo(a) ? b : a));
+  karten.push(["Spitzenspiel", name(top), `Elo zusammen ${elo(top)}`, top.id]);
+  const klar = offen.reduce((a, b) => (favorit(b) > favorit(a) ? b : a));
+  const klarHeim = klar.prognose.p[0] >= klar.prognose.p[2];
+  karten.push(["Klarster Favorit", team(klarHeim ? klar.heim : klar.gast).kurz, `${pct(favorit(klar))} Siegchance gegen ${team(klarHeim ? klar.gast : klar.heim).kurz}`, klar.id]);
+  const knapp = offen.reduce((a, b) => (favorit(b) < favorit(a) ? b : a));
+  karten.push(["Offenstes Spiel", name(knapp), `${pct(knapp.prognose.p[0])} / ${pct(knapp.prognose.p[1])} / ${pct(knapp.prognose.p[2])}`, knapp.id]);
+  const mitMarkt = offen.filter((s) => s.prognose.p_markt);
+  if (mitMarkt.length) {
+    const abw = (s) => Math.max(...[0, 1, 2].map((k) => Math.abs(s.prognose.p_modell[k] - s.prognose.p_markt[k])));
+    const x = mitMarkt.reduce((a, b) => (abw(b) > abw(a) ? b : a));
+    if (abw(x) >= 0.05) {
+      const k = [0, 1, 2].reduce((a, b) => (Math.abs(x.prognose.p_modell[b] - x.prognose.p_markt[b]) > Math.abs(x.prognose.p_modell[a] - x.prognose.p_markt[a]) ? b : a));
+      const was = ["Heimsieg", "Remis", "Gastsieg"][k];
+      karten.push(["Modell gegen Buchmacher", name(x), `${was}: Modell ${pct(x.prognose.p_modell[k])}, Buchmacher ${pct(x.prognose.p_markt[k])}`, x.id]);
+    }
+  }
+  return `<div class="highlights">${karten.map(([t, n, z, id]) => `<button class="card highlight" data-spring="${id}"><div class="label">${esc(t)}</div><div class="name">${esc(n)}</div><div class="small muted">${esc(z)}</div></button>`).join("")}</div>`;
+}
+
 function zeichneSpieltag() {
   const d = daten();
   const st = ZUSTAND.spieltag[d.liga] ?? d.aktueller_spieltag;
@@ -346,7 +399,15 @@ function zeichneSpieltag() {
       <button class="icon-btn" data-st="${st + 1}" ${st >= d.spieltage ? "disabled" : ""} aria-label="Nächster Spieltag">${st + 1 <= d.spieltage ? st + 1 : ""} ›</button>
     </div>
     <div class="legende"><span><i style="background:var(--heim)"></i>Heimsieg</span><span><i style="background:var(--remis)"></i>Remis</span><span><i style="background:var(--gast)"></i>Gastsieg</span></div>
+    ${highlights(spiele)}
     <div class="spiele">${spiele.map(spielKarte).join("") || '<div class="leer card">Keine Spiele.</div>'}</div>`;
+  inhalt.querySelectorAll("[data-spring]").forEach((b) => b.addEventListener("click", () => {
+    const karte = inhalt.querySelector(`.spiel[data-id="${b.dataset.spring}"]`);
+    if (!karte) return;
+    const det = karte.querySelector("details.mehr");
+    if (det) det.open = true;
+    karte.scrollIntoView({ behavior: "smooth", block: "start" });
+  }));
   inhalt.querySelectorAll("[data-st]").forEach((b) => b.addEventListener("click", () => {
     ZUSTAND.spieltag[d.liga] = +b.dataset.st; zeichne();
   }));
@@ -368,8 +429,42 @@ function zonenKlasse(d, platz) {
 }
 const heat = (p) => `background: rgba(var(--seq-rgb), ${Math.min(0.85, p * 0.9).toFixed(3)}); color: ${p > 0.55 ? "#fff" : "inherit"}`;
 
+/* Restprogramm: Ø Elo der verbleibenden Gegner (höher = schwerer) */
+function restprogramm(d) {
+  const erg = {};
+  Object.keys(d.teams).forEach((id) => { erg[id] = { n: 0, summe: 0 }; });
+  for (const s of d.spiele) {
+    if (s.beendet) continue;
+    if (erg[s.heim]) { erg[s.heim].n++; erg[s.heim].summe += team(s.gast).elo || 0; }
+    if (erg[s.gast]) { erg[s.gast].n++; erg[s.gast].summe += team(s.heim).elo || 0; }
+  }
+  const liste = Object.entries(erg).filter(([, v]) => v.n).map(([id, v]) => [id, v.summe / v.n]);
+  liste.sort((a, b) => b[1] - a[1]);
+  liste.forEach(([id, w], i) => { erg[id].schnitt = w; erg[id].rang = i + 1; });
+  return erg;
+}
+
+/* Formtabelle: nur die letzten 5 beendeten Spiele jedes Teams */
+function formtabelle(d, anzahl = 5) {
+  const spiele = d.spiele.filter((s) => s.beendet && s.erg).sort((a, b) => b.anstoss.localeCompare(a.anstoss));
+  return Object.keys(d.teams).map((id) => {
+    id = +id;
+    const letzte = spiele.filter((s) => s.heim === id || s.gast === id).slice(0, anzahl);
+    const z = { id, sp: letzte.length, pkt: 0, tore: 0, gegentore: 0, form: [] };
+    letzte.slice().reverse().forEach((s) => {
+      const heim = s.heim === id, [a, b] = heim ? s.erg : [s.erg[1], s.erg[0]];
+      z.tore += a; z.gegentore += b;
+      const e = a > b ? "S" : a === b ? "U" : "N";
+      z.pkt += { S: 3, U: 1, N: 0 }[e];
+      z.form.push({ e, txt: `${s.st}. ST ${heim ? "gegen" : "bei"} ${team(heim ? s.gast : s.heim).kurz} ${a}:${b}` });
+    });
+    return z;
+  }).sort((x, y) => y.pkt - x.pkt || (y.tore - y.gegentore) - (x.tore - x.gegentore) || y.tore - x.tore);
+}
+
 function zeichneTabelle() {
   const d = daten();
+  const rest = restprogramm(d);
   const tab = tabelleJetzt(d);
   const liveAktiv = d.spiele.some((s) => s.live);
   const sim = ZUSTAND.liveSim[d.liga] || d.simulation;
@@ -390,21 +485,40 @@ function zeichneTabelle() {
       <td class="l teamzelle">${logo(team(id))}<span>${esc(team(id).kurz)}</span></td>
       <td>${zahl(s.punkte_schnitt, 1)}${spanne}</td>
       ${zonen.map((z) => `<td class="heat" style="${heat(s.zonen[z])}">${s.zonen[z] < 0.001 ? "–" : s.zonen[z] > 0.999 ? "✓" : pct(s.zonen[z], s.zonen[z] < 0.1 ? 1 : 0)}</td>`).join("")}
+      ${restZelle(id)}
       <td class="l">${verteilung}</td></tr>`;
   }).join("");
+
+  function restZelle(id) {
+    const r = rest[id];
+    if (!r?.n) return `<td class="muted">–</td>`;
+    const schwer = r.rang <= Math.ceil(T / 4), leicht = r.rang > T - Math.ceil(T / 4);
+    return `<td data-tip="${esc(`${r.n} Spiele, ${r.rang}. schwerstes Restprogramm von ${T}`)}">${Math.round(r.schnitt)}${schwer ? ' <span class="badge falsch">schwer</span>' : leicht ? ' <span class="badge ok">leicht</span>' : ""}</td>`;
+  }
+
+  const form = formtabelle(d);
+  const zeilenForm = form.map((z, i) => `<tr><td>${i + 1}</td>
+    <td class="l teamzelle">${logo(team(z.id))}<span>${esc(team(z.id).kurz)}</span></td>
+    <td class="l"><div class="form" style="margin:0">${z.form.map((f) => `<span class="${f.e}" data-tip="${esc(f.txt)}">${f.e}</span>`).join("")}</div></td>
+    <td>${z.tore}:${z.gegentore}</td><td><b>${z.pkt}</b></td></tr>`).join("");
 
   inhalt.innerHTML = `
     <div class="abschnitt"><h3>Tabellenprognose ${simLive ? '<span class="badge live">Live</span>' : ""}</h3>
       <span class="small muted">${simLive ? `Live neu simuliert (${LIVE_SIMULATIONEN.toLocaleString("de")} Durchläufe), ${ZUSTAND.liveStand.toLocaleTimeString("de")}` : `10.000 simulierte Restsaisons, Stand ${datum(d.stand)}`}</span></div>
     <p class="hinweis">Wahrscheinlichkeit für jede Zone am Saisonende. Rechts die Verteilung über alle Plätze (links = Platz 1); dunkler = wahrscheinlicher.</p>
     <div class="card tabelle-wrap"><table class="t">
-      <thead><tr><th>#</th><th class="l">Team</th><th>Ø Pkt.</th>${zonen.map((z) => `<th>${esc(z)}</th>`).join("")}<th class="l">Plätze 1–${T}</th></tr></thead>
+      <thead><tr><th>#</th><th class="l">Team</th><th>Ø Pkt.</th>${zonen.map((z) => `<th>${esc(z)}</th>`).join("")}<th title="Durchschnittliche Elo der restlichen Gegner">Restprogramm</th><th class="l">Plätze 1–${T}</th></tr></thead>
       <tbody>${zeilenProg}</tbody></table></div>
+    <p class="hinweis small" style="margin-top:6px">Restprogramm: durchschnittlicher Elo-Wert der verbleibenden Gegner. „schwer“ / „leicht“ = oberstes / unterstes Viertel der Liga.</p>
     <div class="abschnitt"><h3>Aktuelle Tabelle ${liveAktiv ? '<span class="badge live">Live</span>' : ""}</h3>
       <span class="small muted">${liveAktiv ? "laufende Spiele mit aktuellem Stand" : ""}</span></div>
     <div class="card tabelle-wrap"><table class="t">
       <thead><tr><th>#</th><th class="l">Team</th><th>Sp</th><th>S</th><th>U</th><th>N</th><th>Tore</th><th>Diff</th><th>Pkt</th></tr></thead>
-      <tbody>${zeilenJetzt}</tbody></table></div>`;
+      <tbody>${zeilenJetzt}</tbody></table></div>
+    <div class="abschnitt"><h3>Formtabelle</h3><span class="small muted">nur die letzten 5 Spiele</span></div>
+    <div class="card tabelle-wrap"><table class="t">
+      <thead><tr><th>#</th><th class="l">Team</th><th class="l">Form</th><th>Tore</th><th>Pkt</th></tr></thead>
+      <tbody>${zeilenForm}</tbody></table></div>`;
   bindeTooltips(inhalt);
 }
 
@@ -476,7 +590,7 @@ function kennzahlTabelle(zeilen) {
 function zeichneTreffer() {
   const d = daten();
   const tq = ZUSTAND.treffer, bt = ZUSTAND.backtest;
-  const NAMEN = { endprognose: "Angezeigte Prognose", modell: "Rechenmodell allein", markt: "Buchmacher", ki: "KI-Tipp", grundregel: "Immer „Heimsieg 2:1“" };
+  const NAMEN = { endprognose: "Angezeigte Prognose", kicktipp: "Kicktipp-Tipp", modell: "Rechenmodell allein", markt: "Buchmacher", ki: "KI-Tipp", grundregel: "Immer „Heimsieg 2:1“" };
   let live = "";
   const tl = tq?.je_liga?.[d.liga] || {};
   if (tl.endprognose?.n) {
@@ -497,7 +611,7 @@ function zeichneTreffer() {
     const gew = Object.entries(e.quoten_gewichte).map(([k, v]) => `<div class="grund small"><span>${Math.round(k * 100)} % Quoten</span><span class="wert">${zahl(v, 4)}</span></div>`).join("");
     rueck = `
       <p class="hinweis">Das Modell wurde für die Spielzeiten ${bt.saisons.map((s) => `${s}/${String((s + 1) % 100).padStart(2, "0")}`).join(", ")} Woche für Woche nachgerechnet – jeweils nur mit dem Wissen bis vor dem Spiel.</p>
-      ${kennzahlTabelle([[NAMEN.endprognose, bl.modell], ["Modell ohne Einflüsse/Quoten", bl.nur_modell_ohne_einfluesse], ["Nur Buchmacher", bl.nur_markt], [NAMEN.grundregel, bl.grundregel]])}
+      ${kennzahlTabelle([[NAMEN.endprognose, bl.modell], [NAMEN.kicktipp, bl.kicktipp], ["Modell ohne Einflüsse/Quoten", bl.nur_modell_ohne_einfluesse], ["Nur Buchmacher", bl.nur_markt], [NAMEN.grundregel, bl.grundregel]])}
       <div class="abschnitt"><h3>Welche Einflüsse helfen?</h3><span class="small muted">Log-Loss, kleiner = besser · Stand ${esc(datum(bt.stand))}</span></div>
       <div class="kpis">
         <div class="card kpi"><div class="label" style="margin-bottom:6px">Spielplan-Einflüsse (alle Ligen)</div>${getestet}

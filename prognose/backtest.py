@@ -8,7 +8,7 @@ Gleichzeitig entscheidet der Test, welche Einflüsse wirklich helfen:
   Aktiv bleibt die Kombination mit der besten Log-Loss-Bewertung.
 * Für die Buchmacherquoten wird das beste Mischgewicht gesucht (nur 1./2. BL,
   weil es nur dort kostenlose alte Quoten gibt).
-Ergebnis: data/einstellungen.json und site/data/backtest.json
+Ergebnis: data/einstellungen.json und data/backtest.json (run.py kopiert es auf die Seite)
 """
 from __future__ import annotations
 
@@ -24,7 +24,7 @@ from .daten import Datenbestand
 from .einfluesse import MERKMALE, Einfluesse
 from .modell import ergebnis_matrix, tendenz
 from .quoten import mische
-from .vorhersage import passe_matrix_an, trainiere, waehle_tipp
+from .vorhersage import passe_matrix_an, trainiere, waehle_kicktipp, waehle_tipp
 
 GEWICHTE = [0.0, 0.2, 0.4, 0.5, 0.6, 0.7, 0.8, 1.0]
 MINDEST_VERBESSERUNG = 0.001   # Log-Loss; kleinere Unterschiede gelten als Rauschen
@@ -65,7 +65,7 @@ def lauf(bestand: Datenbestand, markt: dict, ausgabe: bool = True) -> dict:
                     d["var"][name] = (lam, mu, modelle[name].rho)
                 datensaetze.append(d)
 
-    def eintraege(name, gewicht=0.0, filter_fn=lambda d: True):
+    def eintraege(name, gewicht=0.0, filter_fn=lambda d: True, kicktipp=False):
         aus = []
         for d in datensaetze:
             if not filter_fn(d):
@@ -74,7 +74,8 @@ def lauf(bestand: Datenbestand, markt: dict, ausgabe: bool = True) -> dict:
             m = ergebnis_matrix(lam, mu, rho)
             if gewicht and d["markt"]:
                 m = passe_matrix_an(m, mische(tendenz(m), d["markt"], gewicht))
-            aus.append({"p": list(tendenz(m)), "tipp": list(waehle_tipp(m)),
+            tipp = waehle_kicktipp(m)[0] if kicktipp else waehle_tipp(m)
+            aus.append({"p": list(tendenz(m)), "tipp": list(tipp),
                         "h": d["h"], "g": d["g"]})
         return aus
 
@@ -107,6 +108,7 @@ def lauf(bestand: Datenbestand, markt: dict, ausgabe: bool = True) -> dict:
         final = eintraege(beste, bestes_gewicht, f)
         je_liga[liga] = {
             "modell": kennzahlen(final),
+            "kicktipp": kennzahlen(eintraege(beste, bestes_gewicht, f, kicktipp=True)),
             "nur_modell_ohne_einfluesse": kennzahlen(eintraege("ohne", 0.0, f)),
             "grundregel": grundregel(final),
         }
@@ -132,8 +134,8 @@ def lauf(bestand: Datenbestand, markt: dict, ausgabe: bool = True) -> dict:
     config.DATEN.mkdir(parents=True, exist_ok=True)
     (config.DATEN / "einstellungen.json").write_text(
         json.dumps(einstellungen, indent=2, ensure_ascii=False), encoding="utf-8")
-    config.SEITE_DATEN.mkdir(parents=True, exist_ok=True)
-    (config.SEITE_DATEN / "backtest.json").write_text(
+    # in data/ (wird committet), run.py kopiert es bei jedem Lauf auf die Seite
+    (config.DATEN / "backtest.json").write_text(
         json.dumps(ergebnis, ensure_ascii=False), encoding="utf-8")
     return ergebnis
 
