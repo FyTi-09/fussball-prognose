@@ -73,7 +73,9 @@ def waehle_tipp(m: np.ndarray) -> tuple[int, int]:
 
 
 def kicktipp_erwartung(m: np.ndarray, max_tipp: int = 5) -> np.ndarray:
-    """Erwartete Kicktipp-Punkte (4 exakt / 3 Tordifferenz / 2 Tendenz) für jeden Tipp a:b."""
+    """Erwartete Kicktipp-Punkte (4 exakt / 3 Tordifferenz / 2 Tendenz) für jeden Tipp a:b.
+
+    Wie bei Kicktipp gibt es bei Unentschieden keine Tordifferenz-Punkte."""
     n = len(m)
     i, j = np.indices((n, n))
     diff = i - j
@@ -82,10 +84,10 @@ def kicktipp_erwartung(m: np.ndarray, max_tipp: int = 5) -> np.ndarray:
     for a in range(max_tipp + 1):
         for b in range(max_tipp + 1):
             gleiche_tend = tend == np.sign(a - b)
-            gleiche_diff = diff == a - b
+            gleiche_diff = (diff == a - b) & (a != b)
             exakt = (i == a) & (j == b)
             erw[a, b] = (4 * m[exakt].sum() + 3 * m[gleiche_diff & ~exakt].sum()
-                         + 2 * m[gleiche_tend & ~gleiche_diff].sum())
+                         + 2 * m[gleiche_tend & ~gleiche_diff & ~exakt].sum())
     return erw
 
 

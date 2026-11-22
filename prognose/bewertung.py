@@ -9,13 +9,16 @@ def tendenz_von(h: int, g: int) -> int:
 
 
 def kicktipp_punkte(tipp, h, g) -> int:
-    """4 = exakt, 3 = richtige Tordifferenz, 2 = richtige Tendenz, 0 = falsch."""
+    """4 = exakt, 3 = richtige Tordifferenz, 2 = richtige Tendenz, 0 = falsch.
+
+    Wie bei Kicktipp: Bei Unentschieden gibt es keine Tordifferenz-Punkte
+    (Remis-Tipp mit falschem Ergebnis = 2 Punkte)."""
     th, tg = tipp
     if th == h and tg == g:
         return 4
     if tendenz_von(th, tg) != tendenz_von(h, g):
         return 0
-    if th - tg == h - g:
+    if th != tg and th - tg == h - g:
         return 3
     return 2
 

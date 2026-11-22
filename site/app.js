@@ -317,7 +317,7 @@ function spielKarte(sp) {
       const gleich = p.tipp_kicktipp[0] === p.tipp[0] && p.tipp_kicktipp[1] === p.tipp[1];
       teile.push(`<div><h4>Für Kicktipp</h4><div class="grund"><span>Bester Tipp <b>${p.tipp_kicktipp[0]}:${p.tipp_kicktipp[1]}</b>${gleich ? " (gleich dem Haupttipp)" : ""}</span><span class="wert">Ø ${zahl(p.kicktipp_erw, 2)} Pkt.</span></div>
         ${!gleich && p.kicktipp_erw_tipp != null ? `<div class="grund small muted"><span>Haupttipp ${p.tipp[0]}:${p.tipp[1]}</span><span class="wert">Ø ${zahl(p.kicktipp_erw_tipp, 2)} Pkt.</span></div>` : ""}
-        <div class="small muted">Erwartete Punkte bei 4 / 3 / 2 für exakt / Tordifferenz / Tendenz.</div></div>`);
+        <div class="small muted">Erwartete Punkte bei 4 / 3 / 2 für exakt / Tordifferenz / Tendenz (bei Remis keine Differenz-Punkte).</div></div>`);
     }
     let quellen = `<div class="grund"><span>Modell allein</span><span class="wert">${pct(p.p_modell[0])} / ${pct(p.p_modell[1])} / ${pct(p.p_modell[2])}</span></div>`;
     if (p.p_markt) quellen += `<div class="grund"><span>Buchmacher</span><span class="wert">${pct(p.p_markt[0])} / ${pct(p.p_markt[1])} / ${pct(p.p_markt[2])}</span></div>`;
@@ -618,7 +618,7 @@ function zeichneTreffer() {
     const jedes = haupt.exakt > 0 ? Math.round(1 / haupt.exakt) : null;
     blick = `<div class="kpis">
       <div class="card kpi"><div class="label">Tendenz richtig</div><div class="wert">${pct(haupt.tendenz)}</div>
-        <div class="vergleich">${vorsprung != null ? `${vorsprung >= 0 ? "+" : ""}${vorsprung} Prozentpunkte gegenüber „immer 2:1“` : ""}</div></div>
+        <div class="vergleich">${vorsprung != null ? `${vorsprung >= 0 ? "+" : ""}${vorsprung} ${Math.abs(vorsprung) === 1 ? "Prozentpunkt" : "Prozentpunkte"} gegenüber „immer 2:1“` : ""}</div></div>
       <div class="card kpi"><div class="label">Kicktipp-Punkte pro Spiel</div><div class="wert">${zahl(haupt.punkte_schnitt, 2)}</div>
         <div class="vergleich">${regel ? `immer 2:1 tippen: ${zahl(regel.punkte_schnitt, 2)}` : ""}</div></div>
       <div class="card kpi"><div class="label">Ergebnis exakt</div><div class="wert">${pct(haupt.exakt)}</div>
@@ -647,7 +647,7 @@ function zeichneTreffer() {
   const urteil = (t, e) => {
     if (!t) return '<span class="muted">–</span>';
     const ok = tendenz(t[0], t[1]) === tendenz(e[0], e[1]), exakt = t[0] === e[0] && t[1] === e[1];
-    const diff = ok && t[0] - t[1] === e[0] - e[1];
+    const diff = ok && t[0] !== t[1] && t[0] - t[1] === e[0] - e[1];   // bei Remis keine Differenz-Punkte
     const kl = exakt ? "exakt" : diff ? "diff" : ok ? "ok" : "falsch";
     return `<span class="tipp-urteil ${kl}" title="${exakt ? "exakt (4 Pkt.)" : diff ? "Tordifferenz (3 Pkt.)" : ok ? "Tendenz (2 Pkt.)" : "falsch (0 Pkt.)"}">${t[0]}:${t[1]}</span>`;
   };
@@ -695,20 +695,23 @@ function zeichneTreffer() {
     ${ligenHtml}` : ""}
 
     <div style="display:grid;gap:10px;margin-top:22px">${technik}</div>
-    <p class="small muted" style="margin-top:12px">Kicktipp-Punkte: 4 exakt, 3 richtige Tordifferenz, 2 richtige Tendenz. Fahre über einen Balken für alle Werte.</p>`;
+    <p class="small muted" style="margin-top:12px">Kicktipp-Punkte: 4 exakt, 3 richtige Tordifferenz (nicht bei Remis), 2 richtige Tendenz. Fahre über einen Balken für alle Werte.</p>`;
   bindeTooltips(inhalt);
 }
 
 /* ---------- Tipprunde: Punkteregel, Tippzettel, Bonusfragen ---------- */
 const REGEL_VORLAGEN = {
-  kicktipp: { name: "Kicktipp (4 / 3 / 2)", exakt: 4, diff: 3, tendenz: 2, remisDiff: true },
+  kicktipp: { name: "Kicktipp (4 / 3 / 2)", exakt: 4, diff: 3, tendenz: 2, remisDiff: false },
   klassisch: { name: "Klassisch (3 / 2 / 1)", exakt: 3, diff: 2, tendenz: 1, remisDiff: true },
   einfach: { name: "Einfach (3 exakt / 1 Tendenz)", exakt: 3, diff: 1, tendenz: 1, remisDiff: true },
 };
 function ladeRegel() {
   try {
     const r = JSON.parse(localStorage.getItem("fp-regel") || "null");
-    if (r && [r.exakt, r.diff, r.tendenz].every((x) => Number.isFinite(x))) return r;
+    if (r && [r.exakt, r.diff, r.tendenz].every((x) => Number.isFinite(x))) {
+      // gespeicherte Vorlage immer auf den aktuellen Stand bringen
+      return REGEL_VORLAGEN[r.vorlage] ? { ...r, ...REGEL_VORLAGEN[r.vorlage] } : r;
+    }
   } catch { /* egal */ }
   return { ...REGEL_VORLAGEN.kicktipp, vorlage: "kicktipp", modus: "punkte" };
 }
