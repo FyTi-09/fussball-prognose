@@ -1,0 +1,59 @@
+{
+ "84877": {
+  "infos": [
+   {
+    "team": "heim",
+    "art": "stimmung",
+    "text": "Trainer Dietmar Hirsch wehrt sich mit einer Brandrede und spricht über unruhige Zeiten und Probleme des Vereins.",
+    "quellen": [
+     {
+      "titel": "„Klar, dass es unruhig wird“ – Hirsch über Trainerwechsel und Fortunas Probleme - RevierSport online",
+      "link": "https://news.google.com/rss/articles/CBMizgFBVV95cUxPUUg4ZjRabWV5ZGkxcGhKdjBrcVZSSDhVQ1FtS2NtZ2ZDVVNSZ0dyekVkLUdOd053NU1WSmV5RnZDSHJhTk5uRk1LdE52TmRJckVMQ09naU1RWlVFTG84VG5PM2V6Nm5OQUJ3OTRWamFJU1B4VDhDeUhIRXVwNWZxemVnUGNHQnA0aWlqVm9pZXZtLXE5bUxIOUFrQWlTMldaWFBMZ0d0MDdCaVAxU012T2h5Wld0SkREQVRTN3JsZ0ZManlpa2lrMy1Kcmx4dw?oc=5",
+      "quelle": "RevierSport online"
+     },
+     {
+      "titel": "MSV Duisburg: Trainer Dietmar Hirsch wehrt sich mit Brandrede - NRZ",
+      "link": "https://news.google.com/rss/articles/CBMibEFVX3lxTE9YT3lyV3hxY2YtT09xWEw2OEdPMndGZlA3Q0RaWHl4MThiY1lXUkJuMENwMDhHb1dCU0p3VVYyV0xGNXlyQXZuMVo1ZlRSZWJUejFCR1lzVUczQXpfcXJJY1NvYmpXNE40MF9EdA?oc=5",
+      "quelle": "NRZ"
+     }
+    ]
+   },
+   {
+    "team": "gast",
+    "art": "verletzung",
+    "text": "Spieler Holten fehlt dem Kader von Hansa Rostock.",
+    "quellen": [
+     {
+      "titel": "Hansa Rostock beim MSV Duisburg: Klewin bleibt gesetzt, Holten fehlt - HANSA NEWS",
+      "link": "https://news.google.com/rss/articles/CBMickFVX3lxTFBISWwyNjZTRnhrNjY4bWtadDgxMVV4WFdFeXU2S3FZbXdqZ0t0c3hYMzNfMlZQZkJkUEluWVBaZ21PYXdIX2FzRVpLcU5WaU5vZW9VbUs3VWQ4Tl8tV0NWMjlFTnFVU3ZGMi0wcGx0RURiZw?oc=5",
+      "quelle": "HANSA NEWS"
+     }
+    ]
+   },
+   {
+    "team": "gast",
+    "art": "sonstiges",
+    "text": "Hansa Rostock reist für ein Pokalspiel nach Gützkow, was auf eine mögliche Belastung oder Kaderrotation hindeuten könnte.",
+    "quellen": [
+     {
+      "titel": "Breitenreiter-Premiere im Pokal: Hansa Rostock reist nach Gützkow - FuPa ⚽️",
+      "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQYTVPaEhaWlFkc080bnZiUmQ1djFtblE5RE1JdDgzOTNsTUhRVE9CMWtLMEQ2T0RNaDk0azRWeXFJX3ZDZ21IakpqNzdIS1dWdk5IVy1hcHZ1bmFHVzdrd01JaWlaZ3RRa2xQRkI5Vnk5WWEtSW5YT0dpS1ZHa0Z0MGJ2Z0IyMEJvdm1tWkxoWlVjRkcyeUNVSlFfRVBJYlJp?oc=5",
+      "quelle": "FuPa ⚽️"
+     }
+    ]
+   }
+  ],
+  "tipp": [
+   2,
+   1
+  ],
+  "p": [
+   0.49,
+   0.23,
+   0.28
+  ],
+  "vorschau": "Der MSV Duisburg steht unter Druck, da Trainer Dietmar Hirsch auf die unruhige Stimmung im Verein reagiert und sich mit einer Brandrede verteidigt. Hansa Rostock muss auf den verletzten Holten verzichten und reist zudem mit der Belastung eines Pokalspiels an. Das Modell sieht den Heimvorteil des MSV leicht überwiegen, was zu einem knappen 2:1-Sieg führt.",
+  "anbieter": "Ollama",
+  "stand": "2026-11-22T15:51+00:00"
+ }
+}
