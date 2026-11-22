@@ -15,6 +15,7 @@ Ein privates Prognose-Tool für die 1. Bundesliga, die 2. Bundesliga und die 3. 
 | Spieltag-Highlights | Spitzenspiel, klarster Favorit, offenstes Spiel, größte Abweichung Modell gegen Buchmacher |
 | Tabellenprognose | 10.000 simulierte Restsaisons, Schwere des Restprogramms (Ø Elo der Gegner), Formtabelle der letzten 5 Spiele |
 | Stärkewert / Form | Elo-Rating über alle drei Ligen |
+| Tipprunde | Tippzettel des nächsten Spieltags mit Kopier-Knopf, Tipps passend zur eigenen Punkteregel (Kicktipp, 3/2/1, eigene), Buchmacherquoten voll genutzt, Bonusfragen (Meister, Zonen, Torschützenkönig) |
 | Trefferquote | eingefrorene Prognosen (vor Anpfiff gespeichert) und Rückwärtstest über drei Spielzeiten |
 | KI | Google News (RSS) → Gemini (kostenlos) oder Ollama lokal: Infos mit Quellenlink, eigener KI-Tipp, Vorschau |
 | Live | die Seite holt während der Spiele jede Minute die Stände von OpenLigaDB und rechnet Siegchancen, Tabelle und Tabellenprognose im Browser neu |

@@ -699,11 +699,192 @@ function zeichneTreffer() {
   bindeTooltips(inhalt);
 }
 
+/* ---------- Tipprunde: Punkteregel, Tippzettel, Bonusfragen ---------- */
+const REGEL_VORLAGEN = {
+  kicktipp: { name: "Kicktipp (4 / 3 / 2)", exakt: 4, diff: 3, tendenz: 2, remisDiff: true },
+  klassisch: { name: "Klassisch (3 / 2 / 1)", exakt: 3, diff: 2, tendenz: 1, remisDiff: true },
+  einfach: { name: "Einfach (3 exakt / 1 Tendenz)", exakt: 3, diff: 1, tendenz: 1, remisDiff: true },
+};
+function ladeRegel() {
+  try {
+    const r = JSON.parse(localStorage.getItem("fp-regel") || "null");
+    if (r && [r.exakt, r.diff, r.tendenz].every((x) => Number.isFinite(x))) return r;
+  } catch { /* egal */ }
+  return { ...REGEL_VORLAGEN.kicktipp, vorlage: "kicktipp", modus: "punkte" };
+}
+function speichereRegel(r) { try { localStorage.setItem("fp-regel", JSON.stringify(r)); } catch { /* egal */ } }
+
+function punkteFuer(a, b, i, j, r) {
+  if (a === i && b === j) return r.exakt;
+  if (tendenz(a, b) !== tendenz(i, j)) return 0;
+  if (a - b === i - j && (a !== b || r.remisDiff)) return r.diff;
+  return r.tendenz;
+}
+
+/* Bester Tipp für eine Punkteregel. modus "punkte": Buchmacher voll nutzen (wenn vorhanden). */
+function besterTipp(sp, r) {
+  const p = sp.prognose;
+  const markt = r.modus === "punkte" && p.p_markt;
+  const ziel = markt ? p.p_markt : p.p;
+  const m = passeAn(matrix(p.lam, p.mu, p.rho, 10), ziel);
+  let best = null;
+  for (let a = 0; a <= 5; a++) {
+    for (let b = 0; b <= 5; b++) {
+      let e = 0;
+      for (let i = 0; i < m.length; i++) for (let j = 0; j < m.length; j++) e += m[i][j] * punkteFuer(a, b, i, j, r);
+      if (!best || e > best.erw + 1e-12) best = { tipp: [a, b], erw: e };
+    }
+  }
+  best.p = ziel;
+  best.quelle = markt ? "Buchmacher" : "Modell";
+  best.sicher = ziel[tendenz(best.tipp[0], best.tipp[1])];
+  return best;
+}
+
+function dauerBis(ms) {
+  const min = Math.round(ms / 60000);
+  if (min < 60) return `${min} Min.`;
+  const std = Math.floor(min / 60);
+  if (std < 48) return `${std} Std. ${min % 60} Min.`;
+  return `${Math.floor(std / 24)} Tagen ${std % 24} Std.`;
+}
+
+async function kopiere(text, knopf) {
+  let ok = false;
+  try { await navigator.clipboard.writeText(text); ok = true; } catch {
+    const ta = document.createElement("textarea");
+    ta.value = text; document.body.appendChild(ta); ta.select();
+    try { ok = document.execCommand("copy"); } catch { /* egal */ }
+    ta.remove();
+  }
+  const alt = knopf.textContent;
+  knopf.textContent = ok ? "Kopiert ✓" : "Kopieren nicht möglich";
+  setTimeout(() => { knopf.textContent = alt; }, 1800);
+}
+
+function bonusfragen(d) {
+  const sim = ZUSTAND.liveSim[d.liga] || d.simulation;
+  const karten = Object.entries(d.zonen).map(([zone, plaetze]) => {
+    const anzahl = zone === "Meister" ? 1 : plaetze.length;
+    const liste = Object.keys(sim).map((id) => [id, sim[id].zonen[zone] || 0]).sort((a, b) => b[1] - a[1]);
+    const tipp = liste.slice(0, anzahl);
+    return `<div class="card bonus"><div class="label">${esc(zone)}${anzahl > 1 ? ` <span class="muted">(${anzahl} Teams)</span>` : ""}</div>
+      ${tipp.map(([id, w]) => `<div class="grund"><span class="teamzelle-klein">${logo(team(id))}<b>${esc(team(id).kurz)}</b></span><span class="wert">${pct(w, w < 0.1 ? 1 : 0)}</span></div>`).join("")}
+</div>`;
+  });
+  karten.push(`<div class="card bonus" id="torjaeger"><div class="label">Torschützenkönig</div><div class="small muted">lädt …</div></div>`);
+  return `<div class="bonus-grid">${karten.join("")}</div>`;
+}
+
+async function ladeTorjaeger(d) {
+  const ziel = document.getElementById("torjaeger");
+  if (!ziel) return;
+  try {
+    const liste = (ZUSTAND.torjaeger ||= {})[d.liga] ||= await ladeJson(`${API}/getgoalgetters/${d.liga}/${d.saison}`);
+    const gespielt = Math.max(1, d.spiele.filter((s) => s.beendet).length / (Object.keys(d.teams).length / 2));
+    const faktor = d.spieltage / gespielt;
+    const top = liste.slice().sort((a, b) => b.goalCount - a.goalCount).slice(0, 3);
+    if (!document.body.contains(ziel)) return;
+    ziel.innerHTML = `<div class="label">Torschützenkönig</div>
+      ${top.map((t) => `<div class="grund"><span><b>${esc(t.goalGetterName)}</b></span><span class="wert">${t.goalCount} Tore</span></div>`).join("")}
+      <div class="small muted" style="margin-top:4px">Hochrechnung für ${esc(top[0]?.goalGetterName || "")}: ~${Math.round((top[0]?.goalCount || 0) * faktor)} Tore</div>`;
+  } catch {
+    ziel.innerHTML = `<div class="label">Torschützenkönig</div><div class="small muted">Torschützen gerade nicht abrufbar.</div>`;
+  }
+}
+
+function zeichneTipprunde() {
+  const d = daten();
+  const r = ladeRegel();
+  // Standard: erster Spieltag, in dem noch ein Spiel nicht angepfiffen ist
+  const ersterOffener = Math.min(...d.spiele.filter((s) => s.prognose && new Date(s.anstoss) > Date.now()).map((s) => s.st), d.spieltage);
+  const st = (ZUSTAND.tippSt ||= {})[d.liga] ?? ersterOffener;
+  const spiele = d.spiele.filter((s) => s.st === st).sort((a, b) => a.anstoss.localeCompare(b.anstoss) || a.id - b.id);
+  const offen = spiele.filter((s) => s.prognose && !s.beendet && !s.live);
+  const tipps = new Map(offen.map((s) => [s.id, besterTipp(s, r)]));
+  const summe = [...tipps.values()].reduce((x, t) => x + t.erw, 0);
+  const mitMarkt = [...tipps.values()].filter((t) => t.quelle === "Buchmacher").length;
+  const naechster = offen.map((s) => new Date(s.anstoss).getTime()).filter((t) => t > Date.now()).sort((a, b) => a - b)[0];
+
+  const zeilen = offen.map((s) => {
+    const t = tipps.get(s.id);
+    return `<div class="tz-zeile" data-tip="${esc(`Heim ${pct(t.p[0])} · Remis ${pct(t.p[1])} · Gast ${pct(t.p[2])} (${t.quelle}) · im Schnitt ${zahl(t.erw, 2)} Punkte`)}">
+      <span class="tz-zeit">${datum(s.anstoss)}</span>
+      <span class="tz-paar"><span class="tz-team">${logo(team(s.heim))}${esc(team(s.heim).kurz)}</span><span class="muted">–</span><span class="tz-team">${logo(team(s.gast))}${esc(team(s.gast).kurz)}</span></span>
+      <span class="tz-tipp">${t.tipp[0]}:${t.tipp[1]}</span></div>`;
+  }).join("");
+  const schonGespielt = spiele.length - offen.length;
+
+  const text = `${d.name} – ${st}. Spieltag\n` + offen.map((s) => `${team(s.heim).kurz} – ${team(s.gast).kurz} ${tipps.get(s.id).tipp.join(":")}`).join("\n");
+  const vorlageOpt = Object.entries(REGEL_VORLAGEN).map(([k, v]) => `<option value="${k}" ${r.vorlage === k ? "selected" : ""}>${esc(v.name)}</option>`).join("") +
+    `<option value="eigen" ${r.vorlage === "eigen" ? "selected" : ""}>Eigene Regel</option>`;
+  const regelName = r.vorlage !== "eigen" && REGEL_VORLAGEN[r.vorlage] ? REGEL_VORLAGEN[r.vorlage].name : `Eigene (${r.exakt} / ${r.diff} / ${r.tendenz})`;
+
+  inhalt.innerHTML = `
+    <div class="spieltag-nav">
+      <button class="icon-btn" data-st="${st - 1}" ${st <= 1 ? "disabled" : ""} aria-label="Vorheriger Spieltag">‹ ${st - 1 >= 1 ? st - 1 : ""}</button>
+      <h2>${st}. Spieltag</h2>
+      <button class="icon-btn" data-st="${st + 1}" ${st >= d.spieltage ? "disabled" : ""} aria-label="Nächster Spieltag">${st + 1 <= d.spieltage ? st + 1 : ""} ›</button>
+    </div>
+    ${offen.length ? `
+    <div class="tz-kopf">
+      <div><div class="tz-schluss">Tippschluss ${naechster ? `in ${dauerBis(naechster - Date.now())}` : ""}</div>
+        <div class="small muted">${naechster ? `erster Anpfiff ${datum(new Date(naechster).toISOString())}` : ""}</div></div>
+      <button class="knopf" id="tz-kopieren">Tipps kopieren</button>
+    </div>
+    <div class="card tz-liste">${zeilen}</div>
+    <p class="small muted tz-fuss">${schonGespielt ? `${schonGespielt} ${schonGespielt === 1 ? "Spiel" : "Spiele"} schon angepfiffen, nicht aufgeführt. ` : ""}Erwartet: ${zahl(summe, 1)} Punkte.${mitMarkt < offen.length ? ` Quoten bei ${mitMarkt} von ${offen.length} Spielen.` : ""}</p>`
+    : `<div class="card leer">Alle Spiele dieses Spieltags sind schon angepfiffen.</div>`}
+
+    <details class="mehr card regel"><summary>Punkteregel: <b>${esc(regelName)}</b> · ändern</summary>
+      <div class="regel-inhalt">
+        <div class="regel-zeile">
+          <label>Vorlage <select id="r-vorlage">${vorlageOpt}</select></label>
+          <label>Exakt <input type="number" min="0" max="20" id="r-exakt" value="${r.exakt}"></label>
+          <label>Tordifferenz <input type="number" min="0" max="20" id="r-diff" value="${r.diff}"></label>
+          <label>Tendenz <input type="number" min="0" max="20" id="r-tendenz" value="${r.tendenz}"></label>
+        </div>
+        <label class="haken"><input type="checkbox" id="r-remis" ${r.remisDiff ? "checked" : ""}> Tordifferenz-Punkte auch bei Remis</label>
+        <label class="haken"><input type="checkbox" id="r-modus" ${r.modus !== "anzeige" ? "checked" : ""}> Buchmacherquoten voll nutzen (bringt im Rückwärtstest die meisten Punkte)</label>
+        <div class="small muted">Die Tipps werden für genau diese Regel berechnet. Die Einstellung bleibt in diesem Browser gespeichert.</div>
+      </div>
+    </details>
+
+    <div class="abschnitt"><h3>Bonusfragen</h3><span class="small muted">Saisonende, aus 10.000 Simulationen</span></div>
+    ${bonusfragen(d)}`;
+
+  // Bedienung
+  const neu = (aenderung) => {
+    const r2 = { ...ladeRegel(), ...aenderung };
+    // passt die Regel zu einer Vorlage, diese anzeigen
+    const treffer = Object.entries(REGEL_VORLAGEN).find(([, v]) => v.exakt === r2.exakt && v.diff === r2.diff && v.tendenz === r2.tendenz && v.remisDiff === r2.remisDiff);
+    if (aenderung.vorlage !== "eigen" || treffer) r2.vorlage = treffer ? treffer[0] : "eigen";
+    speichereRegel(r2); ZUSTAND.regelOffen = true; zeichne();
+  };
+  $("#r-vorlage").addEventListener("change", (e) => {
+    const v = e.target.value;
+    neu(v === "eigen" ? { vorlage: "eigen" } : { ...REGEL_VORLAGEN[v], vorlage: v });
+  });
+  [["#r-exakt", "exakt"], ["#r-diff", "diff"], ["#r-tendenz", "tendenz"]].forEach(([sel, feld]) => $(sel).addEventListener("change", (e) => {
+    const w = Math.max(0, Math.min(20, Math.round(+e.target.value || 0)));
+    neu({ [feld]: w, vorlage: "eigen" });
+  }));
+  $("#r-remis").addEventListener("change", (e) => neu({ remisDiff: e.target.checked, vorlage: "eigen" }));
+  $("#r-modus").addEventListener("change", (e) => neu({ modus: e.target.checked ? "punkte" : "anzeige" }));
+  const det = inhalt.querySelector("details.regel");
+  if (ZUSTAND.regelOffen) det.open = true;
+  det.addEventListener("toggle", () => { ZUSTAND.regelOffen = det.open; });
+  inhalt.querySelectorAll("[data-st]").forEach((b) => b.addEventListener("click", () => { ZUSTAND.tippSt[d.liga] = +b.dataset.st; zeichne(); }));
+  $("#tz-kopieren")?.addEventListener("click", (e) => kopiere(text, e.currentTarget));
+  bindeTooltips(inhalt);
+  ladeTorjaeger(d);
+}
+
 function zeichne() {
   if (!daten()) return;
   document.querySelectorAll("#ligen button").forEach((b) => b.setAttribute("aria-selected", b.dataset.l === ZUSTAND.liga));
   document.querySelectorAll("#ansichten button").forEach((b) => b.setAttribute("aria-selected", b.dataset.a === ZUSTAND.ansicht));
-  ({ spieltag: zeichneSpieltag, tabelle: zeichneTabelle, teams: zeichneTeams, treffer: zeichneTreffer })[ZUSTAND.ansicht]();
+  ({ spieltag: zeichneSpieltag, tabelle: zeichneTabelle, teams: zeichneTeams, treffer: zeichneTreffer, tipprunde: zeichneTipprunde })[ZUSTAND.ansicht]();
 }
 
 /* Tooltips für Elemente mit data-tip */

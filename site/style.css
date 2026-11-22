@@ -254,3 +254,46 @@ table.t tr.aktiv td { font-weight: 600; background: var(--surface-2); }
 .technik { padding: 10px 14px; }
 .technik summary { font-size: 14px; }
 @media (max-width: 560px) { .vb-zeile { grid-template-columns: 8em 1fr 3.8em; font-size: 12.5px; } }
+
+/* Tipprunde */
+.tz-kopf { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 10px; }
+.tz-schluss { font-weight: 600; }
+.knopf {
+  border: 0; background: var(--accent); color: #fff; font: inherit; font-weight: 600;
+  border-radius: 8px; padding: 9px 16px; cursor: pointer; white-space: nowrap;
+}
+.knopf:hover { filter: brightness(1.08); }
+.tz-liste { padding: 2px 0; }
+.tz-zeile {
+  display: grid; grid-template-columns: 8.5em 1fr 3.4em; align-items: center; gap: 12px;
+  padding: 10px 14px; border-bottom: 1px solid var(--border);
+}
+.tz-zeile:last-child { border-bottom: 0; }
+.tz-zeit { font-size: 12.5px; color: var(--text-3); white-space: nowrap; }
+.tz-paar { display: flex; align-items: center; gap: 6px; min-width: 0; font-weight: 600; }
+.tz-team { display: inline-flex; align-items: center; gap: 6px; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.tz-team img { width: 20px; height: 20px; object-fit: contain; flex: none; }
+.tz-tipp { font-size: 19px; font-weight: 700; text-align: right; font-variant-numeric: tabular-nums; }
+.tz-fuss { margin: 8px 2px 0; }
+details.regel { margin-top: 18px; padding: 10px 14px; }
+details.regel summary { font-size: 13.5px; }
+.regel-inhalt { display: grid; gap: 10px; padding-top: 12px; font-size: 13.5px; }
+.regel-zeile { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; }
+.regel label { display: inline-flex; align-items: center; gap: 6px; color: var(--text-2); }
+.regel .haken { color: var(--text); }
+.regel select, .regel input[type="number"] {
+  font: inherit; color: var(--text); background: var(--surface-2); border: 1px solid var(--border);
+  border-radius: 6px; padding: 4px 6px;
+}
+.regel input[type="number"] { width: 54px; }
+.bonus-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
+.bonus { padding: 12px 14px; display: grid; gap: 4px; align-content: start; }
+.bonus .label { font-size: 11.5px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; color: var(--text-3); margin-bottom: 2px; }
+.teamzelle-klein { display: inline-flex; align-items: center; gap: 6px; }
+.teamzelle-klein img { width: 18px; height: 18px; object-fit: contain; }
+@media (max-width: 560px) {
+  .tz-zeile { grid-template-columns: 1fr 3em; row-gap: 2px; }
+  .tz-zeit { grid-column: 1; }
+  .tz-paar { grid-column: 1; }
+  .tz-tipp { grid-column: 2; grid-row: 1 / span 2; }
+}
