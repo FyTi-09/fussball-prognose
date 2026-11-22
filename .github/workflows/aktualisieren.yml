@@ -5,6 +5,9 @@ on:
   schedule:
     - cron: "0 5 * * *"        # täglich 06:00 (Winterzeit) bzw. 07:00 (Sommerzeit)
     - cron: "0 22 * * 5,6,0,1"  # Fr–Mo abends 23:00 (Winterzeit) nach den Spielen
+  push:                       # neue Version von Seite oder Programm sofort veröffentlichen
+    branches: [main]
+    paths: ["site/**", "prognose/**", "run.py", "requirements.txt", ".github/workflows/**"]
   workflow_dispatch:
     inputs:
       backtest:
