@@ -5,6 +5,7 @@ Alles, was man ohne Programmierkenntnisse anpassen möchte, steht hier.
 from __future__ import annotations
 
 import os
+from datetime import date
 from pathlib import Path
 
 # --- Pfade -----------------------------------------------------------------
@@ -16,7 +17,14 @@ SEITE_DATEN = SEITE / "data"       # vom Skript erzeugte JSON-Dateien für die S
 
 # --- Spielzeiten -----------------------------------------------------------
 # OpenLigaDB zählt eine Saison nach ihrem Startjahr: 2026 = Saison 2026/27.
-AKTUELLE_SAISON = int(os.environ.get("SAISON", "2026"))
+# Wechselt automatisch am 10. Juli (dann stehen die neuen Spielpläne aller drei
+# Ligen fest). Mit der Umgebungsvariable SAISON lässt sie sich fest einstellen.
+def _saison_heute() -> int:
+    heute = date.today()
+    return heute.year if (heute.month, heute.day) >= (7, 10) else heute.year - 1
+
+
+AKTUELLE_SAISON = int(os.environ.get("SAISON") or _saison_heute())
 # Wie viele Vorjahre ins Training einfließen (ältere Spiele zählen dank
 # Zeitgewichtung ohnehin kaum noch).
 TRAININGS_VORJAHRE = 4
