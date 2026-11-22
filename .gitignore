@@ -2,3 +2,4 @@
 __pycache__/
 *.pyc
 site/data/
+ki_lokal.log
