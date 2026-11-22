@@ -582,50 +582,121 @@ function zeichneTeams() {
 
 function kennzahlTabelle(zeilen) {
   const spalten = [["n", "Spiele", (x) => x], ["tendenz", "Tendenz", (x) => pct(x, 1)], ["differenz", "Tordiff.", (x) => pct(x, 1)],
-    ["exakt", "Exakt", (x) => pct(x, 1)], ["punkte_schnitt", "Ø Punkte*", (x) => zahl(x, 2)], ["brier", "Brier**", (x) => zahl(x, 3)]];
+    ["exakt", "Exakt", (x) => pct(x, 1)], ["punkte_schnitt", "Ø Punkte", (x) => zahl(x, 2)], ["brier", "Brier", (x) => zahl(x, 3)]];
   return `<div class="card tabelle-wrap"><table class="t"><thead><tr><th class="l">Variante</th>${spalten.map((s) => `<th>${s[1]}</th>`).join("")}</tr></thead>
     <tbody>${zeilen.filter(([, k]) => k && k.n).map(([name, k]) => `<tr><td class="l">${name}</td>${spalten.map(([f, , fn]) => `<td>${k[f] == null ? "–" : fn(k[f])}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+}
+
+/* Horizontale Balken: eine Kennzahl, mehrere Tipper. Grundregel grau als Messlatte. */
+function vergleichBalken(zeilen, feld, format, max) {
+  const gueltig = zeilen.filter(([, k]) => k && k.n && k[feld] != null);
+  if (!gueltig.length) return "";
+  const oben = max ?? Math.max(...gueltig.map(([, k]) => k[feld])) * 1.08;
+  return `<div class="vbalken">${gueltig.map(([name, k, art]) => `
+    <div class="vb-zeile" data-tip="${esc(`${name}: Tendenz ${pct(k.tendenz, 1)} · Tordifferenz ${pct(k.differenz, 1)} · exakt ${pct(k.exakt, 1)} · Ø ${zahl(k.punkte_schnitt, 2)} Pkt. · ${k.n} Spiele`)}">
+      <span class="vb-name">${esc(name)}</span>
+      <span class="vb-spur"><span class="vb-wert ${art || ""}" style="width:${(k[feld] / oben * 100).toFixed(1)}%"></span></span>
+      <span class="vb-zahl">${format(k[feld])}</span>
+    </div>`).join("")}</div>`;
 }
 
 function zeichneTreffer() {
   const d = daten();
   const tq = ZUSTAND.treffer, bt = ZUSTAND.backtest;
-  const NAMEN = { endprognose: "Angezeigte Prognose", kicktipp: "Kicktipp-Tipp", modell: "Rechenmodell allein", markt: "Buchmacher", ki: "KI-Tipp", grundregel: "Immer „Heimsieg 2:1“" };
-  let live = "";
   const tl = tq?.je_liga?.[d.liga] || {};
-  if (tl.endprognose?.n) {
-    live = `<div class="kpis">
-      <div class="card kpi"><div class="wert">${pct(tl.endprognose.tendenz)}</div><div class="label">Tendenz richtig</div><div class="vergleich">Grundregel: ${pct(tl.grundregel?.tendenz)}</div></div>
-      <div class="card kpi"><div class="wert">${pct(tl.endprognose.exakt)}</div><div class="label">Ergebnis exakt</div><div class="vergleich">${tl.endprognose.n} Spiele</div></div>
-      ${tl.ki?.n ? `<div class="card kpi"><div class="wert">${pct(tl.ki.tendenz)}</div><div class="label">KI-Tipp Tendenz</div><div class="vergleich">Modell: ${pct(tl.modell?.tendenz)} · ${tl.ki.n} Spiele</div></div>` : ""}
-    </div><div style="margin-top:10px">${kennzahlTabelle(Object.entries(NAMEN).map(([k, n]) => [n, tl[k]]))}</div>`;
-  } else {
-    live = `<div class="card leer">Noch keine eingefrorenen Prognosen mit Ergebnis. Ab jetzt wird vor jedem Anpfiff gespeichert, was das Tool tippt – die Statistik wächst mit jedem Spieltag.</div>`;
-  }
-  let rueck = "";
   const bl = bt?.je_liga?.[d.liga];
-  if (bl) {
+  const echt = tl.endprognose?.n ? tl : null;
+  const saisons = bt ? bt.saisons.map((s) => `${s}/${String((s + 1) % 100).padStart(2, "0")}`).join(", ") : "";
+
+  // 1) Auf einen Blick: echte Prognosen, sobald genug Spiele da sind, sonst Rückwärtstest
+  const basisEcht = echt && echt.endprognose.n >= 30;
+  const haupt = basisEcht ? echt.endprognose : bl?.modell;
+  const regel = basisEcht ? echt.grundregel : bl?.grundregel;
+  let blick = "";
+  if (haupt?.n) {
+    const vorsprung = regel ? Math.round((haupt.tendenz - regel.tendenz) * 100) : null;
+    const jedes = haupt.exakt > 0 ? Math.round(1 / haupt.exakt) : null;
+    blick = `<div class="kpis">
+      <div class="card kpi"><div class="label">Tendenz richtig</div><div class="wert">${pct(haupt.tendenz)}</div>
+        <div class="vergleich">${vorsprung != null ? `${vorsprung >= 0 ? "+" : ""}${vorsprung} Prozentpunkte gegenüber „immer 2:1“` : ""}</div></div>
+      <div class="card kpi"><div class="label">Kicktipp-Punkte pro Spiel</div><div class="wert">${zahl(haupt.punkte_schnitt, 2)}</div>
+        <div class="vergleich">${regel ? `immer 2:1 tippen: ${zahl(regel.punkte_schnitt, 2)}` : ""}</div></div>
+      <div class="card kpi"><div class="label">Ergebnis exakt</div><div class="wert">${pct(haupt.exakt)}</div>
+        <div class="vergleich">${jedes ? `etwa jedes ${jedes}. Spiel` : ""}</div></div>
+    </div>
+    <p class="small muted" style="margin:8px 0 0">Grundlage: ${basisEcht ? `${haupt.n} echte, vor Anpfiff gespeicherte Prognosen` : `Rückwärtstest über ${haupt.n} Spiele (${saisons})`}.</p>`;
+  }
+
+  // 2) Wer tippt am besten?
+  const tipper = (k) => [
+    ["Angezeigter Tipp", k.endprognose || k.modell, "haupt"],
+    ["Kicktipp-Tipp", k.kicktipp],
+    ["Rechenmodell allein", k.endprognose ? k.modell : k.nur_modell_ohne_einfluesse],
+    ["Buchmacher", k.markt || k.nur_markt],
+    ["KI-Tipp", k.ki],
+    ["Immer 2:1", k.grundregel, "regel"],
+  ];
+  const vergleich = (k) => `
+    <div class="zwei-spalten">
+      <div class="card" style="padding:12px 14px"><h4 class="mini">Tendenz richtig</h4>${vergleichBalken(tipper(k), "tendenz", (x) => pct(x, 1), 1)}</div>
+      <div class="card" style="padding:12px 14px"><h4 class="mini">Kicktipp-Punkte pro Spiel</h4>${vergleichBalken(tipper(k), "punkte_schnitt", (x) => zahl(x, 2), 4)}</div>
+    </div>`;
+
+  // 3) Letzte echte Spiele dieser Liga
+  const letzte = (tq?.letzte || []).filter((x) => x.liga === d.liga).slice(0, 12);
+  const urteil = (t, e) => {
+    if (!t) return '<span class="muted">–</span>';
+    const ok = tendenz(t[0], t[1]) === tendenz(e[0], e[1]), exakt = t[0] === e[0] && t[1] === e[1];
+    const diff = ok && t[0] - t[1] === e[0] - e[1];
+    const kl = exakt ? "exakt" : diff ? "diff" : ok ? "ok" : "falsch";
+    return `<span class="tipp-urteil ${kl}" title="${exakt ? "exakt (4 Pkt.)" : diff ? "Tordifferenz (3 Pkt.)" : ok ? "Tendenz (2 Pkt.)" : "falsch (0 Pkt.)"}">${t[0]}:${t[1]}</span>`;
+  };
+  const letzteHtml = letzte.length ? `<div class="card tabelle-wrap"><table class="t">
+      <thead><tr><th>ST</th><th class="l">Spiel</th><th>Ergebnis</th><th>Tipp</th><th>KI</th></tr></thead>
+      <tbody>${letzte.map((x) => `<tr><td>${x.spieltag}</td><td class="l">${esc(team(x.heim).kurz)} – ${esc(team(x.gast).kurz)}</td>
+        <td><b>${x.ergebnis[0]}:${x.ergebnis[1]}</b></td><td>${urteil(x.tipps.endprognose, x.ergebnis)}</td><td>${urteil(x.tipps.ki, x.ergebnis)}</td></tr>`).join("")}</tbody></table></div>
+      <div class="legende" style="margin-top:8px"><span><i class="tu exakt"></i>exakt</span><span><i class="tu diff"></i>Tordifferenz</span><span><i class="tu ok"></i>Tendenz</span><span><i class="tu falsch"></i>falsch</span></div>` : "";
+
+  // 4) Ligen im Vergleich (Rückwärtstest)
+  const ligenHtml = bt ? `<div class="card tabelle-wrap"><table class="t">
+      <thead><tr><th class="l">Liga</th><th>Tendenz</th><th>Ø Punkte</th><th>Exakt</th><th>Tendenz bei „immer 2:1“</th></tr></thead>
+      <tbody>${ZUSTAND.index.ligen.map((l) => { const k = bt.je_liga[l.id]; if (!k) return ""; return `<tr class="${l.id === d.liga ? "aktiv" : ""}">
+        <td class="l">${esc(l.name)}</td><td>${pct(k.modell.tendenz, 1)}</td><td>${zahl(k.modell.punkte_schnitt, 2)}</td><td>${pct(k.modell.exakt, 1)}</td><td class="muted">${pct(k.grundregel.tendenz, 1)}</td></tr>`; }).join("")}</tbody></table></div>` : "";
+
+  // 5) Technik, eingeklappt
+  let technik = "";
+  if (bt) {
     const e = bt.einfluesse;
     const NAMEN_E = { ruhetage: "Ruhetage", nichts_eigen: "„nichts mehr zu spielen“ (eigene Tore)", nichts_gegner: "„nichts mehr zu spielen“ (Gegentore)" };
     const getestet = Object.entries(e.getestet).sort((a, b) => a[1] - b[1]).map(([k, v]) => `<div class="grund small"><span>${k === "ohne" ? "ohne Zusatz-Einflüsse" : k.split("+").map((x) => NAMEN_E[x] || x).join(" + ")}</span><span class="wert">${zahl(v, 4)}</span></div>`).join("");
-    const gew = Object.entries(e.quoten_gewichte).map(([k, v]) => `<div class="grund small"><span>${Math.round(k * 100)} % Quoten</span><span class="wert">${zahl(v, 4)}</span></div>`).join("");
-    rueck = `
-      <p class="hinweis">Das Modell wurde für die Spielzeiten ${bt.saisons.map((s) => `${s}/${String((s + 1) % 100).padStart(2, "0")}`).join(", ")} Woche für Woche nachgerechnet – jeweils nur mit dem Wissen bis vor dem Spiel.</p>
-      ${kennzahlTabelle([[NAMEN.endprognose, bl.modell], [NAMEN.kicktipp, bl.kicktipp], ["Modell ohne Einflüsse/Quoten", bl.nur_modell_ohne_einfluesse], ["Nur Buchmacher", bl.nur_markt], [NAMEN.grundregel, bl.grundregel]])}
-      <div class="abschnitt"><h3>Welche Einflüsse helfen?</h3><span class="small muted">Log-Loss, kleiner = besser · Stand ${esc(datum(bt.stand))}</span></div>
-      <div class="kpis">
-        <div class="card kpi"><div class="label" style="margin-bottom:6px">Spielplan-Einflüsse (alle Ligen)</div>${getestet}
-          <div class="small" style="margin-top:6px">Aktiv: <b>${e.aktiv.length ? e.aktiv.map((x) => NAMEN_E[x] || x).join(", ") : "keine"}</b> (nur bei Verbesserung ≥ 0,001)</div></div>
-        <div class="card kpi"><div class="label" style="margin-bottom:6px">Mischung mit Buchmacherquoten (${e.spiele_mit_quoten} Spiele, 1./2. BL)</div>${gew}
-          <div class="small" style="margin-top:6px">Gewählt: <b>${Math.round(e.quoten_gewicht * 100)} %</b> Quoten</div></div>
-      </div>`;
+    const gew = Object.entries(e.quoten_gewichte).map(([k, v]) => `<div class="grund small"><span>${Math.round(k * 100)} % Quoten${+k === e.quoten_gewicht ? " ✓" : ""}</span><span class="wert">${zahl(v, 4)}</span></div>`).join("");
+    technik = `
+      <details class="mehr card technik"><summary>Alle Kennzahlen des Rückwärtstests</summary><div class="mehr-inhalt">
+        ${kennzahlTabelle([["Angezeigter Tipp", bl?.modell], ["Kicktipp-Tipp", bl?.kicktipp], ["Modell ohne Einflüsse/Quoten", bl?.nur_modell_ohne_einfluesse], ["Nur Buchmacher", bl?.nur_markt], ["Immer 2:1", bl?.grundregel]])}
+        <div class="small muted">Tordiff. = Tendenz und Tordifferenz richtig. Brier = Güte der Prozentangaben, 0 = perfekt, kleiner = besser.</div></div></details>
+      <details class="mehr card technik"><summary>Wie sich das Modell selbst einstellt</summary><div class="mehr-inhalt">
+        <div class="small">Jede Woche prüft der Rückwärtstest, welche Zusatz-Einflüsse und wie viel Buchmacher-Anteil die Prognosen verbessern. Übernommen wird nur, was den Log-Loss um mindestens 0,001 senkt (kleiner = besser). Stand ${esc(datum(bt.stand))}.</div>
+        <div><h4>Spielplan-Einflüsse</h4>${getestet}<div class="small" style="margin-top:4px">Aktiv: <b>${e.aktiv.length ? e.aktiv.map((x) => NAMEN_E[x] || x).join(", ") : "keine"}</b></div></div>
+        <div><h4>Anteil Buchmacherquoten (${e.spiele_mit_quoten} Spiele, 1./2. BL)</h4>${gew}<div class="small" style="margin-top:4px">Gewählt: <b>${Math.round(e.quoten_gewicht * 100)} %</b> (höchstens 50 %)</div></div>
+      </div></details>`;
   }
+
   inhalt.innerHTML = `
-    <div class="abschnitt"><h3>Echte Prognosen (vor Anpfiff gespeichert)</h3><span class="small muted">${esc(d.name)}</span></div>
-    ${live}
-    <div class="abschnitt"><h3>Rückwärtstest</h3><span class="small muted">${esc(d.name)}</span></div>
-    ${rueck || '<div class="card leer">Noch kein Rückwärtstest vorhanden.</div>'}
-    <p class="small muted" style="margin-top:12px">* Kicktipp-Punkte: 4 exakt, 3 richtige Tordifferenz, 2 richtige Tendenz. ** Brier-Score: Güte der Prozentangaben, 0 = perfekt, kleiner = besser.</p>`;
+    <div class="abschnitt"><h3>Auf einen Blick</h3><span class="small muted">${esc(d.name)}</span></div>
+    ${blick || '<div class="card leer">Noch keine Auswertung vorhanden.</div>'}
+
+    <div class="abschnitt"><h3>Echte Prognosen</h3><span class="small muted">vor Anpfiff eingefroren</span></div>
+    ${echt ? vergleich(echt) + (letzteHtml ? `<h4 class="mini" style="margin:14px 0 6px">Letzte Spiele</h4>${letzteHtml}` : "")
+      : `<div class="card hinweis-karte">Noch keine abgeschlossenen Spiele mit gespeicherter Prognose. Ab jetzt wird vor jedem Anpfiff festgehalten, was das Tool tippt – hier erscheint dann Spiel für Spiel, was getroffen wurde.</div>`}
+
+    ${bl ? `<div class="abschnitt"><h3>Rückwärtstest</h3><span class="small muted">${saisons}, nur mit dem Wissen vor jedem Spiel</span></div>
+    ${vergleich(bl)}
+    <div class="abschnitt"><h3>Ligen im Vergleich</h3><span class="small muted">angezeigter Tipp im Rückwärtstest</span></div>
+    ${ligenHtml}` : ""}
+
+    <div style="display:grid;gap:10px;margin-top:22px">${technik}</div>
+    <p class="small muted" style="margin-top:12px">Kicktipp-Punkte: 4 exakt, 3 richtige Tordifferenz, 2 richtige Tendenz. Fahre über einen Balken für alle Werte.</p>`;
+  bindeTooltips(inhalt);
 }
 
 function zeichne() {
