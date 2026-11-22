@@ -1,0 +1,86 @@
+{
+ "83243": {
+  "infos": [
+   {
+    "team": "heim",
+    "art": "trainer",
+    "text": "Trainer Daniel Thioune hat seinen Vertrag bei Werder Bremen vorzeitig verlängert.",
+    "quellen": [
+     {
+      "titel": "Daniel Thioune verlängert vorzeitig bei Werder - Werder Bremen",
+      "link": "https://news.google.com/rss/articles/CBMic0FVX3lxTE1Ha2gwMVZHXzVxRG5YQ1VwOFBOREp6ekkySkZpM2xmT2Q3X2lZem8walhoTWdoWG1ob0c0RkZLaGFyLV8tdV9ldlhfd1Jmdy0wd0x6WlY5M2M5WTRjVGdtTHZCWUFXVnh2YlpzQ3FVa2NwVDQ?oc=5",
+      "quelle": "Werder Bremen"
+     },
+     {
+      "titel": "Bundesliga: Werder Bremen verlängert mit Trainer Daniel Thioune - DIE ZEIT",
+      "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxQdGNoMm91SlBpekw0VnBQSGpKaU1pVHVUWHhxZy1aVlZJNDlwNEZ5Qi1lS2xKRzZqTlNOQnN2ZGNPLUZhbHVLejNIbDNPbUxldUxmR1dFUEIzazFHY2M1M3drc29ROG9Eek9fdjR4X3ZaU2VBcFYzajE1VzNsYmZkV0ZXc053OHBnaGtaMUtPOGlDUQ?oc=5",
+      "quelle": "DIE ZEIT"
+     },
+     {
+      "titel": "Werder Bremen verlängert mit Trainer Daniel Thioune: Auch Jan Hoepner und Christian Groß bleiben - Sky.de",
+      "link": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxPR2tPTFhtMk9XVVM3X3dvc19LV3ZCRVc0a0pnalNzSWlLWWlrNmEtNnpGZTVNcTUtWFR0NFA2UmdwNUhiV2N0WVFWczM0VFZSMUpOd192NFl5dHBQUG5EUmwwZmhvOW9wQU14MFVSa3hOQWZvQmRTNWF5R3NGNU93Y2M2b0U3QnNMZUlhZWVxN0pSbXozWk01Y0xDSjNrcS1EMG1pUHNUNTBZME5kemVzUUpDRGhMV2JFT1p2ZkIteFBVVnRzYlVSYnhEQ2RXSnotelNqTHk2Y0lmamMxVHVjWA?oc=5",
+      "quelle": "Sky.de"
+     }
+    ]
+   },
+   {
+    "team": "heim",
+    "art": "verletzung",
+    "text": "Agu ist anteilig zurück, während Grüll weiterhin indoor trainiert.",
+    "quellen": [
+     {
+      "titel": "Agu anteilig zurück, Grüll weiterhin indoor - Werder Bremen",
+      "link": "https://news.google.com/rss/articles/CBMieEFVX3lxTE1kWkg1cklSTUJpQkk1Zy02ZWVVZXZpeWZzaDJlSkJ1R1pTcEo0MDJJdE55UzJUUnBTZjVtVi1idjhxVjJ1S0RzT3A0SmlTbXBVUW1MTGNPUHhLQjRGZjJWNU5MckxfaXlybG9DVEgtaGtvdE0tNmNLUw?oc=5",
+      "quelle": "Werder Bremen"
+     }
+    ]
+   },
+   {
+    "team": "gast",
+    "art": "verletzung",
+    "text": "Lokonga ist verletzt und steht dem HSV vor dem Nordderby nicht zur Verfügung.",
+    "quellen": [
+     {
+      "titel": "Auch Lokonga verletzt - HSV gehen vor dem Nordderby die Spieler aus - NDR.de",
+      "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxOQ0hQVGRBc0ttLUF0YnBlUEEzR3hzX3Y0dnAzVXhLbkljTUhNNUFOc0llUlRCWEVlNEc1TXJFN3FZbmlUUVpNeDFUakYySFdueExEX1lQRlFuVlZhLWxTQVg3OFhsczZKeGRiRzNYcGJwbURYdGtYaEYxVTRQMmhRUWVMRXM1ZU1hSHlRUlJ3SmtLanFVU24wUmMzWjJKdFdYUHAxMl9VNk93elRI?oc=5",
+      "quelle": "NDR.de"
+     },
+     {
+      "titel": "Lokonga-Schock beim Hamburger SV - 90min.de",
+      "link": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE1GdktteUdFczJVMVNic0VPYlZJNWRPU2xpaGtBS1g2dFZLM1RQdHVZWmRPMXo0S2lUNVI1NXZ4amQzdGdzNzN5SkRmMU82TFJERXpsMjlMSFJOZE40WXZHYzZoRQ?oc=5",
+      "quelle": "90min.de"
+     }
+    ]
+   },
+   {
+    "team": "gast",
+    "art": "sonstiges",
+    "text": "Mario Vuskovic feiert nach seiner Doping-Sperre sein Comeback beim Hamburger SV.",
+    "quellen": [
+     {
+      "titel": "Mario Vuskovic mit Comeback beim Hamburger SV nach Doping-Sperre - FAZ",
+      "link": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxOTGl2VjJxbThFOXdnd0ZraUxPSXBXekFpaF9BYXdheGs5b1VLN01sVVQwZWExZkhCQXNBQmd5VDB3UVdhLWF0MTV6UmFRWkg1dW5qU2ZpaktWdDhxSDNFdjVBQ29CMFRBamtEQUVHbkZOWThJaHMydk1wdjRPZHVtYUxhemR6WjhlN3FpYXIySFBFN0ZBVkwzZWFPSF8tal94TVIybnZUSFFPNENKSEg1YU5ZTFY4UUlBcWQwTkFtTVVNVWpKNzFQLWFqUk94ZTVueFNtcg?oc=5",
+      "quelle": "FAZ"
+     },
+     {
+      "titel": "Hamburger SV: Was vom Fall Vušković bleibt - DIE ZEIT",
+      "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxQd0hBS1AzRE1CZDZrRUp4V2o3THpKMklzY1RPSDhNb1R1V055TEhUaDRMZXRaZzZHeFJIbktBWERUcmJRajY4N18wcG5CNllISnVTcHdhTHprZEJWeXhnYTJzc2F2R3piT05zZk5WTU9hZ1FqLVdoaS1GbklOc1hzd09NdzVLUFdZSllNSQ?oc=5",
+      "quelle": "DIE ZEIT"
+     }
+    ]
+   }
+  ],
+  "tipp": [
+   2,
+   1
+  ],
+  "p": [
+   0.51,
+   0.24,
+   0.25
+  ],
+  "vorschau": "Werder Bremen geht mit einem frisch verlängerten Trainerstab und der Rückkehr von Agu in die Partie, während der HSV weiter mit Personalmangel kämpft. Die Verletzung von Lokonga schwächt den Gast zusätzlich, auch wenn Vuskovic sein Comeback feiert. Das Modell sieht Bremen leicht im Vorteil, was durch die personelle Situation der Rothosen untermauert wird.",
+  "anbieter": "Ollama",
+  "stand": "2026-11-22T15:38+00:00"
+ }
+}
