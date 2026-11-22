@@ -148,6 +148,8 @@ def lauf(bestand: Datenbestand, markt: dict, ausgabe: bool = True) -> dict:
         je_liga[liga] = {
             "modell": kennzahlen(final),
             "kicktipp": kennzahlen(eintraege(beste, bestes_gewicht, f, kicktipp=True)),
+            # Tab Tipprunde: Buchmacher voll (wo vorhanden), Kicktipp-optimaler Tipp
+            "tipprunde": kennzahlen(eintraege(beste, 1.0, f, kicktipp=True)),
             "nur_modell_ohne_einfluesse": kennzahlen(eintraege("ohne", 0.0, f)),
             "grundregel": grundregel(final),
         }

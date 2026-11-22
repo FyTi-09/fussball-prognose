@@ -11,6 +11,8 @@ Varianten, die gegeneinander antreten:
 * markt       – nur Buchmacherquoten (wenn vorhanden)
 * ki          – der eigene Tipp der KI
 * kicktipp    – Tipp mit den meisten erwarteten Kicktipp-Punkten
+* tipprunde   – der Tipp aus dem Tab Tipprunde (Kicktipp-Regel, Buchmacher voll
+                genutzt) – also das, was man tatsächlich abgibt
 """
 from __future__ import annotations
 
@@ -21,7 +23,7 @@ from .bewertung import grundregel, kennzahlen
 from .daten import Datenbestand, jetzt
 
 DATEI = config.DATEN / "archiv" / "prognosen.json"
-VARIANTEN = ["endprognose", "kicktipp", "modell", "markt", "ki"]
+VARIANTEN = ["endprognose", "kicktipp", "tipprunde", "modell", "markt", "ki"]
 
 
 def lade() -> dict[str, dict]:
@@ -49,6 +51,8 @@ def aktualisiere(bestand: Datenbestand, prognosen: dict[int, dict], ki: dict[str
         }
         if p.get("tipp_kicktipp"):
             varianten["kicktipp"] = {"p": p["p"], "tipp": p["tipp_kicktipp"]}
+        if p.get("tipp_tipprunde"):
+            varianten["tipprunde"] = {"p": p.get("p_markt") or p["p"], "tipp": p["tipp_tipprunde"]}
         if p.get("p_markt"):
             varianten["markt"] = {"p": p["p_markt"], "tipp": p.get("tipp_markt")}
         k = ki.get(str(s.id))

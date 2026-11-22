@@ -631,6 +631,7 @@ function zeichneTreffer() {
   const tipper = (k) => [
     ["Angezeigter Tipp", k.endprognose || k.modell, "haupt"],
     ["Kicktipp-Tipp", k.kicktipp],
+    ["Tipprunde-Tipp", k.tipprunde],
     ["Rechenmodell allein", k.endprognose ? k.modell : k.nur_modell_ohne_einfluesse],
     ["Buchmacher", k.markt || k.nur_markt],
     ["KI-Tipp", k.ki],
@@ -672,7 +673,7 @@ function zeichneTreffer() {
     const gew = Object.entries(e.quoten_gewichte).map(([k, v]) => `<div class="grund small"><span>${Math.round(k * 100)} % Quoten${+k === e.quoten_gewicht ? " ✓" : ""}</span><span class="wert">${zahl(v, 4)}</span></div>`).join("");
     technik = `
       <details class="mehr card technik"><summary>Alle Kennzahlen des Rückwärtstests</summary><div class="mehr-inhalt">
-        ${kennzahlTabelle([["Angezeigter Tipp", bl?.modell], ["Kicktipp-Tipp", bl?.kicktipp], ["Modell ohne Einflüsse/Quoten", bl?.nur_modell_ohne_einfluesse], ["Nur Buchmacher", bl?.nur_markt], ["Immer 2:1", bl?.grundregel]])}
+        ${kennzahlTabelle([["Angezeigter Tipp", bl?.modell], ["Kicktipp-Tipp", bl?.kicktipp], ["Tipprunde-Tipp", bl?.tipprunde], ["Modell ohne Einflüsse/Quoten", bl?.nur_modell_ohne_einfluesse], ["Nur Buchmacher", bl?.nur_markt], ["Immer 2:1", bl?.grundregel]])}
         <div class="small muted">Tordiff. = Tendenz und Tordifferenz richtig. Brier = Güte der Prozentangaben, 0 = perfekt, kleiner = besser.</div></div></details>
       <details class="mehr card technik"><summary>Wie sich das Modell selbst einstellt</summary><div class="mehr-inhalt">
         <div class="small">Jede Woche prüft der Rückwärtstest, welche Zusatz-Einflüsse und wie viel Buchmacher-Anteil die Prognosen verbessern. Übernommen wird nur, was den Log-Loss um mindestens 0,001 senkt (kleiner = besser). Stand ${esc(datum(bt.stand))}.</div>

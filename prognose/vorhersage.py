@@ -106,6 +106,8 @@ def prognose(modell: Modell, s: Spiel, einfl: Einfluesse,
     m = ergebnis_matrix(lam, mu, modell.rho)
     p_basis = tendenz(m)
     tipp_markt = list(waehle_tipp(passe_matrix_an(m, markt))) if markt else None
+    # Tab Tipprunde (Kicktipp-Regel): Buchmacher voll nutzen, sonst wie Kicktipp-Tipp
+    tipp_tipprunde = list(waehle_kicktipp(passe_matrix_an(m, markt))[0]) if markt else None
     p = mische(p_basis, markt, quoten_gewicht) if markt else p_basis
     if p is not p_basis:
         m = passe_matrix_an(m, p)
@@ -124,6 +126,7 @@ def prognose(modell: Modell, s: Spiel, einfl: Einfluesse,
         "tipp_markt": tipp_markt,
         "top": [{"e": f"{i}:{j}", "p": round(float(w), 4)} for w, i, j in flach[:6]],
         "tipp_kicktipp": list(kt_tipp),
+        "tipp_tipprunde": tipp_tipprunde or list(kt_tipp),
         "kicktipp_erw": round(kt_erw, 3),
         "kicktipp_erw_tipp": round(float(kicktipp_erwartung(m)[tipp]), 3) if max(tipp) <= 5 else None,
         "beide_treffen": round(float(m[1:, 1:].sum()), 4),

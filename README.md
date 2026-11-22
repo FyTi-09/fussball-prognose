@@ -39,6 +39,19 @@ Weitere Aufrufe:
 | `run.py --ohne-ki` | KI-Teil auslassen |
 | `run.py --nur-ki` | nur den KI-Teil ausführen |
 
+## Tests
+
+```powershell
+.\.venv\Scripts\pip install pytest
+.\.venv\Scripts\python -m pytest tests -q
+```
+
+Geprüft wird u. a.: Kicktipp-Punkteregel, erwartete Punkte und Tipp-Auswahl, Wahrscheinlichkeiten,
+Mischen mit Quoten, Saisonwechsel, Tabellenprognose, dass der Rückwärtstest nicht in die Zukunft
+schaut, dass eingefrorene Prognosen nach Anpfiff unverändert bleiben und dass die Webseite
+(Tab Tipprunde) exakt dieselben Tipps rechnet wie Python (braucht Node.js). Läuft auch vor jedem
+automatischen Lauf auf GitHub.
+
 ## Optionale Schlüssel
 
 Als Umgebungsvariablen oder als GitHub-Secrets. Ohne Schlüssel läuft alles, nur ohne den jeweiligen Zusatz.

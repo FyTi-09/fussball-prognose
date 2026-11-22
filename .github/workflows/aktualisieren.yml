@@ -38,6 +38,13 @@ jobs:
 
       - run: pip install -r requirements.txt
 
+      # Rechenlogik prüfen (Kicktipp-Regel, Wahrscheinlichkeiten, Seite = Python).
+      # Schlägt ein Test fehl, wird nichts berechnet und nichts veröffentlicht.
+      - name: Tests
+        run: |
+          pip install pytest
+          python -m pytest tests -q
+
       - name: Prognosen berechnen
         env:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
