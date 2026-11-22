@@ -893,7 +893,21 @@ function zeichne() {
 /* Tooltips für Elemente mit data-tip */
 function bindeTooltips(root) {
   const tip = $("#tooltip");
+  const touch = matchMedia("(hover: none)").matches;
   root.querySelectorAll("[data-tip]").forEach((el) => {
+    if (touch) {
+      // Handy: Antippen zeigt den Hinweis über dem Element, nächstes Antippen schließt ihn
+      el.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const r = el.getBoundingClientRect();
+        tip.textContent = el.dataset.tip; tip.style.display = "block";
+        const halb = tip.offsetWidth / 2;
+        const x = Math.min(Math.max(r.left + r.width / 2, halb + 8), document.documentElement.clientWidth - halb - 8);
+        tip.style.left = x + scrollX + "px"; tip.style.top = r.top + scrollY - 6 + "px";
+        clearTimeout(tip._t); tip._t = setTimeout(() => { tip.style.display = "none"; }, 4000);
+      });
+      return;
+    }
     el.addEventListener("mouseenter", () => { tip.textContent = el.dataset.tip; tip.style.display = "block"; });
     el.addEventListener("mousemove", (e) => { tip.style.left = e.pageX + "px"; tip.style.top = e.pageY - 8 + "px"; });
     el.addEventListener("mouseleave", () => { tip.style.display = "none"; });
@@ -915,6 +929,9 @@ async function wechsleLiga(liga) {
 }
 
 async function start() {
+  // als App installierbar und offline nutzbar (zuletzt geladener Stand)
+  if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(() => {});
+  document.addEventListener("click", () => { const t = $("#tooltip"); if (t) t.style.display = "none"; });
   // Hell/Dunkel
   try { const th = localStorage.getItem("fp-theme"); if (th) document.documentElement.dataset.theme = th; } catch { /* egal */ }
   $("#theme").addEventListener("click", () => {
@@ -938,6 +955,7 @@ async function start() {
   $("#ansichten").addEventListener("click", (e) => {
     const b = e.target.closest("button"); if (!b) return;
     ZUSTAND.ansicht = b.dataset.a; speichereWahl(); zeichne();
+    if (matchMedia("(max-width: 560px)").matches) scrollTo({ top: 0 });
   });
   let wahl = {};
   try { wahl = JSON.parse(localStorage.getItem("fp-wahl") || "{}"); } catch { /* egal */ }

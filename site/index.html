@@ -2,11 +2,18 @@
 <html lang="de">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#2a78d6">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Prognose">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
   <title>Fußball-Prognose</title>
   <meta name="robots" content="noindex, nofollow">
   <link rel="stylesheet" href="style.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚽</text></svg>">
+  <link rel="icon" type="image/png" href="icons/favicon-64.png">
 </head>
 <body>
   <div class="wrap">
@@ -19,11 +26,11 @@
     </header>
     <nav class="tabs ligen" id="ligen" role="tablist"></nav>
     <nav class="tabs ansicht" id="ansichten" role="tablist">
-      <button data-a="spieltag" aria-selected="true">Spieltag</button>
-      <button data-a="tabelle">Tabellenprognose</button>
-      <button data-a="teams">Teams</button>
-      <button data-a="tipprunde">Tipprunde</button>
-      <button data-a="treffer">Trefferquote</button>
+      <button data-a="spieltag" aria-selected="true"><svg class="nav-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v15H4zM4 9h16M9 3v4M15 3v4"/></svg><span class="lang">Spieltag</span><span class="kurz">Spieltag</span></button>
+      <button data-a="tabelle"><svg class="nav-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20V10M12 20V4M19 20v-7"/></svg><span class="lang">Tabellenprognose</span><span class="kurz">Tabelle</span></button>
+      <button data-a="teams"><svg class="nav-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6z"/></svg><span class="lang">Teams</span><span class="kurz">Teams</span></button>
+      <button data-a="tipprunde"><svg class="nav-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l4-1 11-11-3-3L5 16zM14 7l3 3"/></svg><span class="lang">Tipprunde</span><span class="kurz">Tippen</span></button>
+      <button data-a="treffer"><svg class="nav-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1"/></svg><span class="lang">Trefferquote</span><span class="kurz">Quote</span></button>
     </nav>
     <main id="inhalt"><div class="leer">Daten werden geladen …</div></main>
     <footer>
