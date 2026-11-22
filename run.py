@@ -71,8 +71,11 @@ def main() -> int:
         print("3) Rückwärtstest (entscheidet, welche Einflüsse helfen) …")
         backtest.lauf(bestand, markt)
         einst = lade_einstellungen()
-    print(f"   Aktive Einflüsse: {einst['merkmale'] or 'keine'}, Quoten-Gewicht: {einst['quoten_gewicht']}")
+    print(f"   Aktive Einflüsse: {einst['merkmale'] or 'keine'}, Quoten-Gewicht: {einst['quoten_gewicht']}, "
+          f"Halbwertszeit: {einst.get('halbwertszeit', config.HALBWERTSZEIT_TAGE)} Tage")
 
+    # vom Rückwärtstest gewählte Form-Gewichtung (Halbwertszeit in Tagen)
+    config.HALBWERTSZEIT_TAGE = einst.get("halbwertszeit", config.HALBWERTSZEIT_TAGE)
     print("4) Modell anpassen …")
     einfl = Einfluesse(bestand.spiele, bestand.pokal, MERKMALE).mit(einst["merkmale"])
     modell, _ = trainiere(bestand, einfl, nun)

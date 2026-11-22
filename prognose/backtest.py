@@ -8,6 +8,8 @@ Gleichzeitig entscheidet der Test, welche Einflüsse wirklich helfen:
   Aktiv bleibt die Kombination mit der besten Log-Loss-Bewertung.
 * Für die Buchmacherquoten wird das beste Mischgewicht gesucht (nur 1./2. BL,
   weil es nur dort kostenlose alte Quoten gibt).
+* Für die Form wird die beste Halbwertszeit gesucht: Wie schnell verlieren alte
+  Spiele an Gewicht? Kurz = aktuelle Form zählt mehr.
 Ergebnis: data/einstellungen.json und data/backtest.json (run.py kopiert es auf die Seite)
 """
 from __future__ import annotations
@@ -28,6 +30,29 @@ from .vorhersage import passe_matrix_an, trainiere, waehle_kicktipp, waehle_tipp
 
 GEWICHTE = [0.0, 0.2, 0.4, 0.5, 0.6, 0.7, 0.8, 1.0]
 MINDEST_VERBESSERUNG = 0.001   # Log-Loss; kleinere Unterschiede gelten als Rauschen
+HALBWERTSZEITEN = [90, 120, 180, 240, 365]   # Tage; Standard steht in config
+
+
+def _teste_halbwertszeit(bestand, einfl, hwz: int) -> dict:
+    """Rückwärtstest nur des Modells (ohne Quoten) mit einer bestimmten Halbwertszeit."""
+    alt = config.HALBWERTSZEIT_TAGE
+    config.HALBWERTSZEIT_TAGE = hwz
+    try:
+        start, eintraege = None, []
+        for saison in config.BACKTEST_SAISONS:
+            spiele = [s for s in bestand.spiele if s.saison == saison and s.gespielt]
+            for block in _bloecke(spiele):
+                stichtag = min(s.anstoss for s in block) - timedelta(hours=1)
+                modell, start = trainiere(bestand, einfl, stichtag, start)
+                for s in block:
+                    xh, xg = einfl.vektoren(s) if einfl.aktiv else (None, None)
+                    lam, mu = modell.erwartete_tore(s.heim_id, s.gast_id, s.liga, xh, xg)
+                    m = ergebnis_matrix(lam, mu, modell.rho)
+                    eintraege.append({"p": list(tendenz(m)), "tipp": list(waehle_tipp(m)),
+                                      "h": s.tore_heim, "g": s.tore_gast})
+        return kennzahlen(eintraege)
+    finally:
+        config.HALBWERTSZEIT_TAGE = alt
 
 
 def _bloecke(spiele):
@@ -101,6 +126,20 @@ def lauf(bestand: Datenbestand, markt: dict, ausgabe: bool = True) -> dict:
     else:
         bestes_gewicht = 0.0
 
+    # 2b) Form: beste Halbwertszeit (nur übernehmen, wenn klar besser als der Standard)
+    if ausgabe:
+        print("  Form (Halbwertszeit) …")
+    hwz_bewertung = {}
+    for hwz in HALBWERTSZEITEN:
+        if hwz == config.HALBWERTSZEIT_TAGE:
+            hwz_bewertung[hwz] = bewertung_var[beste]
+        else:
+            hwz_bewertung[hwz] = _teste_halbwertszeit(bestand, varianten[beste], hwz)
+    beste_hwz = min(hwz_bewertung, key=lambda h: hwz_bewertung[h]["logloss"])
+    standard = hwz_bewertung.get(config.HALBWERTSZEIT_TAGE)
+    if standard and standard["logloss"] - hwz_bewertung[beste_hwz]["logloss"] < MINDEST_VERBESSERUNG:
+        beste_hwz = config.HALBWERTSZEIT_TAGE
+
     # 3) Endauswertung je Liga mit der gewählten Einstellung
     je_liga = {}
     for liga in config.LIGEN:
@@ -127,9 +166,11 @@ def lauf(bestand: Datenbestand, markt: dict, ausgabe: bool = True) -> dict:
             "quoten_gewichte": {k: v.get("logloss") for k, v in gewicht_bewertung.items()},
             "quoten_gewicht": bestes_gewicht,
             "spiele_mit_quoten": sum(1 for d in datensaetze if d["markt"]),
+            "halbwertszeiten": {str(h): v.get("logloss") for h, v in hwz_bewertung.items()},
+            "halbwertszeit": beste_hwz,
         },
     }
-    einstellungen = {"merkmale": aktiv, "quoten_gewicht": bestes_gewicht,
+    einstellungen = {"merkmale": aktiv, "quoten_gewicht": bestes_gewicht, "halbwertszeit": beste_hwz,
                      "stand": ergebnis["stand"]}
     config.DATEN.mkdir(parents=True, exist_ok=True)
     (config.DATEN / "einstellungen.json").write_text(
