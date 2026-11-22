@@ -4,6 +4,7 @@
 # Protokoll: ki_lokal.log (UTF-8) im selben Ordner.
 Set-Location $PSScriptRoot
 $env:PYTHONIOENCODING = "utf-8"
+[Console]::OutputEncoding = [Text.Encoding]::UTF8
 $log = Join-Path $PSScriptRoot "ki_lokal.log"
 "=== $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss') ===" | Out-File $log -Encoding utf8
 
