@@ -110,8 +110,6 @@ def zerlege(modell: Modell, s: Spiel, xh=None, xg=None) -> dict:
     A, D = modell.liga_angriff[li], modell.liga_abwehr[li]
     ah, dh = modell.staerke(s.heim_id, s.liga)
     ag, dg = modell.staerke(s.gast_id, s.liga)
-    eh = float(np.dot(xh, modell.beta)) if xh is not None and len(modell.beta) else 0.0
-    eg = float(np.dot(xg, modell.beta)) if xg is not None and len(modell.beta) else 0.0
     # Faktor: (Name, Wirkung auf log(Heimtore), Wirkung auf log(Gasttore), Kennzahl)
     faktoren = [
         ("heimvorteil", float(modell.heimvorteil[li]), 0.0, math.exp(modell.heimvorteil[li])),
@@ -120,8 +118,17 @@ def zerlege(modell: Modell, s: Spiel, xh=None, xg=None) -> dict:
         ("angriff_gast", 0.0, ag - A, math.exp(ag - A)),
         ("abwehr_heim", 0.0, -(dh - D), math.exp(-(dh - D))),
     ]
-    if abs(eh) > 1e-6 or abs(eg) > 1e-6:
-        faktoren.append(("spielplan", eh, eg, None))
+    # jeder aktive Einfluss als eigener Faktor (die 4 stärksten einzeln, Rest zusammen)
+    if xh is not None and len(modell.beta):
+        wirkung = [(name, float(xh[k] * modell.beta[k]), float(xg[k] * modell.beta[k]))
+                   for k, name in enumerate(modell.merkmale)]
+        wirkung = [w for w in wirkung if abs(w[1]) + abs(w[2]) > 0.005]
+        wirkung.sort(key=lambda w: abs(w[1]) + abs(w[2]), reverse=True)
+        for name, a, b in wirkung[:4]:
+            faktoren.append((f"einfluss_{name}", a, b, None))
+        if len(wirkung) > 4:
+            faktoren.append(("einfluss_weitere", sum(w[1] for w in wirkung[4:]),
+                             sum(w[2] for w in wirkung[4:]), None))
     n = len(faktoren)
     basis = modell.basis + A - D
 

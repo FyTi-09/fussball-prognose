@@ -267,6 +267,41 @@ const TENDENZ_NAME = (t, h, g) => [`Sieg ${h.kurz}`, "Remis", `Sieg ${g.kurz}`][
 function prozentText(k) { return `${Math.abs(Math.round((k - 1) * 100))} %`; }
 
 // Jeder Modellteil als Satz mit echter Kennzahl, dazu sein Beitrag (Prozentpunkte je Ausgang)
+// Satz und Kurzform für einen Einfluss aus dem Rückwärtstest (Form, Elo, Heimstärke …)
+function einflussText(art, sp, h, g) {
+  const i = sp.info || {};
+  const vz = (x) => (x > 0 ? "+" : x < 0 ? "−" : "±") + zahl(Math.abs(x), 1);
+  const wer = (paar) => [h, g].filter((_, k) => paar?.[k]).map((t) => t.kurz).join(" und ");
+  switch (art) {
+    case "einfluss_form": {
+      const besser = i.form_heim >= i.form_gast ? h : g;
+      return { text: `Form (letzte 5): ${h.kurz} ${vz(i.form_heim)} Tore/Spiel, ${g.kurz} ${vz(i.form_gast)}`, kurz: `Form ${besser.kurz}` };
+    }
+    case "einfluss_elo": {
+      const besser = i.elo_heim >= i.elo_gast ? h : g;
+      return { text: `Elo-Stärke: ${h.kurz} ${i.elo_heim} gegen ${g.kurz} ${i.elo_gast}`, kurz: `Elo ${besser.kurz}` };
+    }
+    case "einfluss_heimstaerke":
+      return { text: `${h.kurz} ist zu Hause ${i.heimstaerke >= 0 ? "stärker" : "schwächer"} als auswärts – mehr als bei anderen Teams üblich`,
+        kurz: `Heimstärke ${h.kurz}` };
+    case "einfluss_aufsteiger":
+      return { text: `Aufsteiger-Schwung: ${wer(i.aufsteiger) || "Aufsteiger"} (wirkt in der Hinrunde)`, kurz: `Aufsteiger ${wer(i.aufsteiger)}` };
+    case "einfluss_absteiger":
+      return { text: `Nach dem Abstieg: ${wer(i.absteiger) || "Absteiger"} (wirkt in der Hinrunde)`, kurz: `Absteiger ${wer(i.absteiger)}` };
+    case "einfluss_ruhetage":
+      return { text: `Ruhetage: ${h.kurz} ${zahl(i.ruhe_heim, 0)}, ${g.kurz} ${zahl(i.ruhe_gast, 0)}`, kurz: "Ruhetage" };
+    case "einfluss_nichts_eigen":
+    case "einfluss_nichts_gegner": {
+      const w = [[h, i.nichts_heim], [g, i.nichts_gast]].filter(([, f]) => f).map(([t]) => t.kurz).join(" und ");
+      return { text: `${w || "Ein Team"} hat tabellarisch nichts mehr zu spielen`, kurz: "Motivation" };
+    }
+    case "einfluss_weitere":
+      return { text: "Weitere kleine Einflüsse zusammen", kurz: "weitere Einflüsse" };
+    default:
+      return null;
+  }
+}
+
 function gruendeListe(sp) {
   const p = sp.prognose, h = team(sp.heim), g = team(sp.gast), d = daten();
   if (!p?.warum) return [];
@@ -288,7 +323,8 @@ function gruendeListe(sp) {
       abwehr_heim: `${mehr ? "anfällige" : "starke"} Abwehr ${h.kurz}`,
       spielplan: "Spielplan",
     }[f.art] || f.art;
-    return { art: f.art, text, kurz, pp: f.pp };
+    const ein = f.art.startsWith("einfluss_") ? einflussText(f.art, sp, h, g) : null;
+    return { art: f.art, text: ein ? ein.text : text, kurz: ein ? ein.kurz : kurz, pp: f.pp };
   });
   if (p.p_markt && p.quoten_gewicht > 0) {
     liste.push({ art: "markt", kurz: "Buchmacherquoten",
@@ -764,16 +800,19 @@ function zeichneTreffer() {
   let technik = "";
   if (bt) {
     const e = bt.einfluesse;
-    const NAMEN_E = { ruhetage: "Ruhetage", nichts_eigen: "„nichts mehr zu spielen“ (eigene Tore)", nichts_gegner: "„nichts mehr zu spielen“ (Gegentore)" };
-    const getestet = Object.entries(e.getestet).sort((a, b) => a[1] - b[1]).map(([k, v]) => `<div class="grund small"><span>${k === "ohne" ? "ohne Zusatz-Einflüsse" : k.split("+").map((x) => NAMEN_E[x] || x).join(" + ")}</span><span class="wert">${zahl(v, 4)}</span></div>`).join("");
+    const NAMEN_E = { ruhetage: "Ruhetage", nichts_eigen: "„nichts mehr zu spielen“ (eigene Tore)", nichts_gegner: "„nichts mehr zu spielen“ (Gegentore)",
+      form: "Form (letzte 5 Spiele)", elo: "Elo-Stärke", heimstaerke: "persönliche Heimstärke", aufsteiger: "Aufsteiger-Schwung", absteiger: "Absteiger" };
+    const getestet = e.einzeln
+      ? Object.entries(e.einzeln).sort((a, b) => b[1] - a[1]).map(([k, v]) => `<div class="grund small"><span>${esc(NAMEN_E[k] || k)}${e.aktiv.includes(k) ? " ✓" : ""}</span><span class="wert ${v > 0 ? "pp plus" : v < 0 ? "pp minus" : ""}">${v > 0 ? "besser" : v < 0 ? "schlechter" : "gleich"} um ${zahl(Math.abs(v), 4)}</span></div>`).join("")
+      : Object.entries(e.getestet).sort((a, b) => a[1] - b[1]).map(([k, v]) => `<div class="grund small"><span>${k === "ohne" ? "ohne Zusatz-Einflüsse" : k.split("+").map((x) => NAMEN_E[x] || x).join(" + ")}</span><span class="wert">${zahl(v, 4)}</span></div>`).join("");
     const gew = Object.entries(e.quoten_gewichte).map(([k, v]) => `<div class="grund small"><span>${Math.round(k * 100)} % Quoten${+k === e.quoten_gewicht ? " ✓" : ""}</span><span class="wert">${zahl(v, 4)}</span></div>`).join("");
     technik = `
       <details class="mehr card technik"><summary>Alle Kennzahlen des Rückwärtstests</summary><div class="mehr-inhalt">
         ${kennzahlTabelle([["Angezeigter Tipp", bl?.modell], ["Kicktipp-Tipp", bl?.kicktipp], ["Modell ohne Einflüsse/Quoten", bl?.nur_modell_ohne_einfluesse], ["Nur Buchmacher", bl?.nur_markt], ["Immer 2:1", bl?.grundregel]])}
         <div class="small muted">Tordiff. = Tendenz und Tordifferenz richtig. Brier = Güte der Prozentangaben, 0 = perfekt, kleiner = besser.</div></div></details>
       <details class="mehr card technik"><summary>Wie sich das Modell selbst einstellt</summary><div class="mehr-inhalt">
-        <div class="small">Jede Woche prüft der Rückwärtstest, welche Zusatz-Einflüsse und wie viel Buchmacher-Anteil die Prognosen verbessern. Übernommen wird nur, was den Log-Loss um mindestens 0,001 senkt (kleiner = besser). Stand ${esc(datum(bt.stand))}.</div>
-        <div><h4>Spielplan-Einflüsse</h4>${getestet}<div class="small" style="margin-top:4px">Aktiv: <b>${e.aktiv.length ? e.aktiv.map((x) => NAMEN_E[x] || x).join(", ") : "keine"}</b></div></div>
+        <div class="small">Jede Woche prüft der Rückwärtstest, welche Zusatz-Einflüsse und wie viel Buchmacher-Anteil die Prognosen verbessern. Die Einflüsse werden Schritt für Schritt dazugenommen: immer der, der am meisten bringt, solange er den Log-Loss um mindestens 0,001 senkt (kleiner = besser). ✓ = aktiv. Stand ${esc(datum(bt.stand))}.</div>
+        <div><h4>Einflüsse einzeln getestet (Log-Loss gegenüber ohne)</h4>${getestet}<div class="small" style="margin-top:4px">Aktiv: <b>${e.aktiv.length ? e.aktiv.map((x) => NAMEN_E[x] || x).join(", ") : "keine"}</b></div></div>
         <div><h4>Anteil Buchmacherquoten (${e.spiele_mit_quoten} Spiele, 1./2. BL)</h4>${gew}<div class="small" style="margin-top:4px">Gewählt: <b>${Math.round(e.quoten_gewicht * 100)} %</b> (höchstens 50 %)</div></div>
       </div></details>`;
   }

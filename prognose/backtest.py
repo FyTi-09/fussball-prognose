@@ -4,8 +4,9 @@ Für jede Spielwoche wird das Modell nur mit den Spielen davor trainiert und
 sagt dann die Spiele dieser Woche voraus – genau wie im echten Betrieb.
 
 Gleichzeitig entscheidet der Test, welche Einflüsse wirklich helfen:
-* Jede Kombination der Spielplan-Einflüsse (Ruhetage, Motivation) wird getestet.
-  Aktiv bleibt die Kombination mit der besten Log-Loss-Bewertung.
+* Einflüsse (Ruhetage, Motivation, Form, Elo, Heimstärke, Auf-/Absteiger) werden
+  schrittweise ausgewählt: Runde für Runde kommt der Einfluss dazu, der die
+  Prognosen am meisten verbessert – solange die Verbesserung kein Zufall ist.
 * Für die Buchmacherquoten wird das beste Mischgewicht gesucht (nur 1./2. BL,
   weil es nur dort kostenlose alte Quoten gibt).
 * Für die Form wird die beste Halbwertszeit gesucht: Wie schnell verlieren alte
@@ -14,7 +15,6 @@ Ergebnis: data/einstellungen.json und data/backtest.json (run.py kopiert es auf 
 """
 from __future__ import annotations
 
-import itertools
 import json
 from collections import defaultdict
 from datetime import datetime, timedelta, timezone
@@ -66,29 +66,30 @@ def _bloecke(spiele):
 
 def lauf(bestand: Datenbestand, markt: dict, ausgabe: bool = True) -> dict:
     basis = Einfluesse(bestand.spiele, bestand.pokal, MERKMALE)
-    teilmengen = [list(c) for r in range(len(MERKMALE) + 1)
-                  for c in itertools.combinations(MERKMALE, r)]
-    varianten = {"+".join(t) or "ohne": basis.mit(t) for t in teilmengen}
-    starts = {k: None for k in varianten}
-    datensaetze = []  # je Spiel: Ergebnis, Liga, Saison, Lambdas je Variante, Markt
+    wochen = []   # je Woche: (Stichtag, Spiele)
     for saison in config.BACKTEST_SAISONS:
         spiele = [s for s in bestand.spiele if s.saison == saison and s.gespielt]
         bloecke = _bloecke(spiele)
         if ausgabe:
             print(f"  Saison {saison}/{(saison + 1) % 100:02d}: {len(spiele)} Spiele, {len(bloecke)} Wochen")
-        for block in bloecke:
-            stichtag = min(s.anstoss for s in block) - timedelta(hours=1)
-            modelle = {}
-            for name, einfl in varianten.items():
-                modelle[name], starts[name] = trainiere(bestand, einfl, stichtag, starts[name])
+        wochen += [(min(s.anstoss for s in b) - timedelta(hours=1), b) for b in bloecke]
+    datensaetze = [{"liga": s.liga, "saison": s.saison, "h": s.tore_heim, "g": s.tore_gast,
+                    "markt": markt.get(s.id), "var": {}} for _, b in wochen for s in b]
+
+    def rechne(merkmale: tuple) -> str:
+        """Rückwärtstest einer Auswahl von Einflüssen; Ergebnis landet in datensaetze."""
+        name = "+".join(merkmale) or "ohne"
+        if name in datensaetze[0]["var"]:
+            return name
+        einfl, start, i = basis.mit(list(merkmale)), None, 0
+        for stichtag, block in wochen:
+            modell, start = trainiere(bestand, einfl, stichtag, start)
             for s in block:
-                d = {"liga": s.liga, "saison": s.saison, "h": s.tore_heim, "g": s.tore_gast,
-                     "markt": markt.get(s.id), "var": {}}
-                for name, einfl in varianten.items():
-                    xh, xg = einfl.vektoren(s) if einfl.aktiv else (None, None)
-                    lam, mu = modelle[name].erwartete_tore(s.heim_id, s.gast_id, s.liga, xh, xg)
-                    d["var"][name] = (lam, mu, modelle[name].rho)
-                datensaetze.append(d)
+                xh, xg = einfl.vektoren(s) if einfl.aktiv else (None, None)
+                lam, mu = modell.erwartete_tore(s.heim_id, s.gast_id, s.liga, xh, xg)
+                datensaetze[i]["var"][name] = (lam, mu, modell.rho)
+                i += 1
+        return name
 
     def eintraege(name, gewicht=0.0, filter_fn=lambda d: True, kicktipp=False):
         aus = []
@@ -104,13 +105,37 @@ def lauf(bestand: Datenbestand, markt: dict, ausgabe: bool = True) -> dict:
                         "h": d["h"], "g": d["g"]})
         return aus
 
-    # 1) beste Kombination der Spielplan-Einflüsse
-    bewertung_var = {name: kennzahlen(eintraege(name)) for name in varianten}
-    beste = min(bewertung_var, key=lambda k: bewertung_var[k]["logloss"])
-    # Nur übernehmen, wenn die Verbesserung mehr als Zufallsrauschen ist
-    if bewertung_var["ohne"]["logloss"] - bewertung_var[beste]["logloss"] < MINDEST_VERBESSERUNG:
-        beste = "ohne"
-    aktiv = [] if beste == "ohne" else beste.split("+")
+    # 1) Einflüsse schrittweise auswählen (vorwärts): immer den besten dazunehmen
+    bewertung_var = {}
+
+    def bewerte(merkmale):
+        name = rechne(tuple(m for m in MERKMALE if m in merkmale))
+        if name not in bewertung_var:
+            bewertung_var[name] = kennzahlen(eintraege(name))
+            if ausgabe:
+                print(f"    {name}: Log-Loss {bewertung_var[name]['logloss']:.4f}")
+        return name
+
+    aktiv: list[str] = []
+    aktuell = bewerte(aktiv)
+    while True:
+        kandidaten = {m: bewerte(aktiv + [m]) for m in MERKMALE if m not in aktiv}
+        if not kandidaten:
+            break
+        m_best = min(kandidaten, key=lambda m: bewertung_var[kandidaten[m]]["logloss"])
+        gewinn = bewertung_var[aktuell]["logloss"] - bewertung_var[kandidaten[m_best]]["logloss"]
+        if gewinn < MINDEST_VERBESSERUNG:
+            break
+        aktiv.append(m_best)
+        aktuell = kandidaten[m_best]
+        if ausgabe:
+            print(f"  + {m_best} (besser um {gewinn:.4f})")
+    beste = aktuell
+    aktiv = [m for m in MERKMALE if m in aktiv]
+    # Wirkung jedes einzelnen Einflusses allein (für die Anzeige)
+    einzeln = {m: round(bewertung_var["ohne"]["logloss"] - bewertung_var[bewerte([m])]["logloss"], 4)
+               for m in MERKMALE}
+    varianten = {beste: basis.mit(aktiv)}
 
     # 2) bestes Quoten-Gewicht (nur Spiele, für die es Quoten gibt)
     mit_markt = lambda d: d["markt"] is not None  # noqa: E731
@@ -162,6 +187,7 @@ def lauf(bestand: Datenbestand, markt: dict, ausgabe: bool = True) -> dict:
         "je_liga": je_liga,
         "einfluesse": {
             "getestet": {k: v.get("logloss") for k, v in bewertung_var.items()},
+            "einzeln": einzeln,
             "aktiv": aktiv,
             "quoten_gewichte": {k: v.get("logloss") for k, v in gewicht_bewertung.items()},
             "quoten_gewicht": bestes_gewicht,
