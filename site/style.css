@@ -330,3 +330,27 @@ details.regel summary { font-size: 13.5px; }
   .icon-btn { padding: 8px 12px; }
   .knopf { min-height: 40px; }
 }
+
+/* Begründungen */
+.hauptgrund { margin-top: 4px; color: var(--text-2); }
+.pp { font-variant-numeric: tabular-nums; font-weight: 600; white-space: nowrap; }
+.pp.plus { color: var(--good); }
+.pp.minus { color: var(--bad); }
+.warum-zeile { display: grid; grid-template-columns: 1fr 60px 3.6em; gap: 8px; align-items: center; font-size: 13.5px; padding: 3px 0; }
+.warum-zeile .pp { text-align: right; }
+.warum-balken { height: 8px; background: var(--surface-2); border-radius: 4px; overflow: hidden; }
+.warum-balken i { display: block; height: 100%; border-radius: 4px; }
+.warum-balken i.plus { background: var(--good); }
+.warum-balken i.minus { background: var(--bad); }
+.warum-ergebnis { margin-top: 8px; padding-top: 6px; border-top: 1px solid var(--border); font-size: 13.5px; }
+table.fakten { width: 100%; border-collapse: collapse; font-size: 13px; }
+table.fakten td, table.fakten th { padding: 4px 6px; border-bottom: 1px solid var(--border); }
+table.fakten td:first-child { text-align: left; }
+table.fakten td:last-child { text-align: right; }
+table.fakten th { color: var(--text-3); font-weight: 500; text-align: center; white-space: nowrap; }
+.form { display: inline-flex; gap: 2px; }
+.form i { font-style: normal; font-size: 11px; font-weight: 700; width: 17px; height: 17px; line-height: 17px; text-align: center; border-radius: 3px; color: #fff; }
+.form .f-S { background: var(--good); }
+.form .f-U { background: #9a988f; }
+.form .f-N { background: var(--bad); }
+@media (max-width: 560px) { .warum-zeile { grid-template-columns: 1fr 40px 3.4em; font-size: 13px; } }

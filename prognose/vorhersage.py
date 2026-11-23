@@ -5,6 +5,8 @@
 """
 from __future__ import annotations
 
+import itertools
+import math
 from datetime import datetime, timedelta
 
 import numpy as np
@@ -98,6 +100,51 @@ def waehle_kicktipp(m: np.ndarray) -> tuple[tuple[int, int], float]:
     return (int(a), int(b)), float(erw[a, b])
 
 
+def zerlege(modell: Modell, s: Spiel, xh=None, xg=None) -> dict:
+    """Warum kommt diese Prognose heraus? Zerlegt Heim/Remis/Gast in die Beiträge
+    der einzelnen Modellteile (Shapley-Werte: faire Aufteilung, Summe = Gesamtwirkung).
+
+    Ausgangslage: zwei durchschnittliche Teams dieser Liga auf neutralem Platz.
+    Beiträge in Wahrscheinlichkeit (0..1) für [Heimsieg, Remis, Gastsieg]."""
+    li = LIGEN.index(s.liga)
+    A, D = modell.liga_angriff[li], modell.liga_abwehr[li]
+    ah, dh = modell.staerke(s.heim_id, s.liga)
+    ag, dg = modell.staerke(s.gast_id, s.liga)
+    eh = float(np.dot(xh, modell.beta)) if xh is not None and len(modell.beta) else 0.0
+    eg = float(np.dot(xg, modell.beta)) if xg is not None and len(modell.beta) else 0.0
+    # Faktor: (Name, Wirkung auf log(Heimtore), Wirkung auf log(Gasttore), Kennzahl)
+    faktoren = [
+        ("heimvorteil", float(modell.heimvorteil[li]), 0.0, math.exp(modell.heimvorteil[li])),
+        ("angriff_heim", ah - A, 0.0, math.exp(ah - A)),
+        ("abwehr_gast", -(dg - D), 0.0, math.exp(-(dg - D))),
+        ("angriff_gast", 0.0, ag - A, math.exp(ag - A)),
+        ("abwehr_heim", 0.0, -(dh - D), math.exp(-(dh - D))),
+    ]
+    if abs(eh) > 1e-6 or abs(eg) > 1e-6:
+        faktoren.append(("spielplan", eh, eg, None))
+    n = len(faktoren)
+    basis = modell.basis + A - D
+
+    def p_fuer(maske) -> np.ndarray:
+        lh = basis + sum(f[1] for f, an in zip(faktoren, maske) if an)
+        lg = basis + sum(f[2] for f, an in zip(faktoren, maske) if an)
+        return np.array(tendenz(ergebnis_matrix(math.exp(lh), math.exp(lg), modell.rho)))
+
+    werte = {m: p_fuer(m) for m in itertools.product((False, True), repeat=n)}
+    beitraege = []
+    for k, f in enumerate(faktoren):
+        phi = np.zeros(3)
+        for m, p in werte.items():
+            if m[k]:
+                continue
+            mit = tuple(True if i == k else x for i, x in enumerate(m))
+            g = sum(m)
+            phi += math.factorial(g) * math.factorial(n - g - 1) / math.factorial(n) * (werte[mit] - p)
+        beitraege.append({"art": f[0], "kennzahl": None if f[3] is None else round(f[3], 3),
+                          "pp": [round(float(x) * 100, 1) for x in phi]})
+    return {"basis": [round(float(x), 4) for x in werte[(False,) * n]], "faktoren": beitraege}
+
+
 def prognose(modell: Modell, s: Spiel, einfl: Einfluesse,
              markt: tuple | None = None, quoten_gewicht: float = 0.0,
              mit_begruendung: bool = True) -> dict:
@@ -132,6 +179,8 @@ def prognose(modell: Modell, s: Spiel, einfl: Einfluesse,
     }
     if mit_begruendung:
         erg["begruendung"] = begruende(modell, s, einfl, p_basis, p, markt, quoten_gewicht)
+        erg["warum"] = zerlege(modell, s, xh, xg)
+        erg["quoten_gewicht"] = quoten_gewicht if markt else 0.0
     return erg
 
 

@@ -10,6 +10,7 @@ Ein privates Prognose-Tool für die 1. Bundesliga, die 2. Bundesliga und die 3. 
 | Buchmacherquoten | football-data.co.uk (1./2. BL, kostenlos), The Odds API (alle Ligen, optional) |
 | Zusatz-Einflüsse | Ruhetage und „nichts mehr zu spielen“ – nur aktiv, wenn der Rückwärtstest eine Verbesserung zeigt |
 | Ergebnis-Tipp | wahrscheinlichster Spielstand innerhalb der wahrscheinlichsten Tendenz |
+| Begründung je Tipp | Zerlegung der Prognose in Heimvorteil, Angriff und Abwehr beider Teams, Spielplan und Quoten (faire Aufteilung, Summe = Prognose), dazu Faktencheck mit Tabelle, Form, Heim-/Auswärtsbilanz, Elo und Ruhetagen |
 | Kicktipp-Tipp | Spielstand mit den meisten erwarteten Kicktipp-Punkten (4 exakt / 3 Tordifferenz / 2 Tendenz, bei Remis keine Differenz-Punkte), wird eigens in der Trefferquote geführt |
 | Pro Spiel außerdem | Über 2,5 Tore, beide treffen, zu Null, direkter Vergleich (letzte 6 Duelle inkl. Pokal) |
 | Spieltag-Highlights | Spitzenspiel, klarster Favorit, offenstes Spiel, größte Abweichung Modell gegen Buchmacher |

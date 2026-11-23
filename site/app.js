@@ -262,6 +262,101 @@ function kiBox(ki, sp) {
     <div class="muted small" style="margin-top:4px">Automatisch erstellt, Stand ${esc(datum(ki.stand))}. Nur Aussagen mit Quelle werden angezeigt.</div></div>`;
 }
 
+/* ---------- Begründungen: warum dieser Tipp? ---------- */
+const TENDENZ_NAME = (t, h, g) => [`Sieg ${h.kurz}`, "Remis", `Sieg ${g.kurz}`][t];
+function prozentText(k) { return `${Math.abs(Math.round((k - 1) * 100))} %`; }
+
+// Jeder Modellteil als Satz mit echter Kennzahl, dazu sein Beitrag (Prozentpunkte je Ausgang)
+function gruendeListe(sp) {
+  const p = sp.prognose, h = team(sp.heim), g = team(sp.gast), d = daten();
+  if (!p?.warum) return [];
+  const liste = p.warum.faktoren.map((f) => {
+    const k = f.kennzahl, mehr = k >= 1;
+    const text = {
+      heimvorteil: `Heimvorteil: In der ${d.name} treffen Heimteams ${prozentText(k)} öfter`,
+      angriff_heim: `${h.kurz} trifft ${prozentText(k)} ${mehr ? "mehr" : "weniger"} als der Liga-Schnitt`,
+      abwehr_gast: `${g.kurz} kassiert ${prozentText(k)} ${mehr ? "mehr" : "weniger"} Gegentore als der Schnitt`,
+      angriff_gast: `${g.kurz} trifft ${prozentText(k)} ${mehr ? "mehr" : "weniger"} als der Liga-Schnitt`,
+      abwehr_heim: `${h.kurz} kassiert ${prozentText(k)} ${mehr ? "mehr" : "weniger"} Gegentore als der Schnitt`,
+      spielplan: `Spielplan: ${(p.begruendung || []).filter((x) => !x.text.startsWith("Buchmacher")).map((x) => x.text).join(", ") || "Ruhetage und Motivation"}`,
+    }[f.art] || f.art;
+    const kurz = {
+      heimvorteil: "Heimvorteil",
+      angriff_heim: `${mehr ? "starker" : "schwacher"} Angriff ${h.kurz}`,
+      abwehr_gast: `${mehr ? "anfällige" : "starke"} Abwehr ${g.kurz}`,
+      angriff_gast: `${mehr ? "starker" : "schwacher"} Angriff ${g.kurz}`,
+      abwehr_heim: `${mehr ? "anfällige" : "starke"} Abwehr ${h.kurz}`,
+      spielplan: "Spielplan",
+    }[f.art] || f.art;
+    return { art: f.art, text, kurz, pp: f.pp };
+  });
+  if (p.p_markt && p.quoten_gewicht > 0) {
+    liste.push({ art: "markt", kurz: "Buchmacherquoten",
+      text: `Buchmacher sehen ${pct(p.p_markt[0])} / ${pct(p.p_markt[1])} / ${pct(p.p_markt[2])} (zu ${Math.round(p.quoten_gewicht * 100)} % eingerechnet)`,
+      pp: [0, 1, 2].map((i) => Math.round((p.p[i] - p.p_modell[i]) * 1000) / 10) });
+  }
+  return liste;
+}
+
+// Wichtigste Gründe für die getippte Tendenz (kurz, für die Karte)
+function hauptgrund(sp) {
+  const p = sp.prognose;
+  const t = tendenz(p.tipp[0], p.tipp[1]);
+  const liste = gruendeListe(sp).filter((x) => x.pp[t] > 0.5).sort((a, b) => b.pp[t] - a.pp[t]);
+  if (!liste.length) return "";
+  const ohneHeim = liste.filter((x) => x.art !== "heimvorteil");
+  const wahl = (ohneHeim[0] && ohneHeim[0].pp[t] >= 3) ? ohneHeim.slice(0, 2) : liste.slice(0, 2);
+  return `<div class="hauptgrund small">Grund: ${wahl.map((x) => `${esc(x.kurz)} <span class="pp plus">+${zahl(x.pp[t])}</span>`).join(" · ")}</div>`;
+}
+
+function warumBlock(sp) {
+  const p = sp.prognose, h = team(sp.heim), g = team(sp.gast), d = daten();
+  const t = tendenz(p.tipp[0], p.tipp[1]);
+  const liste = gruendeListe(sp);
+  if (!liste.length) return "";
+  const ziel = TENDENZ_NAME(t, h, g);
+  const b = p.warum.basis;
+  const zeilen = liste.slice().sort((x, y) => Math.abs(y.pp[t]) - Math.abs(x.pp[t])).map((x) => {
+    const v = x.pp[t];
+    const breite = Math.min(100, Math.abs(v) * 4);
+    return `<div class="warum-zeile"><span>${esc(x.text)}</span>
+      <span class="warum-balken"><i class="${v >= 0 ? "plus" : "minus"}" style="width:${breite}%"></i></span>
+      <span class="pp ${v >= 0 ? "plus" : "minus"}">${v >= 0 ? "+" : "−"}${zahl(Math.abs(v))}</span></div>`;
+  }).join("");
+  const tw = (p.top || []).find((x) => x.e === `${p.tipp[0]}:${p.tipp[1]}`);
+  return `<div><h4>Warum ${p.tipp[0]}:${p.tipp[1]}?</h4>
+    <div class="small muted" style="margin-bottom:6px">Ausgangslage: zwei durchschnittliche Teams der ${esc(d.name)} auf neutralem Platz – Heim ${pct(b[0])} · Remis ${pct(b[1])} · Gast ${pct(b[2])}. So verändert jeder Punkt die Chance auf <b>${esc(ziel)}</b> (in Prozentpunkten):</div>
+    ${zeilen}
+    <div class="warum-ergebnis">Ergebnis: <b>${esc(ziel)} ${pct(p.p[t])}</b> – die wahrscheinlichste Tendenz. Darin ist <b>${p.tipp[0]}:${p.tipp[1]}</b> das häufigste Ergebnis${tw ? ` (${pct(tw.p, 1)})` : ""}; erwartete Tore ${zahl(p.lam, 1)} : ${zahl(p.mu, 1)}.</div></div>`;
+}
+
+// Faktencheck: echte Zahlen dieser Saison (Einordnung; das Modell rechnet mit allen Spielen)
+function einordnung(sp) {
+  const d = daten(), h = team(sp.heim), g = team(sp.gast);
+  const formHtml = (t) => {
+    const f = (t.elo_verlauf || []).slice(-5);
+    if (!f.length) return '<span class="muted">–</span>';
+    const pkt = f.reduce((a, x) => a + (x.e === "S" ? 3 : x.e === "U" ? 1 : 0), 0);
+    return `<span class="form">${f.map((x) => `<i class="f-${x.e}" title="${x.heim ? "H" : "A"} ${esc(x.tore)} gegen ${esc(team(x.geg).kurz)}">${x.e}</i>`).join("")}</span> <span class="muted">${pkt} Pkt.</span>`;
+  };
+  const tab = (id) => (d.tabelle || []).find((z) => z.id === id);
+  const bilanz = (id, heim) => {
+    const liste = d.spiele.filter((x) => x.beendet && x.erg && (heim ? x.heim === id : x.gast === id));
+    const r = [0, 0, 0]; let tore = 0, gegen = 0;
+    liste.forEach((x) => { const [a, b] = heim ? x.erg : [x.erg[1], x.erg[0]]; tore += a; gegen += b; r[a > b ? 0 : a === b ? 1 : 2]++; });
+    return liste.length ? `${r[0]}-${r[1]}-${r[2]} <span class="muted">(${tore}:${gegen})</span>` : '<span class="muted">–</span>';
+  };
+  const th = tab(sp.heim), tg = tab(sp.gast);
+  const zeile = (name, a, b) => `<tr><td>${a}</td><th>${name}</th><td>${b}</td></tr>`;
+  return `<div><h4>Faktencheck</h4><table class="fakten"><thead><tr><td><b>${esc(h.kurz)}</b></td><th></th><td><b>${esc(g.kurz)}</b></td></tr></thead><tbody>
+    ${zeile("Tabelle", th ? `${th.platz}. · ${th.pkt} Pkt.` : "–", tg ? `${tg.platz}. · ${tg.pkt} Pkt.` : "–")}
+    ${zeile("Form (5)", formHtml(h), formHtml(g))}
+    ${zeile("Heim / Auswärts", bilanz(sp.heim, true), bilanz(sp.gast, false))}
+    ${zeile("Elo", h.elo ?? "–", g.elo ?? "–")}
+    ${sp.info ? zeile("Ruhetage", zahl(sp.info.ruhe_heim, 0), zahl(sp.info.ruhe_gast, 0)) : ""}
+  </tbody></table><div class="small muted" style="margin-top:4px">Bilanz als Siege-Remis-Niederlagen, in Klammern Tore. Zur Einordnung: Das Modell bewertet die Stärke aus allen Spielen der letzten Jahre, neuere zählen mehr.</div></div>`;
+}
+
 function spielKarte(sp) {
   const h = team(sp.heim), g = team(sp.gast);
   const p = sp.prognose;
@@ -285,7 +380,7 @@ function spielKarte(sp) {
       tipps.push(`<span title="Tipp mit den meisten erwarteten Kicktipp-Punkten">Kicktipp <b>${p.tipp_kicktipp[0]}:${p.tipp_kicktipp[1]}</b></span>`);
     }
     if (sp.ki?.tipp) tipps.push(`KI <b>${sp.ki.tipp[0]}:${sp.ki.tipp[1]}</b>`);
-    unten += balken(p.p) + `<div class="tipp" style="margin-top:6px">${tipps.join(" · ")}</div>`;
+    unten += balken(p.p) + `<div class="tipp" style="margin-top:6px">${tipps.join(" · ")}</div>` + hauptgrund(sp);
   } else if (vorher && sp.erg) {
     const ep = vorher.endprognose;
     const treffer = (t) => {
@@ -323,9 +418,11 @@ function spielKarte(sp) {
     if (p.p_markt) quellen += `<div class="grund"><span>Buchmacher</span><span class="wert">${pct(p.p_markt[0])} / ${pct(p.p_markt[1])} / ${pct(p.p_markt[2])}</span></div>`;
     if (sp.ki?.p) quellen += `<div class="grund"><span>KI</span><span class="wert">${pct(sp.ki.p[0])} / ${pct(sp.ki.p[1])} / ${pct(sp.ki.p[2])}</span></div>`;
     teile.push(`<div><h4>Heim / Remis / Gast nach Quelle</h4>${quellen}</div>`);
-    const gruende = (p.begruendung || []).map((g) => `<div class="grund"><span>${esc(g.text)}</span><span class="wert">${g.heimsieg_pp > 0 ? "+" : ""}${zahl(g.heimsieg_pp)} %-Pkt. Heimsieg</span></div>`).join("");
-    const info = sp.info ? `<div class="small muted">Ruhetage vor dem Spiel: ${esc(h.kurz)} ${zahl(sp.info.ruhe_heim, 0)}, ${esc(g.kurz)} ${zahl(sp.info.ruhe_gast, 0)}</div>` : "";
-    teile.push(`<div><h4>Begründung</h4>${gruende || `<div class="small">Reines Modell aus Angriffs- und Abwehrstärke, Heimvorteil und Liga-Niveau.</div>`}${info}</div>`);
+    if (!sp.beendet) {
+      const warum = warumBlock(sp);
+      // Begründung und Faktencheck stehen ganz oben in den Details
+      teile.unshift(warum || `<div><h4>Begründung</h4><div class="small">Reines Modell aus Angriffs- und Abwehrstärke, Heimvorteil und Liga-Niveau.</div></div>`, einordnung(sp));
+    }
   }
   if (sp.h2h) {
     if (sp.h2h.length) {
