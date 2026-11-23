@@ -813,7 +813,7 @@ function zeichneTreffer() {
       <details class="mehr card technik"><summary>Wie sich das Modell selbst einstellt</summary><div class="mehr-inhalt">
         <div class="small">Jede Woche prüft der Rückwärtstest, welche Zusatz-Einflüsse und wie viel Buchmacher-Anteil die Prognosen verbessern. Die Einflüsse werden Schritt für Schritt dazugenommen: immer der, der am meisten bringt, solange er den Log-Loss um mindestens 0,001 senkt (kleiner = besser). ✓ = aktiv. Stand ${esc(datum(bt.stand))}.</div>
         <div><h4>Einflüsse einzeln getestet (Log-Loss gegenüber ohne)</h4>${getestet}<div class="small" style="margin-top:4px">Aktiv: <b>${e.aktiv.length ? e.aktiv.map((x) => NAMEN_E[x] || x).join(", ") : "keine"}</b></div></div>
-        <div><h4>Anteil Buchmacherquoten (${e.spiele_mit_quoten} Spiele, 1./2. BL)</h4>${gew}<div class="small" style="margin-top:4px">Gewählt: <b>${Math.round(e.quoten_gewicht * 100)} %</b> (höchstens 50 %)</div></div>
+        <div><h4>Anteil Buchmacherquoten (${e.spiele_mit_quoten} Spiele, 1./2. BL)</h4>${gew}<div class="small" style="margin-top:4px">Gewählt: <b>${Math.round(e.quoten_gewicht * 100)} %</b></div></div>
       </div></details>`;
   }
 

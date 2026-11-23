@@ -85,9 +85,10 @@ POKAL = "dfb"
 HALBWERTSZEIT_TAGE = 240      # nach so vielen Tagen zählt ein Spiel nur noch halb
 REGULARISIERUNG = 6.0         # zieht Teams mit wenig Daten Richtung Liga-Schnitt
 # Höchstes Gewicht der Buchmacherquoten beim Mischen mit dem Modell.
-# Begrenzt auf 50 %, damit das eigene Modell sichtbar bleibt (Entscheidung vom
-# 22.11.2026; der Rückwärtstest hätte 100 % Quoten gewählt). 1.0 = keine Grenze.
-MAX_QUOTEN_GEWICHT = float(os.environ.get("MAX_QUOTEN_GEWICHT", "0.5"))
+# Keine Grenze (Entscheidung vom 23.11.2026: Genauigkeit geht vor). Der
+# Rückwärtstest wählt das Gewicht selbst; bisher war 100 % Quoten am genauesten.
+# Das eigene Modell bleibt für Spiele ohne Quoten (meist 3. Liga) und als Vergleich.
+MAX_QUOTEN_GEWICHT = float(os.environ.get("MAX_QUOTEN_GEWICHT", "1.0"))
 SIMULATIONEN = 10_000         # Durchläufe der Restsaison
 MAX_TORE = 10                 # Obergrenze der Ergebnis-Matrix
 
