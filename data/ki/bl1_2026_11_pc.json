@@ -1,0 +1,416 @@
+{
+ "83250": {
+  "infos": [
+   {
+    "team": "heim",
+    "art": "trainer",
+    "text": "Mainz 05 hat Trainer Takashi Yamashita entlassen.",
+    "quellen": [
+     {
+      "titel": "\"Sackgasse\": Mainz 05 entlässt Trainer Takashi Yamashita - SWR",
+      "link": "https://news.google.com/rss/articles/CBMimgFBVV95cUxQVEhQNm9TX2oxbHFtVnFvWHhXS2lGX2piRUF2eHBjZUYyTUpWcHJpVkZKWmM0ZlFSRnlhSXVudnFTWXkybng0bnVXblVRQy15U0wxU3JyZ2k5eFRoejNDa1gta2laNWdUT0RyZFhEbldUR2VqLUxjTWlJcFh0RlduSkZjeXNmV0lscjZ0SC1kZmhYOC01ZmtOQjJB?oc=5",
+      "quelle": "SWR"
+     }
+    ]
+   },
+   {
+    "team": "gast",
+    "art": "stimmung",
+    "text": "Union Berlin steht unter Druck, nachdem sie 1:5 gegen Leipzig verloren haben; Trainer Lustrinelli und Sportchef Heldt stehen in der Kritik.",
+    "quellen": [
+     {
+      "titel": "Union Berlin: 1:5 gegen Leipzig – Druck auf Lustrinelli und Heldt - BZ Berlin",
+      "link": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxPRDJPd1A5Z2dHRjJMdW5wWFlfeVBiazk0Vkx2Ym1PRG5VOU95bDJNR09GZXZJTVlyOFA3NWkxeEtXXzdoVTRWMVZHazNDcXltaHgxcHpIWTg5T2RBNGlQSW1VN0JJQkFhMFhDbWxjd1hOMFVvUjBLZ0ozc2VpVDM5MFgxLW1wcjBUSXlVYURxYkVfS2Z0dlZHS084RXJFRUc0ZVJGLXdDRGdRb1hoTDZqZzMza2UySFlFbXVMQUVCTncxYVU5X2VlbndRUWlJSzQtVE1fUjlQc3VKelE?oc=5",
+      "quelle": "BZ Berlin"
+     },
+     {
+      "titel": "Was sagt der Trainer da?: Doppelknall droht: Union Berlin bricht fatal auseinander - n-tv.de",
+      "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxQOUFpZHR3bzNtSjJzYUlaY0szT3c0bGEycXJJbFh4Tm4tLU81X3FDS0F1REdoR3FRdVpQQ25QWWFOZzNVRzJSMkx3Q09aSXlVTlhOVVNLSjIxUklCS3dxWUkzRUM5VFhNTi1MVmtJMUhEUmRmWEdQU3otb3RYeUxHYmJMRVYyVk5hMmF5N3hUMWRqVEdJREI2Y2JYR1RDUGJmcVVyc2JYSENUQQ?oc=5",
+      "quelle": "n-tv.de"
+     }
+    ]
+   }
+  ],
+  "tipp": [
+   2,
+   1
+  ],
+  "p": [
+   0.63,
+   0.21,
+   0.16
+  ],
+  "vorschau": "Mainz 05 steht vor dem Spiel ohne Trainer, da Takashi Yamashita entlassen wurde. Union Berlin reist mit erheblichem Druck an, nachdem das 1:5 gegen Leipzig die Stimmung im Verein stark belastet hat. Das Modell sieht den Heimvorteil und die aktuelle Krise des Gastes als entscheidend für einen Mainzer Sieg.",
+  "anbieter": "Ollama",
+  "stand": "2026-11-28T11:15+00:00"
+ },
+ "83251": {
+  "infos": [
+   {
+    "team": "heim",
+    "art": "verletzung",
+    "text": "Dem HSV droht ein weiterer Verletzungsschock, zudem gibt es Sorgen um die Fitness der Spieler nach dem Nordderby.",
+    "quellen": [
+     {
+      "titel": "HSV droht nächster Verletzungsschock - sport.de",
+      "link": "https://news.google.com/rss/articles/CBMigAFBVV95cUxPWEZXQ25PRHJ0LWpYN3VyOWRobkxUazZ5WEx1SW80eVU5dDRHcWJUZDg3TUhrTi1wUkhiOVZyYTYyb0pTQVFFNkhkOEhtc3BkZEdDZ0Q5Sk1TOEpqd05JckdfdkpqVU9ObnluNy1MazNZWVJ0Mm1IS2w3V3Z0ZUo5dg?oc=5",
+      "quelle": "sport.de"
+     },
+     {
+      "titel": "HSV-Sorgen nach Nordderby: Muheim gibt trauriges Verletzungs-Update - 90min.de",
+      "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQUS1qT1hWQXA4RUdKSXRXNFZlbExnbUNLUVZPTEg2YjFmejBzclRwVHpaZUgzek1wZGVheHJOa3h4ejFPamRSOGRnSEcyZHFHRFFEWjNQS1N3VklRTE9lc2k1c09xZUpOaDNxdDg2ZGUyNTdYRVFYRkwzbnRvZndEa1EwWnA0ZlpMVUhGdk5Bbk0?oc=5",
+      "quelle": "90min.de"
+     }
+    ]
+   },
+   {
+    "team": "gast",
+    "art": "verletzung",
+    "text": "Jamal Musiala fällt wegen einer Muskelverletzung voraussichtlich bis Jahresende aus.",
+    "quellen": [
+     {
+      "titel": "Jamal Musiala: Topspieler fehlt FC Bayern München wohl bis Jahresende - FAZ",
+      "link": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxPQUhjMUc1UEVBZ1NxNG9pTjNtazYzOXZldVJEWTZrRkpSUzlLQ2RhV1hVblA0STdrQy12cTFqWFRqYnEteFN0VTh3SnBOQW9VbXR0cW9JX1RZTEpfcHJCeUVKN0FMVDBoeEo3SV90Qi0wTUw4OEVaTm5XaHFyanFYSUxBbG9CR2VZVm5rNUEtYTJfaWRRR1l4ZTlQRGtOcW5XMlYyOWg5aXZmZzk4UmdDLXVBNzV3VWtwbnJwYVpUYUlKYm01SWtzLTFLTThmZ0RvNHlWNQ?oc=5",
+      "quelle": "FAZ"
+     },
+     {
+      "titel": "Nächster Ausfall beim FC Bayern: Muskelverletzung bei Jamal Musiala - Bundesliga | official website",
+      "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQdHZPV0RnX3JUVDlBX1JhYTUzNHRyTk84UkV1NFk4OU9hRFNPdnBUUjkzMGdITDY5THBFOEFnNFd5WEVPXzVoZkVrY2NVZW14YTFLTDBhLVI0ckJjTUpVWUlFYkNmdUxYTFJKb2pyNVpwdlJDdEJWcVZ0clFTVDZTTnBYVGlMNmE3OXRrdURaUTRJYTlCUnRZM2doS3NET01ocDB6RkdVOVp6VGxBYk1PS0hB?oc=5",
+      "quelle": "Bundesliga | official website"
+     },
+     {
+      "titel": "FC Bayern München: Jamal Musiala fällt wegen einer Muskelverletzung vorläufig aus - DIE ZEIT",
+      "link": "https://news.google.com/rss/articles/CBMinAFBVV95cUxPUmJrLWNDbFhFRUlFWDZDS0dYaXM5N1JCenNWMXlmUTM5WXlhYkpGTGswR3JqSmd0aFNnR2ZHN3cwWExrenJZVFRxN0ZzN2l1NmtCOWVsM3ZubDVlWE1RaVRyU1EtdGF3dVo5aURzdlRGQVpfelMtZ216Rjd1OHBDbjhtd1RkRXphNEZHZzJXN2JZbHNJV2FLT0RHeDA?oc=5",
+      "quelle": "DIE ZEIT"
+     }
+    ]
+   },
+   {
+    "team": "gast",
+    "art": "sonstiges",
+    "text": "Harry Kane ist ebenfalls nicht einsatzbereit, was zu Spekulationen über Winter-Transfers führt.",
+    "quellen": [
+     {
+      "titel": "FC Bayern München nach Kane-Ausfall: Planen die Münchner Winter-Transfers? - Sky.de",
+      "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxNQzFHQ2ZGelZ4dmJ2bk9TTFp0TVJmR2FZTlBmdEx6dzZLV0tULWpZckR5WXBQeWUzNjIwUGZmeDNfN0d2cnpIZWdKWEJLSnpZcjVtWTNVT1h1dEJrcDg4a1RwYWxmQ05fZ0d4YTZZM0xsejd3TTM0SEQycWo2bTRCd1JCUUpLR0o4S1NfcWhacmVRWmhva2lFTnJfaWllLXhyUXFWbXBjWEF2MUtOcDE1U0h0aEp0a3JPRnkxeUhldWdoUQ?oc=5",
+      "quelle": "Sky.de"
+     }
+    ]
+   }
+  ],
+  "tipp": [
+   1,
+   2
+  ],
+  "p": [
+   0.1,
+   0.15,
+   0.75
+  ],
+  "vorschau": "Der Hamburger SV kämpft mit Verletzungsproblemen, während der FC Bayern München zwar ohne Jamal Musiala und Harry Kane antritt, aber personell weiterhin stark besetzt ist. Das Modell favorisiert klar den Gast, da die Ausfälle bei Bayern weniger gravierend sind als die personellen Sorgen bei Hamburg.",
+  "anbieter": "Ollama",
+  "stand": "2026-11-28T11:15+00:00"
+ },
+ "83252": {
+  "infos": [
+   {
+    "team": "heim",
+    "art": "verletzung",
+    "text": "Ein wichtiger FC-Profi fehlt, und zwei weitere Spieler mussten abbrechen, was den Start vor dem Spiel gegen Elversberg erschwert.",
+    "quellen": [
+     {
+      "titel": "Sorgen-Start vor Elversberg: Wichtiger FC-Profi fehlt – zwei müssen abbrechen - Express",
+      "link": "https://news.google.com/rss/articles/CBMiywFBVV95cUxNMFhic0hHM1dNQ0lkVFJOeGppQ0VNQ2xJd2l5b0tlVV9ETFJVUTRuVmFqVU5MMEpjakNNQWMtZGNrMjBDaVlkSmVLQ3lOTE45M0U1N1ZXQTNjcjU0Nm1DR3pnTnhDX0R4Sm54YmZ5MnUxWXkzVm9rM04yME5NY1ZCZThEcTd0UVdmdGZuZFl2WWZzdUI4bEVyOFNIY3FvV0NZSzdaSVo3Tk5fU2JUcExabWVMRDVmcGtHczJmS3hyVGZVYms4MU52T0dWcw?oc=5",
+      "quelle": "Express"
+     }
+    ]
+   },
+   {
+    "team": "heim",
+    "art": "stimmung",
+    "text": "Für Trainer René Wagner besteht Sieg-Pflicht, um Unruhe im Umfeld zu vermeiden; El Mala stärkt den Trainer öffentlich.",
+    "quellen": [
+     {
+      "titel": "1. FC Köln: Sonst geht das Theater wieder los... Sieg-Pflicht für Köln-Trainer René Wagner - BILD",
+      "link": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxPT3RxQnlSRXVJUkF4NFdqckFGelY3ck54VzQzZTBzdHVfa3lRdVQ0WXVJUE05U1hHeGQydklYQkVYdmRPVl9kbTQtNVJIa1p5NmxqWFpXT0wzeXpmSTJicnlXZlViTlA3ZV80UTRkUHJKbHBIZkdnS2xYdU5SRnl5eFdCZHVNUVJZR3M4b1pvMnVSTkRwd2VqTDNfc2dLQlRfVnhEMGJNamt5akplb2pHZEhyWTNLcjFsMmNrLTN4LWpUbUd3Sm9hY2gyTmt5M1ZaSlVmRWdSYzRfajB1WGNVcFJn?oc=5",
+      "quelle": "BILD"
+     },
+     {
+      "titel": "„Ich bin super zufrieden“: El Mala bekennt sich erneut zum FC – und stärkt Trainer Wagner - Kölnische Rundschau",
+      "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPT1FlWTFOWjFIbUExSFBKWlZ4VWltNWpHWU1XVjFyQ0NKVkk1MTdjTWEtYm5XRDZUMDRUR3lvZVY2NXVpcjdyX3FlU01MTXFQQW0ydlhqWGRmWHJzRGNvSGdZMTN2QjhMcFU0M0V2a0FRc0Qzblg5TGN5bDFvTGttaTFXUGROWWsxUmVjU09XeDU5SU9tMl9URXlnalhHb0ZiS2xERzUtbEZJT3N4U2tILVduZ3B0Q2t0QnlTWTU3cw?oc=5",
+      "quelle": "Kölnische Rundschau"
+     }
+    ]
+   }
+  ],
+  "tipp": [
+   2,
+   1
+  ],
+  "p": [
+   0.47,
+   0.25,
+   0.28
+  ],
+  "vorschau": "1. FC Köln steht unter Druck, da wichtige Spieler fehlen und Trainer René Wagner einen Sieg benötigt, um die Stimmung zu stabilisieren. Elversberg kommt als Aufsteiger mit Selbstvertrauen aus der letzten Partie gegen Freiburg. Das Modell sieht Köln trotz der Ausfälle leicht im Vorteil.",
+  "anbieter": "Ollama",
+  "stand": "2026-11-28T11:15+00:00"
+ },
+ "83254": {
+  "infos": [
+   {
+    "team": "heim",
+    "art": "sonstiges",
+    "text": "SC Paderborn hat in der letzten Runde 0:4 gegen Bayer Leverkusen verloren und hat nun 'maximalen' Respekt vor Schalke.",
+    "quellen": [
+     {
+      "titel": "Aufstellung Bayer Leverkusen - SC Paderborn 07 4:0 | 10. Spieltag, Bundesliga 2026/2027 - sport.de",
+      "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxQdEZWNUswbk54UFktQUdpUUxJTVZ0aEViTEZSSUZFbFZjSTkwUXhwTTktbU1NNDc0QnVUS3hoMkJzZ3RlbW52MjdsTFpjZ2lvOXM5d2pfcVdzM2M3d2I3RGxrM0VBNWpucG05Q3JsYVMzd0Q2SVVpUUlESXU1RUZxb05TaXNzTVZpODdCVEF2YXUxWWprVkhJLWlzQmZrR0RFbkx2VGhtQllXQVZsMGc?oc=5",
+      "quelle": "sport.de"
+     },
+     {
+      "titel": "SC Paderborn: Trainer hat \"maximalen\" Respekt vor Schalke - \"Hätten mehr Punkte verdient\" - RevierSport online",
+      "link": "https://news.google.com/rss/articles/CBMi3wFBVV95cUxQX3VHMHdZTlA5aWtDNkNveEFkU21hMmdndm9KMmw5NGQyNTRpc1RSc1NmV1JvdzYydXZrQ1dEbVo2cnYwQnFNR1ExZERsUEFEMW0tUE9razRnbURNMlIwaTByZmZKNmJpSl90Q2xNbmN3UXpXcnZtdHRVZ3psd2pHNlM1Tmo4N2REdEk3V0JKb0paQS1PVmpod0pGRWpxTXd2cVhvUU41b3VNYlpyQkFPblZzTjA1a2RZeW5aXzVIZFpNdW9WNmh2STBLcGFTZ3JJYnBZSXl5dHBtREMwT2FF?oc=5",
+      "quelle": "RevierSport online"
+     }
+    ]
+   },
+   {
+    "team": "gast",
+    "art": "verletzung",
+    "text": "Beim FC Schalke 04 nehmen die Verletzungssorgen zu.",
+    "quellen": [
+     {
+      "titel": "Verletzungssorgen beim FC Schalke 04 immer schlimmer - sport.de",
+      "link": "https://news.google.com/rss/articles/CBMilAFBVV95cUxOeXY1anh1dDdtMlJjeVZJSFdYaFVBV3dBRkFRVm02b3ktYzUyUm0tSnppd042eEJzQXN2My04RzFkeGlicW1oZng4VlhLQlBSaHdBeVhtQlpLeVFXd0xwMERiT0llMWl1SXpidlhORDFwOUlnVk9nTnBqcDZmMm5BZVpXLTJqcmRGb1NIZjN4N3RiV0hJ?oc=5",
+      "quelle": "sport.de"
+     }
+    ]
+   },
+   {
+    "team": "gast",
+    "art": "sonstiges",
+    "text": "Schalke-Trainer berichtet von einer Vertragsverlängerung bis 2029, was auf Stabilität hindeutet.",
+    "quellen": [
+     {
+      "titel": "Mit einem Augenzwinkern: Schalke-Trainer berichtet von Unterschrift bis 2029 - WAZ | Westdeutsche Allgemeine Zeitung",
+      "link": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxPTUVqcVdZVmNxS3V5T0JvMmktcEhVSGdoTmtQcXpRbl9DblRSR3plRU45bzZabmRrNExfNGNMaHVnd2VDVUZIR1NvLVJVVk14N1NUYlh0S1Q4WDdKV3NnZ0ZuVEs1cTF4eVJLTGtFVXJDYUpleGxoV1B6ZC15OXEtSDNWaEVJSndiT2dKQzVpYm15VzJ2VU9uRUpNcnFyWlFRcWUtYmc3cGZYUTBwYWZyQVNBMll4RHN2eDdQaUZ4cV95anpXQzV0cENkeTRVazhUNEE?oc=5",
+      "quelle": "WAZ | Westdeutsche Allgemeine Zeitung"
+     }
+    ]
+   }
+  ],
+  "tipp": [
+   1,
+   0
+  ],
+  "p": [
+   0.37,
+   0.28,
+   0.35
+  ],
+  "vorschau": "Beide Aufsteiger treffen in einem Duell der Wiederaufsteiger aufeinander, wobei Schalke mit Verletzungssorgen zu kämpfen hat. Paderborn will nach der hohen Niederlage gegen Leverkusen punkten und hat großen Respekt vor dem Gegner. Das Modell erwartet ein enges Spiel mit leichtem Heimvorteil.",
+  "anbieter": "Ollama",
+  "stand": "2026-11-28T11:15+00:00"
+ },
+ "83247": {
+  "infos": [
+   {
+    "team": "gast",
+    "art": "sonstiges",
+    "text": "Bei Eintracht Frankfurt kam es zu einem Ausfall der Tonanlage, was die Fans dazu veranlasste, das Kommando zu übernehmen; dies befeuert die Stadionpläne des Vereins.",
+    "quellen": [
+     {
+      "titel": "Eintracht Frankfurt-Fans übernehmen nach Lautsprecher-Ausfall im gesamten Stadion - Sky.de",
+      "link": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxNYXJQdDZLcUwyQnhKQnJMVm1GVUZ4M1RLV3FtRnZOTlZQVVdfSnpoOGdqNzFzaEtsM3B1dVMwc1FGb0JwY0p6S0hKM0dwTkEyMkVFZEwzOGZfVllPdnFORUVEYXVid1o0YkFUR2FCNU1ZOVVudG04Skw0QndIRzY3SEs2TUNUMTNVMGxjZTdQdFcxUlo3SXI4YTM0RVdxZWhBU3Q2eHdFTXpqaUdyTFRtZFFPN3dnU0VmLXJUdTRBdkNVRElMUmU2RDEwQ04ycDh1?oc=5",
+      "quelle": "Sky.de"
+     },
+     {
+      "titel": "Eintracht Frankfurt: Tonanlage-Ausfall befeuert Hellmanns Stadionpläne - BILD",
+      "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxOOVBXdWVFaW9saElwNElfZERGTHJpTVUwNUtWV01NNGxubWZ1MDZqODFMVkQ3UDlKTGxyTFhONlhmeEl0ZFFkN05COUxCNXIxamJTTHYxQ3gzQXhrQ3NQdDVDZTl6cXJBZF93WnNWdWpQM0h6U2RseXZVbDlHdUpTQ2didTZzTUVZWWJyWmhyeEJTUXdWTVQxQ1RCTldMaFBPUGc3dVJzLTBGUmo0Vy1hLUJUd2MtZHpYekNRTmIyUC1pVXotc0d0RGN3?oc=5",
+      "quelle": "BILD"
+     },
+     {
+      "titel": "Lautsprecherausfall bei Eintracht Frankfurt: Fans übernehmen das Kommando - FAZ",
+      "link": "https://news.google.com/rss/articles/CBMiywFBVV95cUxPaGt6X1otbUE5djVqRkZ4bmlRUUJkdjJLQkVZR0ZnSnVJYk5vQkItcnZiT2ljY0w3ZjZyZUJoSWpkNXA5WWtmUVJnZHVJVEt2dy1iRHEwNUFjV1RBenc3M1RWUE85OFVaQ2xjaGhubTdIalVBTHAwczk2b1QxLTJXSXFDaG5Bc2loQTFIMnFHTlRfa3NkVmVvRDZnZzdETDBHdnZDWThyZUpZTlQ3LVNQZGplR09lU2t4ZFJPUEQtdzg4RmZBM2VmSlRHMA?oc=5",
+      "quelle": "FAZ"
+     }
+    ]
+   },
+   {
+    "team": "gast",
+    "art": "verletzung",
+    "text": "Can Uzun ist fraglich für das Spiel.",
+    "quellen": [
+     {
+      "titel": "Can Uzun fraglich: Eintracht Frankfurt arbeitet am Weihnachts-Gefühl - hessenschau.de",
+      "link": "https://news.google.com/rss/articles/CBMi-gFBVV95cUxObmhyMTQxZU1nLWFTT3c3QzlYaTBxcUZyWmpjZUtUandRR1lxTktZOFdYeFpZRzZuS0x4bW4wRTg0NEVvMHlfT0M1X2hiX1hiTVMxaURSYUlaMTJ3RHVncXU4M0xKWTY2cXBQVzdLbmR4VnNrZGU0aUQ0TTNrTFpCMGllYk9lVXExTGlWcUY4MWtYMFN5bE9XN1dBb2g0bENEZ1FtckYtWjk3dUJ2b1c3TE5uQUJlcTdfSHdzYmp1TE10alJmc21zakpPVEUxYl9vcjZQeHpKektyZi1mdXhHUS1jdjBTUXNwVmRZS1ptaWZvNnFXemE5Y0N3?oc=5",
+      "quelle": "hessenschau.de"
+     }
+    ]
+   }
+  ],
+  "tipp": [
+   2,
+   1
+  ],
+  "p": [
+   0.5253,
+   0.2121,
+   0.2626
+  ],
+  "vorschau": "VfB Stuttgart hat den Heimvorteil und muss sich gegen Eintracht Frankfurt behaupten, die mit Can Uzun fraglich ist. Bei Frankfurt sorgt ein technischer Defekt in der Tonanlage für Aufsehen und diskutiert wird über Stadionpläne. Das Modell sieht Stuttgart als leichten Favoriten.",
+  "anbieter": "Ollama",
+  "stand": "2026-11-28T11:15+00:00"
+ },
+ "83249": {
+  "infos": [
+   {
+    "team": "gast",
+    "art": "sonstiges",
+    "text": "RB Leipzig hat in der Champions League 3:1 gegen Lens gewonnen und zündet einen Offensiv-Turbo, bleibt aber bei der Euphorie kontrolliert.",
+    "quellen": [
+     {
+      "titel": "Nach frühem Doppelschlag: Leipzig zittert sich zum Pflichtsieg gegen Lens - Kicker",
+      "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxORHJWR25VS3gtUnhVcGtnR0tsbFIycC1qQW1kS09sbmNqTWN4cHR4OFM2NGxFVTZhMnB2ZS1DSUdMNE1iMlZhaHpiTDRSMzBLUk93UUFmVldMTXYyRWdnRlVZN3JoVHVsUFdQTFR1T3o0X3JSX2xLZUxxODlDLTVDSldYUUVkSTRCX1E?oc=5",
+      "quelle": "Kicker"
+     },
+     {
+      "titel": "RB Leipzig zündet Offensiv-Turbo, aber Demichelis tritt auf Euphorie-Bremse - MDR.de",
+      "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxNR1JEVnpkN2EwdVFvSUtTQkxRdDV0eXh2cm1fckNtRThXbzBzbVk2b2FodDAySU9CcGJDek1SelNWTTlSVEJJWWRJdlVONkYxRElCdFZNVmFhcXZFc0pJTnptZU1RdjNvTTlUYXBVTkltX01ERFVhUjZWLW43UktyVkZLeWNraXZEZnhqbmo3UVFuUThOUnc?oc=5",
+      "quelle": "MDR.de"
+     },
+     {
+      "titel": "RB Leipzig gewinnt 3:1 gegen RC Lens in Champions League - FAZ",
+      "link": "https://news.google.com/rss/articles/CBMiywFBVV95cUxOaVl3NG1fOHhzRTRURDNGYS1NeU9qejZ4X0w2Z1A4X3hRZnBPcnVqMGJoZkQ1VVpZVlNjc1pkdGpReGYyX2dQWk1tRllqb1l2QlRPa1dVWktiS2djZnYtRE4yOVBXM3NET1NsdGUxOVAwMkVBbWlnandkbmJId1hVYWtydUVKNVBOcXFwSEt3NEJLa2N3QnM3bjQ4dF9Fdjd6VWVDS1RuMjFZRUxQZldlQlNacjRqTkMwb1QzZUZBTDd6X19ycnp6WFN6TQ?oc=5",
+      "quelle": "FAZ"
+     }
+    ]
+   },
+   {
+    "team": "gast",
+    "art": "stimmung",
+    "text": "Kapitän Raum betont nach dem Sieg gegen Lens die Wichtigkeit des Ergebnisses, unabhängig vom Spielverlauf.",
+    "quellen": [
+     {
+      "titel": "RB Leipzig: Kapitän Raum nach Lens-Sieg - „Egal wie, Hauptsache gewonnen“ - News vom 26.11.2026 - LVZ - Leipziger Volkszeitung",
+      "link": "https://news.google.com/rss/articles/CBMi6gFBVV95cUxPSXo0X0VtaVZXakFBbUhfMDlrYzVHYzQxMHNBMXB0MmRoUmZWXzJuUWJsYWFuU3gyUnZHVTBJLTJCWHJLZmN2NVVQUi1rd3dQZmNBWFI0dTF1alRWX0JMWTVpYnJuZFljWE53NUZTT2tfNnFzQ3JBblAzVllxRnFmR0NabFZmRlRFYkVNNVFlcy10bUk4ajFuN0V4dzdFT05aTDVMb050dUhVQVVsa3V0anB2X3ZabVZSWVZRVHp6X1JaRkxrTWxxT3dvZEhmZ0ZqWTJTXzFwUW5nN2t5bUhFOFpBTnlvM082dWfSAYYCQVVfeXFMT1dERWdHWDlfM2dkZ0ozRzlMbnBsdzNRelpEMmFaeUhaSURxTWhid2I4Q3k0eWNjeWpIbkd0OWpqWmc3dnJNZXFWSVo2MklZTUEzZ00xS2lFTzRMZHRkekpYNDh4dFI2a2RFLVJHanc0N1hwOWVBMlFyS0lLX2U0d0xMcjJ3Q1RkZlZYYkxiQm1SSlR4Q3R5ak5kOVhBaEh5T2pTR19CRDAwRGE4SHc1dksxZnpqNGpYRHdSNXNkaVJ6TE5HZlVxTzVYTl94Q2lBNGplejg5bF9xT0tkUGpZZE05VlBuMWtrRmZGcFFfdWJlQlJPc01VYm53Qmx5YkZtUGs5Vi1BQQ?oc=5",
+      "quelle": "LVZ - Leipziger Volkszeitung"
+     }
+    ]
+   }
+  ],
+  "tipp": [
+   1,
+   2
+  ],
+  "p": [
+   0.35,
+   0.25,
+   0.4
+  ],
+  "vorschau": "RB Leipzig reist mit gutem Selbstvertrauen aus dem Champions-League-Sieg gegen Lens an und zeigt offensive Stärke. SC Freiburg muss zu Hause gegen den formstarken Gast bestehen. Das Modell sieht Leipzig als leichten Favoriten.",
+  "anbieter": "Ollama",
+  "stand": "2026-11-28T11:15+00:00"
+ },
+ "83248": {
+  "infos": [
+   {
+    "team": "heim",
+    "art": "sperre",
+    "text": "Ozan Kabak ist für vier Spiele gesperrt und fehlt der TSG Hoffenheim bis Januar.",
+    "quellen": [
+     {
+      "titel": "Sperre bis zur Winterpause: Hoffenheim kämpft um Kabak - Kicker",
+      "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxOOHc2M0V3MGFsUUVZUjZFeVFHRjV3WDl1bXZlQ01jdXFEMG13MEUzLUhLdklOcWhSRlF1RmRDWURwRDdyLU5XUWdBdHBqbnNDTTZYVXRlM1hzR25FenN5QVVhTnpVcXM2YmRISFYwLWJDMy1aTkFhR0xqcUM4cmdHeFY5V28wMUs3TGdxT19lU2NzUC1ya0sw?oc=5",
+      "quelle": "Kicker"
+     },
+     {
+      "titel": "Ozan Kabak vier Spiele gesperrt: Hoffenheim-Verteidiger fehlt der TSG Hoffenheim bis Januar - Sky.de",
+      "link": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxPNlE3V2lRdUFkbjhLRXVFbjNTeE5sZXRPZW9ZV21fQzR2QUpFeU8zX1RNT3NQTjNHU2oyQUV3U1FtQjVZMWFKSFo1Mnp3OUdHZHFvYk8wd3o2RnV5bG1TaXBCQWE5TkpQcFViUjVWWk5GWXFRSDVVcGtuUzR6OUFxVTNHdXlwRUgyU2phcmJES1pheU9DR0xUWF9WUFpLa2hhSVhzQjhHYWJZQ2RJZHBfWWZpcmtnNDlMb2NzX3RjS1g3WkF5SUJBZnByeWQtem5fSWtfQXg2bWtvUFk?oc=5",
+      "quelle": "Sky.de"
+     }
+    ]
+   },
+   {
+    "team": "gast",
+    "art": "sperre",
+    "text": "FC Augsburg-Trainer Manuel Baum ist für das Spiel gegen Hoffenheim gesperrt, nachdem er eine Rote Karte gesehen hatte.",
+    "quellen": [
+     {
+      "titel": "FC Augsburg: So lange fehlt Manuel Baum nach Roter Karte - Joyn",
+      "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOSEhfVHZDQmVJdFdvTkQ2aWN2dndWWF8wckw2aHNmVWw0LUhCMHNqOHdKcnJQdlI3SnEyZFh4V1RvbDkwS3dydGVhWGZOc29rbjFIVi1fZVRSd1djQ3l3NnFoZndIbnJsZnZLaFVIZWlpaVVrZG9CMmRVeGFORVRXRGI3MDNxMlJ3WF9rbjFwaGU3U24tVHR3cElidUptbXhfZmgxZ25aTHFlcjFOVEE?oc=5",
+      "quelle": "Joyn"
+     },
+     {
+      "titel": "Bundesliga - Nach Roter Karte: Trainer des FC Augsburg für ein Spiel gesperrt - Deutschlandfunk",
+      "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxNMXZ3YjVjeWFkV2x5WlFoZ3RiNlVPZ2NGVFppczhCSEZlcWluMXU4OGNHVXRXQnNGLWJpSUs4TTZUZHJmb3lYQkx3WmFMWGhrM0UwdjRXdWFlajMtRHg4dlRUY2o1SWhaVzFRMUFmamVXSm5BNElHQVBSN3gyQVJNZldCVHBOYVZVdnNsaG5MSFY4dzgxM1RIX04yT3dMREM4R28zMXRKUQ?oc=5",
+      "quelle": "Deutschlandfunk"
+     },
+     {
+      "titel": "FC Augsburg ohne Manuel Baum: DFB sperrt Trainer für Hoffenheim-Spiel - Sky.de",
+      "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxOTHNSNXZrdFA2UjRHcTFBZkZPV2FCM25rMl9VTEtkOXpWeW81enJnYkRRS0s1NnJpeU50ME1GcnBRR3JKUVJqcDlBRHFUWXpHanQzbEtnNGFBb0ltUEh2R25ULTdGQmlrOGtuenI0dkJuUzBtTFAwV1pqclAxRkZmSTdLem1KRzJrU0NVT2xsWUk0Z2hMQW8xLUhFNWR3Z3YwTXF1T1dHOUpuVHREeGpfdHp4cGdieEliR2tHemdsdw?oc=5",
+      "quelle": "Sky.de"
+     },
+     {
+      "titel": "FCA-Coach sieht Rote Karte: Augsburgs Trainer Baum - \"Rein regeltechnisch in Ordnung\" - sportschau.de",
+      "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxNZWEyLWZpaXFUcHBDRXNpZHRHMXdLY0xxSGN4QXlPdFdMSWtBczl4aFJCT040cnlkUnBmeG96ME5ibFJJRHZjOXlESGxoWlByOFc4ejFFbnN3UnpXZ0FJS2FaWlg3ZGo3cl9yNTgyamZrTkE1VzhCWV9lQzBUS2JGWWdSZ3hqQUV1a2tINEV5WUZMalpRaWdYYUo1eDVFQU0zeW9NTXZfd19NU2FWQ0RZZ1pRak4?oc=5",
+      "quelle": "sportschau.de"
+     }
+    ]
+   }
+  ],
+  "tipp": [
+   2,
+   1
+  ],
+  "p": [
+   0.55,
+   0.21,
+   0.24
+  ],
+  "vorschau": "TSG Hoffenheim muss ohne den gesperrten Ozan Kabak auskommen, was die Defensive schwächt. FC Augsburg ist ohne Trainer Manuel Baum, der für das Spiel gesperrt ist. Das Modell sieht Hoffenheim trotz der Ausfälle als Favoriten.",
+  "anbieter": "Ollama",
+  "stand": "2026-11-28T11:15+00:00"
+ },
+ "83246": {
+  "infos": [
+   {
+    "team": "gast",
+    "art": "sonstiges",
+    "text": "Facundo Medina saß in der letzten Partie auf der Bank, obwohl eine Sperre drohte; dies deutet auf interne Disziplinierungsmaßnahmen hin.",
+    "quellen": [
+     {
+      "titel": "Bayer Leverkusen: Sperre gegen BVB drohte: Darum blieb Facundo Medina auf der Bayer-Bank! - BILD",
+      "link": "https://news.google.com/rss/articles/CBMi3wFBVV95cUxPWTNVU25PYWpYNXJ1N2NkSE1qeEtjTFNkeEVQYlpQbXJBT3dJbHZUV1ZWSGJic1hEaXNjNW5mTnRZRlBPZHJVS1YzbWIwT2ZJVG5jaUFyUXpudi1RaklPWngybmR3UFQ1bEVicUFUZUJmbk9HZ3BpZ0QtNTF3eTJYU2hYRXlxM2h6MUEtc1RtU3IzaHZEbEJ0aEN0dDFRTV93cm1kZ0p2Z2VRRS1TYlhxcmdZN3pVZUZmNUxtYkVnQXY5TXVtbHc4LXNKSmNiazVhWlVUTi11cWlSaldDY0Vv?oc=5",
+      "quelle": "BILD"
+     }
+    ]
+   },
+   {
+    "team": "gast",
+    "art": "sonstiges",
+    "text": "Bayer Leverkusen hat Paderborn mit 4:0 abgefertigt, wobei Moreira doppelt traf, was auf starke Form hindeutet.",
+    "quellen": [
+     {
+      "titel": "Moreira trifft doppelt: Bayer Leverkusen schießt Paderborn ab - sportschau.de",
+      "link": "https://news.google.com/rss/articles/CBMilAFBVV95cUxQVGVSS0NzMzNQZ0k2RTMtb3ZiRllxaVpycGpSMFFxb290NFZBa1REMC1iT0x5cGxUSm42c3JRNmZTQjc0V2tkVmp2RDZ3cnQxNjByR1dQWE1Cekg1b2tldlotRjRNTE1WQ0FOc18xM3JVbFYtazJDNXNmbURmWEUwSTNnYzcyY2tydG5EMzlVN3RNaXlY?oc=5",
+      "quelle": "sportschau.de"
+     }
+    ]
+   }
+  ],
+  "tipp": [
+   2,
+   1
+  ],
+  "p": [
+   0.45,
+   0.24,
+   0.31
+  ],
+  "vorschau": "Borussia Dortmund erwartet Bayer 04 Leverkusen, das mit einer starken Form aus der 4:0-Niederlage von Paderborn kommt. Bei Leverkusen gab es interne Diskussionen um Facundo Medina, der auf der Bank saß. Das Modell sieht Dortmund als leichten Favoriten im Heimspiel.",
+  "anbieter": "Ollama",
+  "stand": "2026-11-28T11:15+00:00"
+ }
+}

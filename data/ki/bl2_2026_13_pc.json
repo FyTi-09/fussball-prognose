@@ -1,0 +1,440 @@
+{
+ "83708": {
+  "infos": [
+   {
+    "team": "heim",
+    "art": "stimmung",
+    "text": "Hertha BSC befindet sich in einem Rekordstart und Trainer Stefan Leitl hat ein besonderes Ziel, wobei er den guten Lauf nicht als Glück bezeichnet.",
+    "quellen": [
+     {
+      "titel": "Hertha BSC: Trainer Stefan Leitl hat ein ganz besonderes Ziel - BILD",
+      "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxNNHp5N0xxUlZCOGlrQ2s2MWg3RkMzbGpzOWZZb1dxcnlhdFhBUE13RDItd1NMd1U3MUJOclVXdDdUMG9vN0NnWWd0SkZJT0lDT29vOWlSakJCZW9yQzZVSExUaERPWDEzeWZQN2tDMEtHclB1TG9LYk1rcVppN3lkUU1kdEkwU0FNbUk1Vm01dkxYYTNjMkRrTTBLZkhSVTN3dUpIX0ZZRVpFaXRFY19KRW52Q1FaLUl5WUlOMg?oc=5",
+      "quelle": "BILD"
+     },
+     {
+      "titel": "Rekordstart in der 2. Bundesliga: Hertha-Trainer Leitl: \"Als Glück würde ich das nicht bezeichnen\" - sportschau.de",
+      "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxOR1kya3dlQjFZYnhka0NucjdfaVU3Q0pweVo2RkY1WGExRTFfejNaaTk5VnZjZlAtWlFnRGtxQm96a0dGbkpWeHRWbVBXSGZqRVVFTzBaTUN4SzNDQld6LVlHdFNlQXhSckFYeTR0eGNMOFp2bm9jT1JSSnBiLXRpaUI1ck1wTEQxazhiVlVjMkhydWtIcnBXZG9uTUhKVGUyc3hYaEVFenFMNFRubFBYSkZxMTJXQQ?oc=5",
+      "quelle": "sportschau.de"
+     }
+    ]
+   },
+   {
+    "team": "gast",
+    "art": "stimmung",
+    "text": "Der KSC kassierte seine erste Pflichtspiel-Niederlage und bezeichnete seine eigene Leistung als zu naiv.",
+    "quellen": [
+     {
+      "titel": "\"Waren zu naiv\" - KSC kassiert erste Pflichtspiel-Niederlage - SWR",
+      "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQem9Sakt3bmVjS2FzZWNiSWF4YWdpR0hJdkhzYWg1cjB0RWJOM2MyZFduZ2V0dWVjbDJHM3d0czl5ZmQ5WUtuamtFcHl3QUNodmJQdmVXV1lSakJ2VzY1cm5RQjlhVHFqeWh5cHhBbHR1SHJSbVQ2TXItb0JMOFptM1ptd2o0eTQ1Y0lyaUJSRQ?oc=5",
+      "quelle": "SWR"
+     }
+    ]
+   },
+   {
+    "team": "gast",
+    "art": "sonstiges",
+    "text": "Beim KSC gab es ein Wechsel-Beben mit mehreren Transfers in der Saison 2026/2027.",
+    "quellen": [
+     {
+      "titel": "Wechsel-Beben beim KSC: Das sind alle Transfers der Saison 2026/2027 - ka-news",
+      "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOSTJ6VkRrU0hVbklyRlpZTjdlYjlCTV9zanctNGhXbXhUZVJ0ZGl2VmFJdldSTFFPR1NVaE5fOHhxRFIxYV9TT1BGcWkxVy1RYWg0REhvN0VDUzFsWjJzdG95ZEQ1Zm9ScFlMeEdQZjNxdFFGanhhMU81WEF1VDM4WFVPcTNTNlVxUm83eGcwbDl4ZTJlSTF6eGMzMTd4bjFSVm9icUg4M3hlTl9qbVdWNUt4MEx4VHNWZ1VYdA?oc=5",
+      "quelle": "ka-news"
+     }
+    ]
+   }
+  ],
+  "tipp": [
+   2,
+   1
+  ],
+  "p": [
+   0.65,
+   0.19,
+   0.16
+  ],
+  "vorschau": "Hertha BSC geht als klarer Favorit in die Partie, gestützt durch einen starken Saisonstart und die Motivation des Trainerstabs. Der Karlsruher SC muss nach der ersten Niederlage der Saison und personellen Umbrüchen zunächst die Defensive stabilisieren.",
+  "anbieter": "Ollama",
+  "stand": "2026-11-28T11:19+00:00"
+ },
+ "83710": {
+  "infos": [
+   {
+    "team": "gast",
+    "art": "verletzung",
+    "text": "Der Hoffnungsträger von St. Pauli fehlt für unbestimmte Zeit, was die Offensivpower des Gastes einschränkt.",
+    "quellen": [
+     {
+      "titel": "Bitteres Update: Wie lange fehlt St. Paulis Hoffnungsträger? - MOPO",
+      "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxQSi1BV2wtWVRabzZMd2pJUUNiX3YwUk1PQ0lOTVdsWTNtOHJjU3oxb2RIMGlfZnVCMG91M081SHJ5YXlCdlEzTHUtNDZmc1h1eGhUdFY4LU9UMHZlaFBsSnVzNEVFaGJDVjkzeVhaNXJlNUx2QXBKMFdrZ2NqVVh1XzZPQVI3QmNmXzgySi1WRjI0bkJvZjFnTXkwYlpyQmtjTlhQQlFjOUtxNXMzTHlpUEV6LXlfaVFWM1VsSHY2dw?oc=5",
+      "quelle": "MOPO"
+     }
+    ]
+   },
+   {
+    "team": "gast",
+    "art": "sonstiges",
+    "text": "Trainer Rapp schickt fünf Profis zur U23, was auf Kaderrotation oder Verletzungsprobleme hindeutet.",
+    "quellen": [
+     {
+      "titel": "FC St. Pauli schickt fünf Profis zur U23 – Trainer Rapp erklärt die Gründe - Hamburger Abendblatt",
+      "link": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxOVENjVTBfS21UTm54TWkyWHhBQlk1cHdHaHh0Mldvc0R4YURUWmVnM1NmWV9yTU05RG9zWnd1dklmbTR6M1UxUE1maWFfcDFJSkwtYTA4VV9RR2tLbHE4WUdqYjJlXzF3MVNDbWlwNmxUVE9QWjdFdG1LWHp0STNUSEhBRGVqWmVNdTVHX3RiU043c2ZpQ3R4SldvN1ZIRWVNMElTUWU0c1hmZVA1UzVYQVVnSmdPaGRFSzFLOElXSThVUW1SbC1iYzVscVk3RmMyNnRV?oc=5",
+      "quelle": "Hamburger Abendblatt"
+     }
+    ]
+   },
+   {
+    "team": "gast",
+    "art": "stimmung",
+    "text": "Beim FC St. Pauli ist der Punch zurückgekehrt und das Team träumt vom ersten Auswärtssieg der Saison.",
+    "quellen": [
+     {
+      "titel": "2. Bundesliga: Der Punch ist zurück beim FC St. Pauli - STERN.de",
+      "link": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxQTmEycFJiZWNfMFpVZWlLZXI3dWFPdnRZYWY0ZkNpUGdwUkNUdVgtWU5ZVXc5YTJmY0RVZkxhYjZGZTZfS3pXRHRJMWpMZHpQRDgxZ0hYZ0ZuQ2t5NWlKczN2TDVxUXpzUWJIUmhiRXRWbjYyQzV0N29XQ3V1eGtjS1ZRZVdyNUxJd29DQVBDNEFMbm1zQUR5UzJuRmZDMVd4N0E1WUltX2tZVVI5ZmhURUE5ckZzSjFydVgySDJJVHNsN216WUJRT2VtdExObzhkMHdVOA?oc=5",
+      "quelle": "STERN.de"
+     },
+     {
+      "titel": "FC St. Pauli träumt bei Dynamo Dresden vom ersten Auswärtssieg - DNN - Dresdner Neueste Nachrichten",
+      "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxObUswSU1Wd0ttSzVEX1FxM1hITUg2NXI5THZ2dkNxTDJ0UHMzT3JHZ19VeVRGdkh1MG1KWjhJWjZ2eDBaZHpTaUZGQVFKMXNQMDUtSWNJYW5uRXItQy1tLXhGWjFUT195dmNtOWFTUmpjd3g1YXVleEVBNEFFMVNDZ0MwWUVOMDJpck5kX3dtQld0dTJ0SmxPakV3OUhRY1J1VmswQi1RYUxYbHo3R2I4YWtHQkJic3gzLVRjYzI1WExjZU1OWUphVtIB5AFBVV95cUxPLU92cHc3ME1QT0dfWlBwUEtpT2ZJQzhjM09pOWJlWng2eFFQQVN1NkNlU2xpVHhCZUdFYVJpcTYxXzhzQlJYdXFVZGxGejBsbS0xRjhGM3cwbVNFWG5hVzI3cldvZXVkQlNPTHlpMjBhOWozbnROdEZGdXpuRE9NUHJMLVZnZ0JjaUtMZmxPS0xiZkNrUjVxeDFpT0doWThOcE03SnFfVmJGdElfcGpLVVFWdzlJVnkzN3gtbGN6YUdaZ3kxejhZc3VTZWpQeUN2eUU1UXR4ZGk3Yi1sWjd2NXowT3g?oc=5",
+      "quelle": "DNN - Dresdner Neueste Nachrichten"
+     }
+    ]
+   }
+  ],
+  "tipp": [
+   0,
+   1
+  ],
+  "p": [
+   0.3465,
+   0.2673,
+   0.3861
+  ],
+  "vorschau": "Dynamo Dresden erwartet eine schwere Aufgabe gegen einen FC St. Pauli, der zuletzt an Selbstvertrauen gewonnen hat. Trotz der Ausfälle beim Gast deutet die aktuelle Form auf einen knappen Auswärtssieg hin.",
+  "anbieter": "Ollama",
+  "stand": "2026-11-28T11:19+00:00"
+ },
+ "83712": {
+  "infos": [
+   {
+    "team": "heim",
+    "art": "verletzung",
+    "text": "Holstein Kiel bangt um die Einsatzfähigkeit von Skrzybski und Nekic nach dem Spiel gegen Wolfsburg.",
+    "quellen": [
+     {
+      "titel": "Verletzungen nach Wolfsburg-Spiel: Holstein Kiel bangt um Skrzybski und Nekic - Kieler Nachrichten",
+      "link": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxPQ1llZjZVaXFQSU9FTXJrVlBPNVZaUk5IbWl3VktuV1hWeEJnMUROZHNSQnJaNWpPWmlYNnpkYUtMclRuWndtV3JCWWRlNlhmVUVGbVpDTjBtendlX2Z4RmVqcWhOazVRczJjSEt3NUZjdk5XcnUySE5yckQ3Qk9sRUlZQ0JxY0d2QU5rQ09JOE91WGZZYkdFbm9rd0k5bkFmaHVucHlwZUl6aVg0ZWROdzNvSWlNNE5rRkZ2LWIzdnFjZ3VadFRPUFVDOW9CNXZCaDVib1lJdFNxaGd4MDE3VGZB0gH-AUFVX3lxTFAxRUt1cWRnOGNVak8wT1pMUVhIWE1CT0h3X2RzdVRkWVRQc0hhS01NM1VYanFTOThkaE9FbzlwV09XOENfNktoNjg5R2x6VHR5dTVmNnlqenN2MVZ4YjlpT19vRnhZZkJDZ01GazhvWDZfcWtVbHdrNzktWXR2Uk5raHB2dUk1UjhMRFdyR1dqRXBHZ1p6VUIzTk5uLTNxVEJhQ29jcW1VU2ZqQW1WOUdIWk9sSUd3cTVjZXo2RHktMkJPUjdiMXQ4ZW8yeFYyQUI3OVVJZm16ZHZ4UDc5VWZUd3NsLTZVLVJEVnYxRjVrN3IwN2VDSzJrdWxMZm5R?oc=5",
+      "quelle": "Kieler Nachrichten"
+     }
+    ]
+   },
+   {
+    "team": "heim",
+    "art": "stimmung",
+    "text": "Holstein Kiel ist Tabellenletzter und verlor zuletzt deutlich beim VfL Wolfsburg im Trainer-Debüt von Kniat.",
+    "quellen": [
+     {
+      "titel": "Holstein Kiel verliert bei Kniat-Debüt deutlich beim VfL Wolfsburg - NDR.de",
+      "link": "https://news.google.com/rss/articles/CBMixwFBVV95cUxQVGl3Wlo4YU8wRHgyb1RQZXBmVFMtWm5nRzJlbVV5ZlZiLURkNXFKOHRjS2c2R3VXdzV1WjZVcHpSdWVKcTItb3VwaFcwWVNKbV8wYUxqenVpZUxHQ09MenZNM0RYZWpIMUl6ekJKVVM0QWlMNHlMYWdhSDVVMjdFOEJHUUVFVlczUlNzWEQ5c1VoLVZ1SmhWTjlXbFNMVVRZbnNCaGcxTDd6V2pVR09ULUdKM3hxc1RFQTdyME5WRE4zbkpXRHF3?oc=5",
+      "quelle": "NDR.de"
+     },
+     {
+      "titel": "Holstein Kiel: Tabellenletzter empfängt 1. FC Kaiserslautern - SAT.1 Regional",
+      "link": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQN09tVnpmSnlSMnhVT3UyTkpYQmhiTm5zWWliSWV6RS1ZYWdRcF9DeXJWNnNNbVR1bnRXXzZpeG5YWXotM3ZpUDM3dWI0bGhUTmU4M3R3b0dESTNqU0dCZW4tQ0czOU5WdW9XeWpBc3JDZURfd3VNZkl0QkxKd1hVM1lHV3Z4MG9UUFE3R3dEVUlnTmhzanJTRzJtdw?oc=5",
+      "quelle": "SAT.1 Regional"
+     }
+    ]
+   },
+   {
+    "team": "gast",
+    "art": "stimmung",
+    "text": "Der 1. FC Kaiserslautern rettete zuletzt spät einen Punkt gegen Dresden und steht vor einer englischen Woche.",
+    "quellen": [
+     {
+      "titel": "Vor englischer Woche für den FCK: \"Alles dreht sich um Kiel\" - SWR",
+      "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxNY19zZlZybmhRemNTaGFCS1pSaDBqTFJVNXdtTWdxcF9QTTZKOTczMEl6UVlzNmt3YWFLSWdqVmVPRGVWd1NFaGtVd2EzZWJ4cDBwVGJnX3FnbU5penBYaHZVNVdjWlJrSmxaM0RDYV9yV3V0OFJnQlR6c2k0V3YtTGk1S0dxVWpoc2lXdnU0RExrUGxSMl85OUlRTlgwdw?oc=5",
+      "quelle": "SWR"
+     },
+     {
+      "titel": "Kaiserslautern rettet spät einen Punkt gegen Dresden - sportschau.de",
+      "link": "https://news.google.com/rss/articles/CBMi5wFBVV95cUxPTTBiNnBjSlZQZ25XNG1EQ004QTFpaVZEMjFiYjNmRTRhd1JxV0VPSjE1RkkxU2FwT0RpQ3ZmX1VsTjFjRm5uZm9TVkkxZG5Fakd4UkRHV1JmblVUY00wNFY3c0lBSm9udlVBVXJtdGV2MTJyTmQ3M3dQRWN4X1M2ZWdBR0w1dFo3aFdXN1BLLVp0MnZqbGJxQ2lfNVBqalljSm5oUU82Zll1d3otejlCWHBQZ2M1M0J3cGxodEk4cmIxXzdaT3AxSlFCcU5vaVJTdmlXWnJPaEFYRW5aWlJzMlE0OFBhSDA?oc=5",
+      "quelle": "sportschau.de"
+     }
+    ]
+   }
+  ],
+  "tipp": [
+   1,
+   0
+  ],
+  "p": [
+   0.4,
+   0.27,
+   0.33
+  ],
+  "vorschau": "Der Tabellenletzte Holstein Kiel muss gegen den 1. FC Kaiserslautern antreten, der zuletzt punktet. Die Verletzungssorgen bei Kiel könnten den Heimvorteil schmälern, doch das Modell sieht einen knappen Heimsieg.",
+  "anbieter": "Ollama",
+  "stand": "2026-11-28T11:19+00:00"
+ },
+ "83722": {
+  "infos": [
+   {
+    "team": "heim",
+    "art": "trainer",
+    "text": "Trainer Timo Schultz hat beim VfL Osnabrück verlängert, was für Stabilität sorgen soll.",
+    "quellen": [
+     {
+      "titel": "VfL Osnabrück: Trainer Schultz bleibt - die Sorge um den Stadionausbau auch - NDR.de",
+      "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPWDZmZ3Zjd2xZOW5VaURicEppYTlLNzZJSVA0WnpwbkIxaWNzenhtd3dqVkZSdGR0R1pLc0NTTkp1ZFNsdFU4WHA2WllrT3JiSTRfUFJoTEZyQXF5aEZFSXRwMFNjcXJKWEJGZXVXM011QTRCakE0YzhndkRyQU9wMWcxaGZOZmtaNzZvemVDd3NfaGx6al9Wa0FlcHJpbW41elIydk10dXpROVdjZjdnVzRHeDBKUQ?oc=5",
+      "quelle": "NDR.de"
+     },
+     {
+      "titel": "2. Fußball-Bundesliga: Trainer Schultz verlängert beim VfL Osnabrück - DIE ZEIT",
+      "link": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNdk9GTzg5ZC05UW4yN1g1dUd5eGswUWpQYTd3SHlJb01WcGk5Uk1ZelpNN1p5QTh1N1hnY1pLVnJ4OHNsTm52cGtRU3phRzNfUlc3aFVaazZZc3dtdElzcWgwckxsc3hmbURoMDc1eVdjUHZsSzJTSG1xekQ1NEhVdlZPYUFkMFJNME9j?oc=5",
+      "quelle": "DIE ZEIT"
+     },
+     {
+      "titel": "„Haben noch viel vor“: 96-Gegner VfL Osnabrück verlängert mit Trainer Timo Schultz - Neue Presse",
+      "link": "https://news.google.com/rss/articles/CBMi-AFBVV95cUxNYVFhWTdVTzRWbTN6NXdMTWJzN05WSk13N290SmN1RnhDR1ZCS3l2MHRhaUZ3cHh6eW9nT0RsLXYzdVBmcGI0X0VYb0pBcG54cEJLYW5iWW1PZEdBRkwxUFVLVUV2Wmh0OEJQV2IwVTFqd3gwRnJlOXcyV1dWOW43TGhtdU5CeERXXzc5a01oNXVkTlVjNnlubVQzbnQ2cmZJaDZINDI5MW54dEVJTzVoOF9oWTd4aXUyM2FzMko4TE9vbW15aGxKNGt6UjNEVnlDVFloOVRsYmJqbS1fUi1tNzBLWENuMnJMRXQ2ZUhPMDJKaHlwd040Sw?oc=5",
+      "quelle": "Neue Presse"
+     },
+     {
+      "titel": "Trainer Timo Schultz verlängert beim VfL Osnabrück - Sky.de",
+      "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxOOU5LdXNDR1BEeDRpN1E0VkZqSnFNZWM5YUZwNkFQXzJZY3hmUGltaGVLU3RHRTJvOXZrSDlyX2lGUFJPMnB1TUNyNWMyVTMxV3lERlg5b241WEJpMDJCLTNaYmlMR3B1c1p4WEM1X0hYVVVHQ2VkV1c1NmMxN1pBcDlhc3ZoRFppR0JYQ1A5QWxzd3JqWDJQS2VrbWUtcXc2WjZIMVJNUGw?oc=5",
+      "quelle": "Sky.de"
+     }
+    ]
+   },
+   {
+    "team": "gast",
+    "art": "verletzung",
+    "text": "Hannover 96 musste zuletzt ohne Stürmer antreten, nachdem es einen Schock mit Källman gab, gewann das Spiel aber trotzdem.",
+    "quellen": [
+     {
+      "titel": "Nach dem Källman-Schock: Hannover 96 gewinnt das Spiel ohne Stürmer - Neue Presse",
+      "link": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxOaDREMG1iQU85LUcweXItaDBGbzByZ2dDWEh0bHlhYUoycXkybXQ1a3UxN2gyZ0J6cUhSaF9ndi1PQnM1ZVAtQjQxNGVtTmI5ZnFvazBycG1YdTA5ZGJ2eVg2cW0yYmJtR3ktWFhwWmlka3Bud3lDQ3hwT1hKVzdrTDBTZlI0YlNYa3JaUjV5cW5pcDhINng1RENaMkxmWWFzbllsTlRzdzZyRW9YanVPZUxyR1ZEQ3FFaEtUcWd4V3hPTWRqMlZwU2lnZTZXMXlpTDRLVGJnSUw?oc=5",
+      "quelle": "Neue Presse"
+     }
+    ]
+   },
+   {
+    "team": "gast",
+    "art": "stimmung",
+    "text": "Hannover 96 ist latent unzufrieden, setzt aber einen Aufwärtstrend fort und steht unter Druck.",
+    "quellen": [
+     {
+      "titel": "\"Latent unzufrieden\" - Setzt 96 seinen Aufwärtstrend in Osnabrück fort? - NDR.de",
+      "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxQaVgyMHBESXZua2E5LXJrMkVZVGl3cnhNY0tyTEU2TTd6N0xPbWdzWlJ1TkU3NTl0RkdlNTJ0Yzhub3V6bVFjUGpXcmh5ejkzUm1UdEJ5V1U4dHBQVjY2N0lhREwwV1FrVnlLMXFGLWJRcTZPTXRYaGZoNXlEcnc3VXE0UjJsZlBUTkc1UGRrZjM4Q1JzRkE?oc=5",
+      "quelle": "NDR.de"
+     },
+     {
+      "titel": "Ausverkaufte Hütte im Derby: 96-Star-Trainer im Hexenkessel unter Druck - Frankfurter Rundschau",
+      "link": "https://news.google.com/rss/articles/CBMiywFBVV95cUxQN2hHM0pESEZ4OUNyYThMQTNIOGNweDZ2UE16MG1WTXRiaGVDNkpKMEN3QkJiY1NYTzl1NW81bWRsUzlQd2VkeHM0OHBQdG1xTW04YTlKNTZOZGtzUkk0MEtQMkNjRmZoaEVlWlFkQmhZcW5Iek4tODRwSGJfeEdLTHFPTVRNek92RTlaMG9DcE54cWdPeHk1RDgwenlLSDhqU0c5X29URjdYLUJKYXZMcVNiNGxyVUluQ3Q2X3JaN29oUGFucmJfRC0zYw?oc=5",
+      "quelle": "Frankfurter Rundschau"
+     }
+    ]
+   }
+  ],
+  "tipp": [
+   0,
+   1
+  ],
+  "p": [
+   0.3168,
+   0.2673,
+   0.4158
+  ],
+  "vorschau": "VfL Osnabrück profitiert von der Trainerstabilität nach der Vertragsverlängerung, muss sich aber gegen Hannover 96 behaupten. Die Gäste sind trotz personeller Engpässe im Sturm formstark und favorisiert.",
+  "anbieter": "Ollama",
+  "stand": "2026-11-28T11:19+00:00"
+ },
+ "83715": {
+  "infos": [
+   {
+    "team": "gast",
+    "art": "sonstiges",
+    "text": "Bei Energie Cottbus wachsen die Sorgen in der Abwehr weiter, was Trainer Wollitz kritisiert.",
+    "quellen": [
+     {
+      "titel": "Energie Cottbus gegen 1. FC Magdeburg: Sorgen in der FCE-Abwehr wachsen weiter - Lausitzer Rundschau",
+      "link": "https://news.google.com/rss/articles/CBMiywFBVV95cUxQUW1hRENhVDYxek1RdEZ5Q1J0UktJZUhTbS1tX2JHYXJCT3VLQ0FJMnNjTlE5dmRNel8tbUhlZmZmQnlodjBjYzctdVpvY19NWkJPdnpNTnNMZjlkWUF2VEFJeHdCcnVYbGhNNm15ZjJXd0dZMGo0SkJMZVdNV0xfNDNhMVNqdHA1cHVNTHBPa2pnQ0ZVaHZHQ2Y0STdERV9DelcxT1FGc2pPWXFORU9SUTZqNjRkcEc1WmM2c1FDT1BOTmtlSDQ0MU9sVQ?oc=5",
+      "quelle": "Lausitzer Rundschau"
+     },
+     {
+      "titel": "Kritik von Wollitz: Cottbus kommt mit Abwehrsorgen nach Magdeburg - Magdeburg Blau-Weiß",
+      "link": "https://news.google.com/rss/articles/CBMinAFBVV95cUxPX3FNdTF1dUlNRERERnhhTGVjT0hVbHRnZFdkVHJWbzNxbzlMNDRfWVBnUEVWYzZWRlJITWxnY1ozamdpbTJHZ3JZMzNFVzZReVhLWHhhYkFBZm5uSU0zWXdTSVNzM1R0TnVoSVBiWXNaMHllUGQzUzUxWmg5M1JYT1lhaVBuMGJXanVaSDdHb2hzT1ZZYXo0bmZTN3o?oc=5",
+      "quelle": "Magdeburg Blau-Weiß"
+     }
+    ]
+   },
+   {
+    "team": "gast",
+    "art": "stimmung",
+    "text": "Energie Cottbus befindet sich in einer Krise, da die Wohlfühloase auf Platz 17 nicht mehr stimmt.",
+    "quellen": [
+     {
+      "titel": "Aus der Wohlfühloase auf Platz 17: Was bei Energie Cottbus nicht mehr stimmt - Berliner Zeitung",
+      "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNVHJqUDJITWlkTE0ya0EyVkNjMDdpaFp5MExqc0NPOVNuWGdKbzgzYU1YdDNudzcyM1g5bkhaREM1OEEwVUp4U2dlUHQ1bDg2aGJVbnk1QTB4cFJ4cFVHQkpTVFpuaXZYenpuSDlJb2Y0Y3FXRUkzNEdiem4yT2JtQkpuQ0tCUVpXaGJqSFVPMk81NEoxVGpXYndKVlhINXV5ZkVpV3ZXbkJfY3RmeG9ia1dn?oc=5",
+      "quelle": "Berliner Zeitung"
+     }
+    ]
+   },
+   {
+    "team": "heim",
+    "art": "stimmung",
+    "text": "Der 1. FC Magdeburg erwartet eine mentale Herausforderung im Ost-Duell.",
+    "quellen": [
+     {
+      "titel": "FCK erwartet in Magdeburg mentale Herausforderung - SWR",
+      "link": "https://news.google.com/rss/articles/CBMib0FVX3lxTE9DYmJOWVNndHlzX25GcGI2d21UMzQ3U21obm5VMVotd1RWOWVxSTJDZWg5TW9yc0J5TEs4UGd4WHpxeUo5aDFRbV9mbG9BaEJpWU9adk1vcF9FUTVBRE40dmpsb3lzNG5UT0FzakRRTQ?oc=5",
+      "quelle": "SWR"
+     }
+    ]
+   }
+  ],
+  "tipp": [
+   2,
+   1
+  ],
+  "p": [
+   0.58,
+   0.21,
+   0.21
+  ],
+  "vorschau": "Der 1. FC Magdeburg hat die besseren Karten im Ost-Duell, da Energie Cottbus mit wachsenden Abwehrsorgen und einer allgemeinen Krise kämpft. Das Modell prognostiziert einen Heimsieg.",
+  "anbieter": "Ollama",
+  "stand": "2026-11-28T11:19+00:00"
+ },
+ "83717": {
+  "infos": [
+   {
+    "team": "heim",
+    "art": "verletzung",
+    "text": "Eintracht Braunschweig hat ein Muskel-Drama mit bitteren Ausfällen vor dem Spiel gegen Wolfsburg.",
+    "quellen": [
+     {
+      "titel": "Muskel-Drama bei Eintracht Braunschweig: Bittere Ausfälle vor Wolfsburg - News38",
+      "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxQX3dwSkxOcWJlanl5ZkdhQzFDZ3NCV1cxdVUzX3BFZGU2Z3RDSWQxeWttSW80NXRuTFRNUjB3dTZULVpmakRMUjc4SDhleXoxd1ZaNDJsNWJSSVNidGJKXzA5UlJocS1xa00wWGNTU28zQ3JBQVlScG45SlhPNFhzUy1JdExYRlpwTFczSURLS19oczlqUFNOdlRPV1gxVzBraFVQSmZ4dFJfdlllMUljVXh3eXUwV2gzbmc?oc=5",
+      "quelle": "News38"
+     }
+    ]
+   },
+   {
+    "team": "heim",
+    "art": "stimmung",
+    "text": "Eintracht Braunschweig hatte eine schwarze Serie, die so alt war wie der Trainer, was die Stimmung beeinflusst.",
+    "quellen": [
+     {
+      "titel": "Eine schwarze Serie, die so alt war wie der Trainer: So motivierte Kornetka das Eintracht-Braunschweig-Team in Nürnberg - WAZ-ONLINE.de",
+      "link": "https://news.google.com/rss/articles/CBMigwJBVV95cUxQZ3Jfak55VnFJcDhJckZKeXVaQzltQUZ3LVg4dmZ5R1dDWGhZMURQcFpWOEU0dHVrTWdFR2Nwc1d5VUR5cllWN2xBUjliM2hXQm5ZTEtTclpfXzQ4MGlmbTU3UjNDQ25mSlJZOTBIM0FJU29RVEVyUVB0Wi1vc015ZEhUQTEzOTJvSjM2b2c1SlpKNl94RXBFODJTd3lNajV0UVJsMHNDbWRNQkE4dmFIU3BNTXBabGRIVmx3NFA4eGY5eU1zNjJWWWM4cldUdUtuNXh6MVJ4VF96ZDFJb0R2LW1Ia2JkeGxsVWVuTlRITVk0Vi1zM1Z5RlUwWTlSdkw1RUtF0gGfAkFVX3lxTE1rU1FiTlEtbVJiVEdFRUVWMlVWVE1YaDJDMHlLQmwxOEMxS3VidzllME1EZVIyVmhfenc2bERmdThpeDVubkp3RnQyU0poYmNJUFIzbjJud3V2azBoNTQ4NXlfaE45WWx4NUpUeXdRWWJMOWFTWUFCcGwxb1BCSVVxempqcjdXQ0FpQ2dyYVdra005ZnFwRV9tbkp4emhLQTlxOE9EUFBfUHZMN213WDZOQnhGV1l6ZW5BUTZ5N0dvSmNwMkhSeHpZNmwtOFptNEJmYVFaSTRyWHlORUtTRHhLVVNZZGtod0RlejhqX3czYkd1MEt5VGpCM0xNTlNQbHFKcUk2NlRPVEJ6REJQNzdCc1ZkeXhuSUZRdVFSZzFZ?oc=5",
+      "quelle": "WAZ-ONLINE.de"
+     }
+    ]
+   },
+   {
+    "team": "gast",
+    "art": "sonstiges",
+    "text": "Der neue Co-Trainer von VfL Wolfsburg ist erst in Braunschweig erstmals dabei.",
+    "quellen": [
+     {
+      "titel": "VfL Wolfsburg: Warum der neue Co-Trainer erst in Braunschweig erstmals dabei ist - WAZ-ONLINE.de",
+      "link": "https://news.google.com/rss/articles/CBMi5wFBVV95cUxOSTMwWlpOQlBsQmhvSWVyR0xWWVdxVHF3MGZQT1RNVlZHZFE0eTViVUU5OHppLTNWTnFnXzM1c09tdndzLWlya3JRWm9qMXliUVRvNGxWdEV4aTdaRHhCemUxM2FHVXVMNTdnLTIxWXFrM3JNYWNadXQ1TzhsTU53ZFg2ZDVNbHdQR1lQUGpvaE5XYjQ3R19PSUJCcVJINDJoRTcwV09yVTBwNmdXMWlsWDJzaGVGTG5sM1N6aklGbXhyNUJfWUlmM3NiUjBENnRJeUMxSGtZVm1ZY3RnMTJRWEFBM1pqUGPSAYMCQVVfeXFMT05Fam9BVzc2ZE1LbFRpejNvWlRDUG5oQzMxTHB4c2xlMmMxWmVxY3Z5c2loTmc3VFk1aWdOLS0tSkJmY3dPcmVFT01RcVFFSUlRcV9jdmo1MjFqZ2kwdEpBMFFxdEcxaDVQMHByLWo3Q0tsVEpDR1g3STJVd2NjcGdIZ05VazRqSm5FUnlzTUItMXlGcnAyVUN2bnJ4X1V2dl84dFZLWWFEWjE0cDhRZnpQWjFpNVFXdmwxaldWYkEwa1NMOVZLaWpzajN6WDY4SXFSSVc5aFg4T2RlNnFRVW5zanc0ZUtad1JoVEprLWtRZVFrVW0wXzBrWC1meUdxbm9vUQ?oc=5",
+      "quelle": "WAZ-ONLINE.de"
+     }
+    ]
+   },
+   {
+    "team": "gast",
+    "art": "stimmung",
+    "text": "VfL Wolfsburg gewann zuletzt deutlich mit 3:0 gegen Holstein Kiel.",
+    "quellen": [
+     {
+      "titel": "Aufstellung VfL Wolfsburg - Holstein Kiel 3:0 | 12. Spieltag, 2. Bundesliga 2026/2027 - sport.de",
+      "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxQYTRCTkpWNjNGaEpFeFYxdklpRDkyYzExb0lnR1ZEZm1idFRETTAtWE5Gb0dqVWVFMV9FaTVScnQ2S184ZWlZYzZlSlF1aGxzQnFZNktWMUJBVnFPdUJ6UXNUVVBSUDk2UXpIVi01dHpnbW1Ld0xFODVMdktXRnZMUkJueXhybzF2R3kzUllxWjlzTVQxaWhxbDczNnZMSmdNNHlranJobkZhUQ?oc=5",
+      "quelle": "sport.de"
+     }
+    ]
+   }
+  ],
+  "tipp": [
+   1,
+   2
+  ],
+  "p": [
+   0.26,
+   0.23,
+   0.51
+  ],
+  "vorschau": "VfL Wolfsburg reist als Favorit an, nachdem man zuletzt deutlich gewonnen hat, während Braunschweig mit personellen Ausfällen und einer schlechten Serie kämpft. Das Modell sieht einen knappen Auswärtssieg.",
+  "anbieter": "Ollama",
+  "stand": "2026-11-28T11:19+00:00"
+ },
+ "83719": {
+  "infos": [
+   {
+    "team": "heim",
+    "art": "stimmung",
+    "text": "Greuther Fürth sucht noch seine Philosophie und der Trainer singt weiter sein Mantra wegen fehlender Gier.",
+    "quellen": [
+     {
+      "titel": "Fehlende Gier: Darum singt Kleeblatt-Trainer Heiko Vogel weiter sein Mantra - NN.de",
+      "link": "https://news.google.com/rss/articles/CBMiywFBVV95cUxNN3Y1WlBhYXJXaEpla3pQTTdGcldqc2FyVmFSYmJ4a1hJdGFfUzhfdlZpX2pWV2M4SWxyMlg4YjVSOWdWWWdHWkdpUjFJRzVzNEI3SFV0OF9nN2I0NVh6bWs5RGR0ZjJua2dqaVdrSER5VGtnYVZRTWdIWldibDFVVW9OYTJOX2pQZlFnWEtoWVI4Sm1jcGppR05PUmJBY2hjY0xoZnpvcUwtTWt2YVZnTnN4NkcwbkNtYUNxdjFkRWx1enhaTHBhaFN5OA?oc=5",
+      "quelle": "NN.de"
+     },
+     {
+      "titel": "Arminias Angstgegner Greuther Fürth sucht noch seine Philosophie - Neue Westfälische",
+      "link": "https://news.google.com/rss/articles/CBMizwFBVV95cUxPY0puTXpxZ0dGdjd3M1UzSk9WNGkyQjR1Nzh2Vk54YVA1NjlJQUwwYTZXTmZ3X3k5SG5Cb1BCeG1Ib0hKeXJrbWRjVWdRNEo0VlltY2h0UkhfOE8wLWNZZmcyUEJpTVkxWUVaUHl6aDhRWEQyNDFna19aWW5LMTZZaU5DX2xwakdOZEhkakVKYUR3alMyX3BNRXNlUHM0T1dzeXg5ZGJlcWlCc09XLVdrZnotU3hTbFpxSFUtdDY3ZWJISVRWZEdWV3h4cFE3dlU?oc=5",
+      "quelle": "Neue Westfälische"
+     }
+    ]
+   },
+   {
+    "team": "heim",
+    "art": "verletzung",
+    "text": "Zwei Leistungsträger fehlen bei Greuther Fürth, was die Aufgabe erschwert.",
+    "quellen": [
+     {
+      "titel": "Zwei Leistungsträger fehlen: Fürth steht vor schwieriger Aufgabe in Hannover - NN.de",
+      "link": "https://news.google.com/rss/articles/CBMizAFBVV95cUxNT0hUeFFFbGtqOUhVNmZCTUJJbXZENHhjSDgydktRRVU5YVV5SHdlLXB3czJvdmtFendkeHgzZ05uTXFDMlNDYU9fdTBSQVYwZWwzNG11VGlOY1RaeEIzSHB5YVlVVDhrdEJpbVRlbVlvbmVQM0ZJOF85Ym52SnNZZWdLcHJBLWY5THhYUUp3TFFZNHBHbEpJRHoxSGlMMFZWVmtwTXc5UVpKRmVkNURaRmlLejAwNVdFY1d4THBtRzRoT3VqRFAxbUE5LU8?oc=5",
+      "quelle": "NN.de"
+     }
+    ]
+   },
+   {
+    "team": "gast",
+    "art": "sonstiges",
+    "text": "Bei Arminia Bielefeld ist die Entscheidung über den Einsatz von Keeper Kersken gefallen.",
+    "quellen": [
+     {
+      "titel": "Arminia Bielefeld: Entscheidung über Einsatz von Keeper Kersken gefallen - Neue Westfälische",
+      "link": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxOMFRMaFNNMXNVVFZ6MmxubHg5bUdfVW9MVk1BLUI0dGEwZWF5ZlBhN0ZaWjZYbGZTQkFqR2VZRmtRUWdpTmZ4SHVBOWxoTGRkWGRzZUlPWkNtbjByVTUzWjRZWXdqUllEQkozaFB2X0pMZDZ1YTlrdC1XV1J6UmxOVjFDM1BSanhhLTh6U1hyZlFFcVhiYmlIZERWOHJEdWV5bkpDWlpUTWJjWUJmT2FNcmg5OEhpeGlzLUhmazEybHpjOGsyckhRZW41R2VxbzlOS0tJZi03S0k?oc=5",
+      "quelle": "Neue Westfälische"
+     }
+    ]
+   },
+   {
+    "team": "gast",
+    "art": "stimmung",
+    "text": "Arminia Bielefeld verlor zuletzt, aber das Publikum wurde mitgerissen, was als positive Energie gilt.",
+    "quellen": [
+     {
+      "titel": "Arminia Bielefeld reißt das Publikum mit: „Die allerbeste Art, ein Spiel zu verlieren“ - Neue Westfälische",
+      "link": "https://news.google.com/rss/articles/CBMi5wFBVV95cUxQMGRRNzRrRHhYSjlxOXRTZzdOWTZlM3VVeVdTZUotQ3c0UXBuREFHbkEta29aenNTM0ExUGV3QWR6LXUyUno2dmYzR0hKQzJ5dk1mVjlyNDJYZ2Z1V1llcnBacV9MY2QwbmdRVHZVajJOZlR2MG1yX1U3S3ZuYi1sLXFQaDR5bk53SmZjOTI5eWQ5dzg5bV9aUVRDYU1tcGtwcUE0SmdxdWVncjBVX1dOZHgzWU40dlhpc1VUUEE3azg3a2swOG5UUFRpMWd5Nl9UbjlGUl9OOURWcGI0dWhNSUxSTGhKb1k?oc=5",
+      "quelle": "Neue Westfälische"
+     }
+    ]
+   }
+  ],
+  "tipp": [
+   1,
+   2
+  ],
+  "p": [
+   0.3,
+   0.27,
+   0.43
+  ],
+  "vorschau": "Greuther Fürth kämpft mit fehlender Gier und personellen Ausfällen, während Arminia Bielefeld trotz der letzten Niederlage mit gutem Publikumssupport anreist. Das Modell favorisiert den Gast.",
+  "anbieter": "Ollama",
+  "stand": "2026-11-28T11:19+00:00"
+ }
+}
