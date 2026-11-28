@@ -115,10 +115,36 @@ def historisch(bestand: Datenbestand) -> dict[int, tuple[float, float, float]]:
     return erg
 
 
+ODDS_API_SPEICHER = config.DATEN / "quoten_aktuell.json"
+ODDS_API_ABSTAND_H = 8   # höchstens alle 8 Stunden abfragen: ~3 × 3 × 30 = 270 der 500 Freiabfragen/Monat
+
+
 def aktuell_odds_api(bestand: Datenbestand) -> dict[int, tuple[float, float, float]]:
-    """Aktuelle Quoten aller drei Ligen über The Odds API (nur mit Schlüssel)."""
+    """Aktuelle Quoten aller drei Ligen über The Odds API (nur mit Schlüssel).
+
+    Die Seite läuft stündlich; damit das kostenlose Kontingent reicht, wird die API
+    nur alle ODDS_API_ABSTAND_H Stunden gefragt und dazwischen der Speicher genutzt."""
     if not config.ODDS_API_KEY:
         return {}
+    import json
+    from datetime import timedelta
+    try:
+        alt = json.loads(ODDS_API_SPEICHER.read_text(encoding="utf-8"))
+        stand = datetime.fromisoformat(alt["stand"])
+        if datetime.now(timezone.utc) - stand < timedelta(hours=ODDS_API_ABSTAND_H):
+            offen = {s.id for s in bestand.spiele if not s.gespielt}
+            return {int(k): tuple(v) for k, v in alt["quoten"].items() if int(k) in offen}
+    except (OSError, ValueError, KeyError):
+        pass
+    erg = _odds_api_abfragen(bestand)
+    if erg:
+        ODDS_API_SPEICHER.write_text(json.dumps(
+            {"stand": datetime.now(timezone.utc).isoformat(timespec="minutes"),
+             "quoten": {str(k): list(v) for k, v in erg.items()}}), encoding="utf-8")
+    return erg
+
+
+def _odds_api_abfragen(bestand: Datenbestand) -> dict[int, tuple[float, float, float]]:
     erg = {}
     for liga, info in config.LIGEN.items():
         try:

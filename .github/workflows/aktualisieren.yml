@@ -3,10 +3,7 @@ name: Prognosen aktualisieren
 
 on:
   schedule:
-    - cron: "0 5 * * *"        # täglich 06:00 (Winterzeit) bzw. 07:00 (Sommerzeit)
-    - cron: "0 22 * * 5,6,0,1"  # Fr–Mo abends 23:00 (Winterzeit) nach den Spielen
-    - cron: "0 15 * * 5"        # Fr 16:00 vor den Freitagsspielen: frischeste Quoten
-    - cron: "0 10 * * 6,0"      # Sa/So 11:00 vor den Spielen: frischeste Quoten
+    - cron: "0 * * * *"        # stündlich zur vollen Stunde (GitHub startet teils einige Minuten später)
   push:                       # neue Version von Seite oder Programm sofort veröffentlichen
     branches: [main]
     paths: ["site/**", "prognose/**", "run.py", "requirements.txt", ".github/workflows/**"]
@@ -24,7 +21,7 @@ permissions:
 
 concurrency:
   group: prognosen
-  cancel-in-progress: false
+  cancel-in-progress: false   # ein laufender Lauf wird nicht abgebrochen, der nächste wartet
 
 jobs:
   rechnen:

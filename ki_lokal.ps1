@@ -1,5 +1,5 @@
 ﻿# KI-Teil lokal mit Ollama ausführen und das Ergebnis zu GitHub hochladen.
-# Wird von der Windows-Aufgabenplanung gestartet (Fr und Sa 10:00).
+# Wird von der Windows-Aufgabenplanung gestartet (stündlich und kurz nach der Anmeldung).
 # Ist der PC aus, fehlen an diesem Spieltag nur die KI-Infos – sonst läuft alles normal.
 # Protokoll: ki_lokal.log (UTF-8) im selben Ordner.
 Set-Location $PSScriptRoot
