@@ -6,7 +6,7 @@ on:
     - cron: "0 * * * *"        # stündlich zur vollen Stunde (GitHub startet teils einige Minuten später)
   push:                       # neue Version von Seite oder Programm sofort veröffentlichen
     branches: [main]
-    paths: ["site/**", "prognose/**", "run.py", "requirements.txt", ".github/workflows/**"]
+    paths: ["site/**", "prognose/**", "run.py", "requirements.txt", ".github/workflows/**", "data/ki/**"]  # data/ki: neue KI-Tipps vom PC sofort zeigen
   workflow_dispatch:
     inputs:
       backtest:
